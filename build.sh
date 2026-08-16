@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Wraps the page source into a complete, deployable HTML document.
+#
+# WHY two files: index.html is authored as a fragment (no <html>/<head>/<body>)
+# because the Artifact publisher supplies its own document skeleton and rejects
+# pages that bring their own. A deployed site needs the real head — viewport,
+# description, social cards, favicon. This script is the single place that gap
+# is closed, so both outputs stay in sync from one source.
+set -euo pipefail
+
+cd "$(dirname "$0")"
+
+SRC="index.html"
+OUT="dist/index.html"
+
+[ -f "$SRC" ] || { echo "error: $SRC not found" >&2; exit 1; }
+
+mkdir -p dist
+
+{
+  cat <<'HEAD'
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Expertly Recruit places AI leadership. Every hire is run by AI experts who have spent decades building AI themselves, not by recruiters matching keywords." />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Expertly Recruit — AI leadership, hired by AI experts" />
+<meta property="og:description" content="Everyone became an AI expert last year. We've been at it for decades." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Expertly Recruit — AI leadership, hired by AI experts" />
+<meta name="twitter:description" content="Everyone became an AI expert last year. We've been at it for decades." />
+<style>
+  /* Minimal reset. WHY: the Artifact host supplies one, a plain nginx host does not,
+     so the deployed page would otherwise inherit browser default margins. */
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  img, svg { display: block; max-width: 100%; }
+</style>
+HEAD
+
+  # The source's own <title> and <style> live at the top of the fragment and are
+  # valid in <head>; the browser relocates the body content itself.
+  cat "$SRC"
+
+  cat <<'FOOT'
+</body>
+</html>
+FOOT
+} > "$OUT"
+
+# The fragment opens no <body>, so insert one before the first element that needs it.
+# WHY sed over a template: keeps index.html the single source of truth for content.
+python3 - "$OUT" <<'PY'
+import sys, re
+p = sys.argv[1]
+s = open(p, encoding="utf-8").read()
+marker = '<header class="site">'
+if '<body' not in s:
+    s = s.replace(marker, '</head>\n<body>\n' + marker, 1)
+open(p, "w", encoding="utf-8").write(s)
+PY
+
+echo "built $OUT ($(wc -c < "$OUT" | tr -d ' ') bytes)"
