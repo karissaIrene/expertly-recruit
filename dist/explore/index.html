@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Expertly Recruit partners with CEOs, CTOs and COOs on hiring AI leadership. Our AI experts shape the role, run the search, interview every shortlisted candidate, and stay through the first ninety days." />
+<meta name="description" content="Expertly Recruit partners with CEOs, CTOs and COOs on hiring AI leadership. Our AI experts shape the role, run the search, personally interview every shortlisted candidate, and stay through the first ninety days." />
 <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Expertly Recruit — AI leadership, hired with you" />
@@ -24,14 +24,13 @@
 
 <style>
   /* ============================================================
-     EXPERTLY RECRUIT — concise overview for CEOs, CTOs & COOs
-     Reuses the design system established in index.html, itself
-     derived from expertly.com's live Framer tokens:
+     EXPERTLY RECRUIT
+     Palette derived from expertly.com's live Framer tokens:
        #0099FF primary · #8500BA→#009CEB signature 113deg gradient
-     Type: Inter (Expertly's face) + IBM Plex Mono (utility/data).
-     WHY narrower --maxw than index.html (1040 vs 1140): this page
-     exists to be short. A tighter measure and fewer sections are
-     the whole point, so the container reinforces it.
+       #4C3DDB indigo · #12008A deep navy · #E7E3FF lavender wash
+     Type: Inter (Expertly's face) + IBM Plex Mono (utility/data),
+     linked from Google Fonts — the one external host the artifact CSP
+     admits. The stacks still fall back through SF Pro / system-ui.
      ============================================================ */
 
   :root {
@@ -50,21 +49,25 @@
     --ink-4:         #9c99b4;
 
     --blue:          #0099ff;
+    --indigo:        #4c3ddb;
     --purple:        #8500ba;
     --cyan:          #009ceb;
+    --deep:          #12008a;
 
     --grad:          linear-gradient(113deg, #8500ba -7%, #009ceb 100%);
+    --grad-soft:     linear-gradient(113deg, rgba(133,0,186,.10), rgba(0,156,235,.10));
 
     --good:          #0e9f6e;
+    --warn:          #b26a00;
 
-    --panel-ink:     #ffffff;
+    --panel-ink:     #ffffff;   /* text on deep navy panels */
     --panel-ink-2:   #b9b5e8;
     --panel-bg:      #0d0a3a;
     --panel-bg-2:    #171356;
 
     --radius:        14px;
     --radius-lg:     22px;
-    --maxw:          1040px;
+    --maxw:          1140px;
 
     --font-sans: "Inter", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
     --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
@@ -73,9 +76,6 @@
     --shadow-md: 0 2px 6px rgba(11,10,31,.05), 0 18px 44px rgba(18,0,138,.09);
   }
 
-  /* WHY guarded with :not([data-theme="light"]): the viewer's default
-     "system" setting stamps nothing on <html>, so prefers-color-scheme is
-     the only signal — but an explicit light choice must still win. */
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --ground:       #08071a;
@@ -92,12 +92,16 @@
       --ink-4:        #6f6b92;
 
       --blue:         #3fb3ff;
+      --indigo:       #8b7dff;
       --purple:       #c561f0;
       --cyan:         #3fc0ff;
+      --deep:         #b9b5f5;
 
       --grad:         linear-gradient(113deg, #c561f0 -7%, #3fc0ff 100%);
+      --grad-soft:    linear-gradient(113deg, rgba(197,97,240,.16), rgba(63,192,255,.16));
 
       --good:         #34d399;
+      --warn:         #f0b45e;
 
       --panel-bg:     #100c3e;
       --panel-bg-2:   #1b1566;
@@ -123,12 +127,16 @@
     --ink-4:        #6f6b92;
 
     --blue:         #3fb3ff;
+    --indigo:       #8b7dff;
     --purple:       #c561f0;
     --cyan:         #3fc0ff;
+    --deep:         #b9b5f5;
 
     --grad:         linear-gradient(113deg, #c561f0 -7%, #3fc0ff 100%);
+    --grad-soft:    linear-gradient(113deg, rgba(197,97,240,.16), rgba(63,192,255,.16));
 
     --good:         #34d399;
+    --warn:         #f0b45e;
 
     --panel-bg:     #100c3e;
     --panel-bg-2:   #1b1566;
@@ -141,7 +149,7 @@
   /* ---------- base ---------- */
   body {
     margin: 0;
-    background: var(--ground);   /* explicit: a transparent body borrows the host ground */
+    background: var(--ground);
     color: var(--ink);
     font-family: var(--font-sans);
     font-size: 17px;
@@ -149,7 +157,7 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  *, *::before, *::after { box-sizing: border-box; }
+  * { box-sizing: border-box; }
   img { max-width: 100%; }
   a { color: inherit; }
 
@@ -161,10 +169,10 @@
 
   h1, h2, h3 { text-wrap: balance; margin: 0; letter-spacing: -0.025em; line-height: 1.06; }
   p { margin: 0; }
-  ul { margin: 0; padding: 0; list-style: none; }
 
   .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: 28px; }
 
+  /* eyebrow: mono utility face, the page's recurring section marker */
   .eyebrow {
     display: flex; align-items: center; gap: 12px;
     font-family: var(--font-mono);
@@ -184,7 +192,7 @@
     color: transparent;
   }
 
-  section { padding-block: clamp(56px, 7vw, 92px); }
+  section { padding-block: clamp(64px, 8vw, 108px); }
 
   /* ---------- header ---------- */
   header.site {
@@ -193,7 +201,7 @@
     backdrop-filter: blur(14px) saturate(1.4);
     border-bottom: 1px solid var(--line);
   }
-  .bar { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 68px; }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 70px; }
   .logo { display: flex; align-items: baseline; gap: 9px; text-decoration: none; }
   .logo .mark { font-size: 20px; font-weight: 800; letter-spacing: -.03em; color: var(--ink); }
   .logo .slash { width: 1px; height: 17px; background: var(--line-strong); transform: translateY(2px); }
@@ -202,200 +210,342 @@
     letter-spacing: .04em; text-transform: uppercase;
     background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  /* WHY no nav links: the page is one screenful of sections. A nav would
-     imply more depth than there is, and the only action worth offering
-     from the header is the call. */
+  nav.main { display: flex; gap: 28px; }
+  nav.main a {
+    font-size: 14.5px; font-weight: 500; color: var(--ink-3); text-decoration: none;
+    transition: color .18s ease;
+  }
+  nav.main a:hover { color: var(--ink); }
+  @media (max-width: 900px) { nav.main { display: none; } }
+  /* WHY: with the nav hidden the header holds only a logo and one button, so on
+     narrow screens the button is shrunk and kept on one line rather than wrapping. */
   @media (max-width: 560px) {
-    .bar { height: 60px; }
+    .bar { height: 62px; }
     header.site .btn { padding: 9px 15px; font-size: 13.5px; white-space: nowrap; }
     .logo .mark { font-size: 18px; }
-    .logo .slash, .logo .sub { display: none; }
   }
 
-  /* ---------- buttons ---------- */
   .btn {
     display: inline-flex; align-items: center; gap: 9px;
     font-size: 15px; font-weight: 600; text-decoration: none;
     padding: 11px 20px; border-radius: 999px; border: 1px solid transparent;
-    cursor: pointer; font-family: inherit;
-    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    cursor: pointer; transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    font-family: inherit;
   }
-  .btn-primary { background: var(--grad); color: #fff; box-shadow: var(--shadow-sm); }
-  .btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-primary {
+    background: var(--grad); color: #fff;
+    box-shadow: 0 6px 20px rgba(18,0,138,.22);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(18,0,138,.3); }
   .btn-ghost { border-color: var(--line-strong); color: var(--ink); background: transparent; }
-  .btn-ghost:hover { border-color: var(--ink-4); transform: translateY(-1px); }
-  .btn-lg { font-size: 16px; padding: 14px 26px; }
-  .btn-light { background: #fff; color: var(--panel-bg); }
-  .btn-light:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
+  .btn-lg { padding: 14px 26px; font-size: 16px; }
 
   /* ---------- hero ---------- */
   .hero {
-    background: linear-gradient(180deg, var(--wash-edge) 0%, var(--wash) 34%, var(--ground) 100%);
-    padding-block: clamp(56px, 8vw, 104px) clamp(52px, 6vw, 84px);
+    position: relative;
+    background:
+      radial-gradient(90% 60% at 12% -10%, var(--wash-edge) 0%, transparent 62%),
+      linear-gradient(180deg, var(--wash) 0%, var(--ground) 46%);
+    padding-block: clamp(56px, 7vw, 92px) clamp(64px, 8vw, 104px);
+    overflow: hidden;
   }
+  .hero-grid {
+    display: grid; grid-template-columns: 1.08fr .92fr; gap: 56px; align-items: start;
+  }
+  @media (max-width: 1000px) { .hero-grid { grid-template-columns: 1fr; gap: 44px; } }
+
+  /* WHY: sized for a long question headline. A short 3-4 word headline can go
+     back up to ~76px; at this length that overflows to five lines and pushes
+     the call to action off the first screen. */
   .hero h1 {
-    font-size: clamp(40px, 6.4vw, 70px);
+    font-size: clamp(36px, 4.3vw, 54px);
     font-weight: 800;
-    letter-spacing: -.035em;
-    max-width: 15ch;
+    margin-bottom: 26px;
   }
+  .hero h1 .line2 { display: block; }
   .hero .lede {
-    margin-top: 28px;
-    font-size: clamp(17px, 1.5vw, 19px);
-    color: var(--ink-2);
-    max-width: 62ch;          /* keeps running text near a 65-char measure */
+    font-size: clamp(17px, 1.5vw, 20px); color: var(--ink-2);
+    max-width: 34em; margin-bottom: 34px;
   }
   .hero .lede strong { color: var(--ink); font-weight: 650; }
-
-  .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 34px; }
-  .cta-note { font-size: 14px; color: var(--ink-3); }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 40px; }
 
   .proof {
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 26px; margin: 46px 0 0; padding-top: 30px;
-    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px;
+    padding-top: 28px; border-top: 1px solid var(--line); margin: 0;
   }
-  .proof > div { display: flex; flex-direction: column; gap: 5px; }
+  @media (max-width: 480px) { .proof { grid-template-columns: 1fr 1fr; } }
   .proof dt {
-    font-family: var(--font-mono); font-size: 25px; font-weight: 500;
-    letter-spacing: -.02em; font-variant-numeric: tabular-nums;
-    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-family: var(--font-mono); font-size: 26px; font-weight: 600;
+    font-variant-numeric: tabular-nums; letter-spacing: -.02em; color: var(--ink);
   }
-  .proof dd { margin: 0; font-size: 14.5px; color: var(--ink-3); line-height: 1.45; }
-  @media (max-width: 700px) { .proof { grid-template-columns: 1fr; gap: 20px; } }
+  .proof dd { margin: 4px 0 0; font-size: 13px; color: var(--ink-3); line-height: 1.45; }
 
-  /* ---------- section heads ---------- */
-  .sec-head { margin-bottom: 44px; max-width: 46ch; }
-  .sec-head h2 { font-size: clamp(28px, 3.4vw, 40px); font-weight: 800; }
-  .sec-head p { margin-top: 16px; color: var(--ink-2); font-size: 17px; }
-
-  /* ---------- partner cards ---------- */
-  .partner { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-  @media (max-width: 860px) { .partner { grid-template-columns: 1fr; } }
-  .pcard {
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: var(--radius-lg); padding: 30px 26px;
-    display: flex; flex-direction: column; gap: 12px;
-  }
-  /* WHY numbered: these three are a real sequence in time — before the
-     search, during it, after the offer. The order carries information. */
-  .pcard .step {
-    font-family: var(--font-mono); font-size: 11.5px; font-weight: 500;
-    letter-spacing: .16em; text-transform: uppercase; color: var(--ink-4);
-  }
-  .pcard h3 { font-size: 20px; font-weight: 700; letter-spacing: -.02em; }
-  .pcard p { font-size: 15.5px; color: var(--ink-2); line-height: 1.58; }
-
-  /* ---------- stage → role ---------- */
-  .stages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-  @media (max-width: 780px) { .stages { grid-template-columns: 1fr; } }
-  .stage {
-    background: var(--surface-sunk); border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 24px 24px 26px;
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .stage .where { font-size: 14.5px; color: var(--ink-3); }
-  .stage .role { font-size: 19px; font-weight: 700; letter-spacing: -.02em; }
-  .stage p { font-size: 15px; color: var(--ink-2); line-height: 1.55; }
-
-  /* ---------- scorecard ---------- */
-  .assess { display: grid; grid-template-columns: 1fr .92fr; gap: 52px; align-items: center; }
-  @media (max-width: 900px) { .assess { grid-template-columns: 1fr; gap: 34px; } }
-
-  .card {
+  /* ---------- interview switch (hero centerpiece) ---------- */
+  .interview {
     background: var(--surface); border: 1px solid var(--line);
     border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
-    padding: 26px;
+    overflow: hidden;
   }
-  .card-head {
-    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
-    padding-bottom: 18px; margin-bottom: 20px; border-bottom: 1px solid var(--line);
+  .interview-head { padding: 20px 22px 0; }
+  .interview-title {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-4); margin-bottom: 14px;
   }
-  .card-head .who { font-size: 16px; font-weight: 700; letter-spacing: -.02em; }
-  .card-head .for { font-size: 13px; color: var(--ink-3); margin-top: 3px; }
-  .verdict-pill {
-    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
-    letter-spacing: .1em; text-transform: uppercase;
-    color: var(--good); border: 1px solid color-mix(in srgb, var(--good) 40%, transparent);
-    background: color-mix(in srgb, var(--good) 10%, transparent);
-    padding: 5px 10px; border-radius: 999px; white-space: nowrap; flex: none;
+  .switch { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--surface-sunk); padding: 5px; border-radius: 999px; border: 1px solid var(--line); }
+  .switch button {
+    border: 0; background: transparent; cursor: pointer;
+    font-family: var(--font-sans); font-size: 13.5px; font-weight: 600; color: var(--ink-3);
+    padding: 9px 10px; border-radius: 999px; transition: all .2s ease;
   }
-  .rows { display: flex; flex-direction: column; gap: 13px; }
-  .row { display: grid; grid-template-columns: 1fr 62px 34px; align-items: center; gap: 12px; }
-  .row .lbl { font-size: 14px; color: var(--ink-2); }
-  .row .track { height: 5px; border-radius: 999px; background: var(--line); overflow: hidden; }
-  .row .fill { display: block; height: 100%; border-radius: 999px; background: var(--grad); }
-  .row .num {
-    font-family: var(--font-mono); font-size: 13px; color: var(--ink-3);
-    text-align: right; font-variant-numeric: tabular-nums;
-  }
-  .watch {
-    margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line);
-  }
-  .watch .wl {
-    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
-    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-4);
-    display: block; margin-bottom: 8px;
-  }
-  .watch p { font-size: 14.5px; color: var(--ink-2); line-height: 1.55; }
+  .switch button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: var(--shadow-sm); }
+  .switch button:hover:not([aria-selected="true"]) { color: var(--ink); }
 
-  /* ---------- credentials ---------- */
-  .creds { display: grid; grid-template-columns: 1fr .78fr; gap: 52px; align-items: center; }
-  @media (max-width: 900px) { .creds { grid-template-columns: 1fr; gap: 32px; } }
-  .creds h2 { font-size: clamp(26px, 3.2vw, 36px); font-weight: 800; }
-  .creds > div > p { margin-top: 18px; color: var(--ink-2); font-size: 16.5px; max-width: 54ch; }
-  .facts { display: flex; flex-direction: column; gap: 2px; }
-  .fact {
-    display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: baseline;
-    padding: 16px 0; border-bottom: 1px solid var(--line);
+  .qlist { padding: 24px 22px 6px; display: flex; flex-direction: column; gap: 18px; min-height: 250px; }
+  .q { display: flex; gap: 14px; }
+  .q .n {
+    font-family: var(--font-mono); font-size: 11px; color: var(--ink-4);
+    padding-top: 4px; flex: none; font-variant-numeric: tabular-nums;
   }
-  .fact:last-child { border-bottom: 0; }
-  .fact b {
-    font-family: var(--font-mono); font-size: 17px; font-weight: 500; white-space: nowrap;
+  .q p { font-size: 15.5px; line-height: 1.5; color: var(--ink-2); }
+  .interview[data-mode="expert"] .q p { color: var(--ink); font-weight: 500; }
+
+  .verdict {
+    margin: 8px 22px 22px; padding: 15px 17px; border-radius: var(--radius);
+    font-size: 14px; line-height: 1.5;
+    background: var(--surface-sunk); border: 1px solid var(--line); color: var(--ink-3);
+  }
+  .interview[data-mode="expert"] .verdict {
+    background: var(--grad-soft); border-color: color-mix(in srgb, var(--indigo) 32%, transparent); color: var(--ink-2);
+  }
+  .verdict b { color: var(--ink); font-weight: 650; }
+
+  .fade-swap { animation: swapIn .32s ease both; }
+  @keyframes swapIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  /* ---------- generic section head ---------- */
+  .sec-head { display: grid; grid-template-columns: 1fr .85fr; gap: 48px; align-items: end; margin-bottom: 48px; }
+  @media (max-width: 860px) { .sec-head { grid-template-columns: 1fr; gap: 20px; } }
+  .sec-head h2 { font-size: clamp(30px, 3.6vw, 44px); font-weight: 800; }
+  .sec-head p { color: var(--ink-3); font-size: 16.5px; }
+
+  /* ---------- the gap ---------- */
+  .gap-band { background: var(--surface-sunk); border-block: 1px solid var(--line); }
+  .gaps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; }
+  @media (max-width: 860px) { .gaps { grid-template-columns: 1fr; } }
+  .gaps > div { background: var(--surface); padding: 30px 28px; }
+  .gaps h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+  .gaps p { font-size: 15px; color: var(--ink-3); line-height: 1.55; }
+  .tag {
+    display: inline-block; font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--purple);
+    margin-bottom: 14px;
+  }
+
+  /* ---------- maturity ladder ---------- */
+  .ladder { display: grid; grid-template-columns: 340px 1fr; gap: 44px; align-items: start; }
+  @media (max-width: 940px) { .ladder { grid-template-columns: 1fr; gap: 28px; } }
+
+  .rungs { display: flex; flex-direction: column; gap: 4px; }
+  .rung {
+    display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: baseline;
+    width: 100%; text-align: left; cursor: pointer;
+    background: transparent; border: 0; border-left: 2px solid var(--line);
+    padding: 16px 18px; font-family: inherit;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .rung:hover { background: var(--surface-sunk); }
+  .rung .num {
+    font-family: var(--font-mono); font-size: 12px; color: var(--ink-4);
     font-variant-numeric: tabular-nums;
-    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .fact span { font-size: 15px; color: var(--ink-2); line-height: 1.5; }
+  .rung .name { font-size: 18px; font-weight: 650; color: var(--ink-3); display: block; letter-spacing: -.02em; }
+  .rung .state { font-size: 13.5px; color: var(--ink-4); display: block; margin-top: 3px; line-height: 1.4; }
+  .rung[aria-selected="true"] { border-left-color: transparent; background: var(--surface-sunk); }
+  .rung[aria-selected="true"] .name { color: var(--ink); }
+  .rung[aria-selected="true"] .num { color: var(--purple); }
+  .rung[aria-selected="true"] { border-image: var(--grad) 1; border-left-width: 2px; border-left-style: solid; }
+
+  .rung-detail {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); padding: 34px 34px 30px; box-shadow: var(--shadow-sm);
+  }
+  .rung-detail .role-label {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em;
+    text-transform: uppercase; color: var(--ink-4); margin-bottom: 10px;
+  }
+  .rung-detail h3 { font-size: clamp(26px, 3vw, 36px); font-weight: 800; margin-bottom: 18px; }
+  .rung-detail .mandate { font-size: 16.5px; color: var(--ink-2); line-height: 1.6; margin-bottom: 26px; max-width: 40em; }
+  .risk {
+    display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start;
+    padding: 16px 18px; border-radius: var(--radius);
+    background: color-mix(in srgb, var(--warn) 9%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--warn) 26%, transparent);
+  }
+  .risk .rl {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--warn); padding-top: 2px;
+  }
+  .risk p { font-size: 14.5px; color: var(--ink-2); line-height: 1.5; }
+
+  /* ---------- scorecard ---------- */
+  .card-band { background: var(--surface-sunk); border-block: 1px solid var(--line); }
+  .score-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 52px; align-items: center; }
+  @media (max-width: 940px) { .score-grid { grid-template-columns: 1fr; gap: 36px; } }
+
+  .scorecard {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md); overflow: hidden;
+  }
+  .sc-top { padding: 22px 26px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; }
+  .sc-top .t1 { font-size: 17px; font-weight: 700; letter-spacing: -.02em; }
+  .sc-top .t2 { font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); margin-top: 6px; }
+  .pill {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase;
+    padding: 6px 11px; border-radius: 999px; white-space: nowrap;
+    background: color-mix(in srgb, var(--good) 13%, transparent);
+    color: var(--good); border: 1px solid color-mix(in srgb, var(--good) 34%, transparent);
+  }
+  .sc-rows { padding: 8px 26px 4px; }
+  .sc-row { display: grid; grid-template-columns: 1fr 118px 26px; gap: 16px; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--line); }
+  .sc-row:last-child { border-bottom: 0; }
+  .sc-row .lbl { font-size: 14.5px; color: var(--ink-2); }
+  .sc-row .val { font-family: var(--font-mono); font-size: 13px; font-variant-numeric: tabular-nums; color: var(--ink-3); text-align: right; }
+  .meter { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .meter i { display: block; height: 100%; border-radius: 999px; background: var(--grad); }
+  .meter.low i { background: var(--warn); }
+  .sc-note {
+    margin: 6px 26px 0; padding: 15px 17px; border-radius: var(--radius);
+    background: color-mix(in srgb, var(--warn) 9%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--warn) 24%, transparent);
+    font-size: 13.5px; color: var(--ink-2); line-height: 1.5;
+  }
+  .sc-note b { color: var(--warn); font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; display: block; margin-bottom: 5px; }
+  .sc-sign { padding: 20px 26px 24px; margin-top: 14px; border-top: 1px solid var(--line); }
+  .sc-sign .who { font-size: 14px; color: var(--ink); font-weight: 600; }
+  .sc-sign .what { font-size: 13px; color: var(--ink-3); margin-top: 3px; }
+
+  .score-copy h2 { font-size: clamp(30px, 3.6vw, 44px); font-weight: 800; margin-bottom: 22px; }
+  .score-copy p { color: var(--ink-2); font-size: 16.5px; margin-bottom: 16px; max-width: 34em; }
+  .score-copy p:last-child { margin-bottom: 0; }
+
+  /* ---------- beyond the search (advisory + knowledge) ---------- */
+  .adds { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 940px) { .adds { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .adds { grid-template-columns: 1fr; } }
+  .add {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 28px 26px 26px; display: flex; flex-direction: column; gap: 11px;
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  }
+  .add:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
+  .add .kicker {
+    font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--blue);
+  }
+  .add h3 { font-size: 19px; font-weight: 700; letter-spacing: -.02em; }
+  .add p { font-size: 14.5px; color: var(--ink-3); line-height: 1.55; }
+  .add.wide { grid-column: span 2; background: var(--grad-soft); border-color: color-mix(in srgb, var(--indigo) 30%, transparent); }
+  .add.wide .kicker { color: var(--purple); }
+  .add.wide p { color: var(--ink-2); max-width: 46em; }
+  @media (max-width: 620px) { .add.wide { grid-column: span 1; } }
+
+  /* ---------- process ---------- */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  @media (max-width: 940px) { .steps { grid-template-columns: repeat(2, 1fr); gap: 30px; } }
+  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
+  .step { padding-top: 20px; border-top: 2px solid var(--line); }
+  .step:first-child { border-image: var(--grad) 1; border-top-width: 2px; border-top-style: solid; }
+  .step .n { font-family: var(--font-mono); font-size: 12px; color: var(--purple); letter-spacing: .1em; display: block; margin-bottom: 12px; }
+  .step h3 { font-size: 18px; font-weight: 700; margin-bottom: 9px; }
+  .step p { font-size: 14.5px; color: var(--ink-3); line-height: 1.55; }
+
+  /* ---------- the quiet doubts (Q&A, deliberately unboxed) ---------- */
+  /* WHY: every other block on this page is a card. This one is bare type on
+     hairlines so it reads as a straight answer rather than more marketing. */
+  .doubts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 56px; }
+  @media (max-width: 860px) { .doubts { grid-template-columns: 1fr; gap: 0; } }
+  .doubt { padding: 26px 0; border-top: 1px solid var(--line); }
+  .doubt q {
+    display: block; quotes: none;
+    font-size: clamp(19px, 2vw, 23px); font-weight: 700; letter-spacing: -.02em;
+    line-height: 1.28; color: var(--ink); margin-bottom: 11px; text-wrap: balance;
+  }
+  .doubt p { font-size: 15.5px; color: var(--ink-3); line-height: 1.6; }
+  .doubt p b { color: var(--ink-2); font-weight: 650; }
+
+  /* ---------- house credentials ---------- */
+  .house {
+    display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center;
+    background: var(--grad-soft); border: 1px solid color-mix(in srgb, var(--indigo) 30%, transparent);
+    border-radius: var(--radius-lg); padding: 34px 36px; margin-bottom: 36px;
+  }
+  @media (max-width: 860px) { .house { grid-template-columns: 1fr; gap: 26px; } }
+  .house h3 { font-size: clamp(21px, 2.3vw, 27px); font-weight: 750; margin-bottom: 12px; }
+  .house p { font-size: 15.5px; color: var(--ink-2); line-height: 1.6; max-width: 40em; }
+  .house-facts { display: flex; flex-direction: column; gap: 16px; }
+  .house-fact { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: baseline; }
+  .house-fact b {
+    font-family: var(--font-mono); font-size: 14px; font-weight: 600;
+    color: var(--purple); white-space: nowrap; font-variant-numeric: tabular-nums;
+  }
+  .house-fact span { font-size: 14.5px; color: var(--ink-2); line-height: 1.45; }
+
+  /* ---------- experts ---------- */
+  .experts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  @media (max-width: 1000px) { .experts { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .experts { grid-template-columns: 1fr; } }
+  .expert {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 24px 22px; transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  }
+  .expert:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--line-strong); }
+  .expert .sector { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+  .expert h3 { font-size: 16.5px; font-weight: 700; line-height: 1.3; margin-bottom: 10px; }
+  .expert p { font-size: 14px; color: var(--ink-3); line-height: 1.55; }
 
   /* ---------- roles ---------- */
   .roles { display: flex; flex-wrap: wrap; gap: 10px; }
-  .roles li {
-    font-size: 14.5px; color: var(--ink-2);
-    border: 1px solid var(--line); border-radius: 999px;
-    padding: 9px 16px; background: var(--surface);
+  .roles span {
+    font-size: 14px; font-weight: 550; padding: 9px 16px; border-radius: 999px;
+    border: 1px solid var(--line-strong); color: var(--ink-2); background: var(--surface);
   }
+  .roles span.more { color: var(--ink-4); border-style: dashed; }
 
-  /* ---------- closer ---------- */
+  /* ---------- closing panel ---------- */
   .closer {
-    background: linear-gradient(150deg, var(--panel-bg) 0%, var(--panel-bg-2) 100%);
-    border-radius: var(--radius-lg);
-    padding: clamp(38px, 5vw, 62px);
-    color: var(--panel-ink);
+    background:
+      radial-gradient(80% 100% at 85% 0%, var(--panel-bg-2) 0%, transparent 65%),
+      var(--panel-bg);
+    border-radius: var(--radius-lg); position: relative; overflow: hidden;
+    padding: clamp(48px, 6vw, 84px) clamp(32px, 5vw, 76px);
   }
+  .closer::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--grad); }
+  .closer h2 { color: var(--panel-ink); font-size: clamp(32px, 4.4vw, 56px); font-weight: 800; margin-bottom: 22px; max-width: 16em; }
+  .closer p { color: var(--panel-ink-2); font-size: 17.5px; max-width: 36em; margin-bottom: 34px; }
   .closer .eyebrow { color: var(--panel-ink-2); }
-  .closer h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; color: var(--panel-ink); }
-  .closer p { margin-top: 18px; color: var(--panel-ink-2); font-size: 17px; max-width: 56ch; }
-  .closer .cta-row { margin-top: 32px; }
-  .closer .cta-note { color: var(--panel-ink-2); }
+  .closer .btn-ghost { border-color: rgba(255,255,255,.32); color: #fff; }
+  .closer .btn-ghost:hover { border-color: #fff; background: rgba(255,255,255,.08); color: #fff; }
 
   /* ---------- footer ---------- */
-  footer.site {
-    border-top: 1px solid var(--line);
-    padding-block: 32px;
-    font-size: 14px; color: var(--ink-3);
-  }
-  footer.site .fbar { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
-  footer.site a { text-decoration: none; }
-  footer.site a:hover { color: var(--ink); }
+  footer.site { border-top: 1px solid var(--line); padding-block: 40px 52px; }
+  .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; align-items: center; }
+  .foot p { font-size: 13.5px; color: var(--ink-4); }
+  .foot .links { display: flex; gap: 24px; }
+  .foot .links a { font-size: 13.5px; color: var(--ink-3); text-decoration: none; }
+  .foot .links a:hover { color: var(--ink); }
 
   /* ---------- reveal ---------- */
-  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
-    .btn { transition: none; }
-    .btn:hover { transform: none; }
+    .fade-swap { animation: none; }
+    * { scroll-behavior: auto !important; }
+    .btn:hover, .expert:hover { transform: none; }
   }
+  html { scroll-behavior: smooth; }
 </style>
 
 </head>
@@ -407,7 +557,14 @@
       <span class="slash"></span>
       <span class="sub">Recruit</span>
     </a>
-    <a class="btn btn-primary" href="mailto:recruit@expertly.com?subject=Intake%20call%20—%20hiring%20AI%20leadership">Book an intake call</a>
+    <nav class="main">
+      <a href="#model">How we're different</a>
+      <a href="#map">Which leader you need</a>
+      <a href="#assessment">The assessment</a>
+      <a href="#beyond">What's included</a>
+      <a href="#experts">Our experts</a>
+    </nav>
+    <a class="btn btn-primary" href="#start">Book an intake call</a>
   </div>
 </header>
 
@@ -415,244 +572,476 @@
 
   <!-- ============ HERO ============ -->
   <div class="hero">
-    <div class="wrap">
-      <div class="eyebrow">For CEOs, CTOs &amp; COOs building an AI team</div>
-      <h1>
-        Everyone became an AI expert last year.<br />
-        <span class="grad-text">We've been at it for decades.</span>
-      </h1>
-      <p class="lede">
-        That difference shows the moment someone starts interviewing your candidates.
-        <strong>Our AI experts run the hire with you</strong>, and because they've spent their careers
-        building AI rather than reading about it, they can tell in one conversation who has genuinely
-        done this. They help you shape the role, find the right people, and interview them properly.
-        <strong>Hiring, team design, and real AI expertise, all in one.</strong>
-      </p>
-      <div class="cta-row">
-        <a class="btn btn-primary btn-lg" href="mailto:recruit@expertly.com?subject=Intake%20call%20—%20hiring%20AI%20leadership">Book an intake call</a>
-        <span class="cta-note">Thirty minutes. No pitch deck.</span>
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">For CEOs, CTOs &amp; COOs building an AI team</div>
+        <h1>
+          Everyone became an AI expert last year.<br />
+          <span class="line2 grad-text">We've been at it for decades.</span>
+        </h1>
+        <p class="lede">
+          That difference shows the moment someone starts interviewing your candidates.
+          <strong>Our AI experts run the hire with you</strong>, and because they've spent their careers
+          building AI rather than reading about it, they can tell in one conversation who has genuinely
+          done this. They help you shape the role, find the right people, and interview them properly.
+          <strong>Hiring, team design, and real AI expertise, all in one.</strong>
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary btn-lg" href="#start">Tell us about the role</a>
+          <a class="btn btn-ghost btn-lg" href="#map">Which leader do I need?</a>
+        </div>
+        <dl class="proof">
+          <div>
+            <dt>25+ yrs</dt>
+            <dd>building AI ourselves, in our own products and teams</dd>
+          </div>
+          <div>
+            <dt>Dozens</dt>
+            <dd>AI products of our own, built and launched</dd>
+          </div>
+          <div>
+            <dt>2–3 wks</dt>
+            <dd>to a shortlist our experts have personally interviewed</dd>
+          </div>
+        </dl>
       </div>
-      <dl class="proof">
-        <div>
-          <dt>25+ yrs</dt>
-          <dd>building AI ourselves, in our own products and teams</dd>
+
+      <!-- interactive centerpiece: the same candidate, two interviews -->
+      <div class="interview" id="interview" data-mode="recruiter">
+        <div class="interview-head">
+          <div class="interview-title">Same candidate · two conversations</div>
+          <div class="switch" role="tablist" aria-label="Interview type">
+            <button type="button" role="tab" id="tab-recruiter" aria-controls="interview-body" aria-selected="true" data-mode="recruiter">A standard screen</button>
+            <button type="button" role="tab" id="tab-expert" aria-controls="interview-body" aria-selected="false" data-mode="expert">With our AI experts</button>
+          </div>
         </div>
-        <div>
-          <dt>Dozens</dt>
-          <dd>AI products of our own, built and launched</dd>
-        </div>
-        <div>
-          <dt>2–3 wks</dt>
-          <dd>to a shortlist our experts have personally interviewed</dd>
-        </div>
-      </dl>
+        <div class="qlist" id="interview-body" role="tabpanel" aria-labelledby="tab-recruiter"></div>
+        <div class="verdict" id="interview-verdict"></div>
+      </div>
     </div>
   </div>
 
-  <!-- ============ HOW WE PARTNER ============ -->
-  <section>
+  <!-- ============ THE GAP ============ -->
+  <section class="gap-band" id="model">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <div class="eyebrow">How we work</div>
-        <h2>A true partner on the search, start to finish.</h2>
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Where these hires go wrong</div>
+          <h2>The role is brand new. The hiring process isn't.</h2>
+        </div>
         <p>
-          We're a retained search partner, not a CV pipeline. Our AI experts sit alongside your team
-          from the brief through the first ninety days.
+          A standard hiring process is built to check that a person matches a job description. This role
+          asks for something harder: a judgement about whether the person behind the CV can do this job,
+          in your business, at your stage. These are the six places it most often comes unstuck, and
+          we've worked through all of them with clients.
         </p>
       </div>
-      <div class="partner reveal">
-        <div class="pcard">
-          <span class="step">Step 01 · Before the search</span>
-          <h3>Shape the role together</h3>
+
+      <div class="gaps">
+        <div>
+          <span class="tag">Failure 01</span>
+          <h3>The words are on the CV</h3>
           <p>
-            What this person needs to deliver in year one, where they sit, and which adjacent roles
-            can wait. We work it out with you before anyone writes a job description.
+            Agents, copilots and models are on almost every CV now. The words are easy to verify. The
+            harder question is what sat behind them: something that went live and stayed live, or a
+            promising pilot. Telling those apart takes someone who has built both.
           </p>
         </div>
-        <div class="pcard">
-          <span class="step">Step 02 · The search</span>
-          <h3>We find and interview them</h3>
+        <div>
+          <span class="tag">Failure 02</span>
+          <h3>You hire at the wrong level</h3>
           <p>
-            Our AI experts approach the market directly and personally interview everyone who reaches
-            your shortlist. You see the reasoning behind each recommendation, not just a name.
+            A research-minded leader hired to deliver can build you an impressive lab you struggle to get
+            anything out of. A hands-on builder hired to run governance can find they have no standing
+            when your auditor or your board starts asking questions. Both are excellent. Only one fits
+            the brief.
           </p>
         </div>
-        <div class="pcard">
-          <span class="step">Step 03 · After the offer</span>
-          <h3>We stay for the first 90 days</h3>
+        <div>
+          <span class="tag">Failure 03</span>
+          <h3>Their experience doesn't transfer</h3>
           <p>
-            We stay available once they start, thinking through the early calls on team, tools and
-            spend with both of you while there's still room to adjust.
+            They really did lead AI at a household name. They also had a 200-person platform team, clean
+            data and a large budget behind them. Take all of that away and it becomes a different job.
+            Plenty of people make that jump brilliantly. It's worth knowing which before the offer.
+          </p>
+        </div>
+        <div>
+          <span class="tag">Failure 04</span>
+          <h3>The job description is someone else's</h3>
+          <p>
+            It gets copied from a tech giant's careers page, so it asks for research credentials you will
+            never use, and misses the thing you actually need: someone who can get one useful thing
+            working inside your company this year.
+          </p>
+        </div>
+        <div>
+          <span class="tag">Failure 05</span>
+          <h3>Nobody checks if anyone will use it</h3>
+          <p>
+            Most AI projects don't fail on the technology. They fail because the team on the floor
+            carries on doing it the old way. Almost no interview process tests whether this person can
+            win those people over.
+          </p>
+        </div>
+        <div>
+          <span class="tag">Failure 06</span>
+          <h3>You decide the reporting line last</h3>
+          <p>
+            The role gets buried two levels under IT with no budget and no seat at the table. Then the
+            first ten real decisions, about team, tools and what not to build, get made by people who
+            don't own the outcome.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ WHICH LEADER ============ -->
-  <section>
+  <!-- ============ MATURITY LADDER ============ -->
+  <section id="map">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <div class="eyebrow">Where you are today</div>
-        <h2>&ldquo;Hire an AI leader&rdquo; is really four different roles.</h2>
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">The AI leadership map</div>
+          <h2>&ldquo;Hire an AI leader&rdquo; is four different jobs.</h2>
+        </div>
         <p>
-          Which one fits depends on where your company is right now. Working that out together is
-          usually the most valuable half-hour of the whole process.
+          Which one you need depends entirely on where you are today, and hiring the wrong one costs you
+          a year you don't have. Pick where you are and our experts will tell you what to look for.
         </p>
       </div>
-      <div class="stages reveal">
-        <div class="stage">
-          <span class="where">A few experiments, nobody owns it</span>
-          <span class="role grad-text">Head of Applied AI</span>
-          <p>Focus the work on the few ideas with a business owner and a number attached, and set a baseline you can measure against.</p>
-        </div>
-        <div class="stage">
-          <span class="where">The demos are great, nothing is live</span>
-          <span class="role grad-text">Director of AI Engineering</span>
-          <p>Take one job people do every day and get it fully live — owned, monitored, and costed up front.</p>
-        </div>
-        <div class="stage">
-          <span class="where">One thing works, now everyone wants it</span>
-          <span class="role grad-text">VP of Artificial Intelligence</span>
-          <p>Turn a single success into something other teams can reuse and run themselves, rather than queueing behind one central team.</p>
-        </div>
-        <div class="stage">
-          <span class="where">The business depends on it now</span>
-          <span class="role grad-text">Chief AI Officer</span>
-          <p>Own AI the way a CFO owns money: what's running, what it's exposed to, and the authority to switch something off.</p>
-        </div>
+
+      <div class="ladder">
+        <div class="rungs" role="tablist" aria-orientation="vertical" aria-label="Where you are with AI"></div>
+        <div class="rung-detail" id="rung-detail" role="tabpanel"></div>
       </div>
     </div>
   </section>
 
-  <!-- ============ THE ASSESSMENT ============ -->
-  <section>
-    <div class="wrap assess">
-      <div class="reveal">
-        <div class="eyebrow">On every candidate</div>
-        <h2 style="font-size: clamp(26px, 3.2vw, 36px); font-weight: 800;">A scorecard written against your role.</h2>
-        <p style="margin-top:18px; color: var(--ink-2); font-size: 16.5px; max-width: 50ch;">
-          Two of our AI experts score every shortlisted candidate on what actually decides whether an
-          AI leader succeeds at your stage and in your industry — strengths and the areas to watch,
-          both, so you can plan around them before the offer goes out.
+  <!-- ============ ASSESSMENT ============ -->
+  <section class="card-band" id="assessment">
+    <div class="wrap score-grid">
+      <div class="score-copy">
+        <div class="eyebrow">What you actually get</div>
+        <h2>A real assessment, from people who have done the job.</h2>
+        <p>
+          Every candidate comes to you with a scorecard written against your role, not a tidy summary of
+          their CV. Our AI experts score them on the things that actually decide whether an AI leader
+          works out at your stage and in your industry.
+        </p>
+        <p>
+          That includes the areas where they scored low. Every strong candidate has something to watch,
+          and we'd rather you hear it from us before the offer than discover it in month three.
         </p>
       </div>
-      <div class="card reveal">
-        <div class="card-head">
+
+      <div class="scorecard">
+        <div class="sc-top">
           <div>
-            <div class="who">Candidate assessment · VP of AI</div>
-            <div class="for">Scored for a company scaling AI</div>
+            <div class="t1">Candidate assessment · VP of AI</div>
+            <div class="t2">Scored for a company scaling AI</div>
           </div>
-          <span class="verdict-pill">Recommend</span>
+          <span class="pill">Recommend</span>
         </div>
-        <div class="rows">
-          <div class="row">
-            <span class="lbl">Has actually shipped AI</span>
-            <span class="track"><span class="fill" style="width:100%"></span></span>
-            <span class="num">5.0</span>
-          </div>
-          <div class="row">
-            <span class="lbl">Knows when it isn't working</span>
-            <span class="track"><span class="fill" style="width:84%"></span></span>
-            <span class="num">4.2</span>
-          </div>
-          <div class="row">
-            <span class="lbl">Build or buy decisions</span>
-            <span class="track"><span class="fill" style="width:92%"></span></span>
-            <span class="num">4.6</span>
-          </div>
-          <div class="row">
-            <span class="lbl">Building and keeping a team</span>
-            <span class="track"><span class="fill" style="width:80%"></span></span>
-            <span class="num">4.0</span>
-          </div>
-          <div class="row">
-            <span class="lbl">Risk and compliance</span>
-            <span class="track"><span class="fill" style="width:54%"></span></span>
-            <span class="num">2.7</span>
-          </div>
-          <div class="row">
-            <span class="lbl">Getting the business on board</span>
-            <span class="track"><span class="fill" style="width:96%"></span></span>
-            <span class="num">4.8</span>
-          </div>
+        <div class="sc-rows">
+          <div class="sc-row"><span class="lbl">Has actually shipped AI</span><span class="meter"><i style="width:96%"></i></span><span class="val">5.0</span></div>
+          <div class="sc-row"><span class="lbl">Knows when it isn't working</span><span class="meter"><i style="width:82%"></i></span><span class="val">4.2</span></div>
+          <div class="sc-row"><span class="lbl">Build or buy decisions</span><span class="meter"><i style="width:90%"></i></span><span class="val">4.6</span></div>
+          <div class="sc-row"><span class="lbl">Building and keeping a team</span><span class="meter"><i style="width:78%"></i></span><span class="val">4.0</span></div>
+          <div class="sc-row"><span class="lbl">Risk and compliance</span><span class="meter low"><i style="width:52%"></i></span><span class="val">2.7</span></div>
+          <div class="sc-row"><span class="lbl">Getting the business on board</span><span class="meter"><i style="width:94%"></i></span><span class="val">4.8</span></div>
         </div>
-        <div class="watch">
-          <span class="wl">Worth planning for</span>
+        <div class="sc-note">
+          <b>Worth planning for</b>
+          Strong track record of getting things live, but has never worked under a real audit. If you're
+          in a regulated market, pair them with a risk lead or write compliance ownership into the first
+          ninety days before you make the offer.
+        </div>
+        <div class="sc-sign">
+          <div class="who">Assessed by two of our AI experts</div>
+          <div class="what">A former VP of Engineering who ran AI for a national logistics business, and a former Chief Data Officer from a regulated healthcare group.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BEYOND THE SEARCH ============ -->
+  <section id="beyond">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">What's included</div>
+          <h2>You're not just getting a shortlist. You're getting our AI experts alongside you.</h2>
+        </div>
+        <p>
+          Most companies are building an AI team for the first time, and there's rarely anyone in-house
+          who has done it before. Our experts work alongside your team from the first call, think every
+          judgement call through with you, and stay available long after the offer is signed.
+        </p>
+      </div>
+
+      <div class="adds">
+        <div class="add">
+          <span class="kicker">Before the role exists</span>
+          <h3>A plan for the whole team</h3>
           <p>
-            Strong track record of getting things live, but hasn't worked under a formal audit. In a
-            regulated market, pair them with a risk lead or write compliance ownership into the first
-            ninety days.
+            What your AI team should look like at your size. The first three roles, the order to hire
+            them in, who they report to, and which ones you genuinely don't need yet. We work it out
+            with you before anyone writes a job description.
+          </p>
+        </div>
+        <div class="add">
+          <span class="kicker">Who's out there</span>
+          <h3>A real view of the market</h3>
+          <p>
+            The people leading AI in your industry, by name. Who would take a call, who has just been
+            given a big budget to stay, and who is ready to move. That comes from our experts knowing
+            these people personally, and working in the same field.
+          </p>
+        </div>
+        <div class="add">
+          <span class="kicker">Pay</span>
+          <h3>A number you can defend</h3>
+          <p>
+            What AI leaders cost changes every few months. We tell you what offers are actually being
+            made and accepted right now, so you can go to your board with a number that holds up.
+          </p>
+        </div>
+        <div class="add wide">
+          <span class="kicker">Advice while you decide</span>
+          <h3>A sounding board for the decisions around the hire</h3>
+          <p>
+            Build it or buy it. One central team or people embedded in each department. Which problem to
+            tackle first. Whether this hire is the right next step at all. Our experts think these
+            through with you, and show their reasoning, because they have made every one of those calls
+            themselves with their own budget at stake.
+          </p>
+        </div>
+        <div class="add">
+          <span class="kicker">Sharing what works</span>
+          <h3>A seat at the table with your peers</h3>
+          <p>
+            Our clients join private sessions with our AI experts, and with each other, on what is
+            genuinely working with AI this quarter and what isn't. It's one of the fastest ways to build
+            your own view of this market rather than relying on ours.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ WHY EXPERTLY ============ -->
+  <!-- ============ PROCESS ============ -->
   <section>
-    <div class="wrap creds">
-      <div class="reveal">
-        <div class="eyebrow">Why Expertly</div>
-        <h2>We build AI. That's how we know what to look for.</h2>
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">How it works</div>
+          <h2>Four steps, and our experts run the search itself.</h2>
+        </div>
         <p>
-          Expertly has been building AI for over twenty-five years — dozens of our own products
-          launched, both for everyday business operations and for the developers building AI
-          themselves. When our experts sit in an interview, they're comparing your candidate against
-          work they have actually done.
+          Step two is the one that matters most. Our AI experts take it on themselves, and they've held
+          the job you're hiring for, in an industry like yours.
         </p>
       </div>
-      <div class="facts reveal">
-        <div class="fact">
-          <b>25+ years</b>
-          <span>building AI, in our own products and teams</span>
+
+      <div class="steps">
+        <div class="step">
+          <span class="n">STEP 01</span>
+          <h3>The honest brief</h3>
+          <p>
+            Not the job description. What has to be true in twelve months, what has already been tried
+            and failed, and who inside the business this person has to win over.
+          </p>
         </div>
-        <div class="fact">
-          <b>Dozens</b>
-          <span>of our own AI products designed, built and launched</span>
+        <div class="step">
+          <span class="n">STEP 02</span>
+          <h3>Our AI experts take it on</h3>
+          <p>
+            Two of our AI experts who have led AI in your industry work out how to approach the hire and
+            who to go after. They walk you through the plan and the thinking behind it before anyone is
+            approached.
+          </p>
         </div>
-        <div class="fact">
-          <b>Both sides</b>
-          <span>AI for operations teams, and AI for the people building it</span>
+        <div class="step">
+          <span class="n">STEP 03</span>
+          <h3>Real interviews, by people who've done the job</h3>
+          <p>
+            Candidates are taken through real situations by people who have lived them. Every shortlist
+            comes with a signed scorecard, concerns included, and a debrief so you can see how we got
+            there.
+          </p>
+        </div>
+        <div class="step">
+          <span class="n">STEP 04</span>
+          <h3>The first ninety days</h3>
+          <p>
+            Our experts stay involved after they start, sense-checking the first big decisions on team
+            and tools with both of you while there's still time to change them. Longer, if it helps.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ ROLES ============ -->
-  <section style="padding-top: 0;">
+  <!-- ============ EXPERTS ============ -->
+  <section class="gap-band" id="experts">
     <div class="wrap">
-      <div class="sec-head reveal" style="margin-bottom: 30px;">
-        <div class="eyebrow">Roles we place</div>
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">Who you'll be working with</div>
+          <h2>People who have run AI teams, sitting on your side of the table.</h2>
+        </div>
+        <p>
+          Every one of our experts has been responsible for AI inside a real business, with a budget, a
+          team, and something that had to keep working on a Monday morning.
+        </p>
       </div>
-      <ul class="roles reveal">
-        <li>Chief AI Officer</li>
-        <li>VP of Artificial Intelligence</li>
-        <li>Head of Applied AI</li>
-        <li>Director of AI Engineering</li>
-        <li>AI Platform Lead</li>
-        <li>Head of Data &amp; AI Governance</li>
-        <li>AI Product Lead</li>
-        <li>Principal ML Engineer</li>
-        <li>Part-time &amp; interim AI leadership</li>
-      </ul>
+
+      <div class="house">
+        <div>
+          <h3>We've been building AI for 25 years. That's the standard we measure candidates against.</h3>
+          <p>
+            Expertly has been building AI since long before it was on every board agenda. We've launched
+            dozens of AI products of our own, both for everyday business operations and for the
+            developers who build AI themselves. When our experts sit in an interview, they're comparing
+            your candidate against work they have actually done, which is why a conversation with them
+            tells you far more than a CV can.
+          </p>
+        </div>
+        <div class="house-facts">
+          <div class="house-fact"><b>25+ years</b><span>building AI, in our own products and teams</span></div>
+          <div class="house-fact"><b>Dozens</b><span>of our own AI products built and launched</span></div>
+          <div class="house-fact"><b>Both sides</b><span>AI for business operations, and AI for the developers building it</span></div>
+        </div>
+      </div>
+
+      <div class="experts">
+        <div class="expert">
+          <div class="sector">Logistics</div>
+          <h3>Former Head of AI, national carrier</h3>
+          <p>Built routing and delivery-time systems used across 900 depots. Knows what it costs to run something like that every day.</p>
+        </div>
+        <div class="expert">
+          <div class="sector">Property Management</div>
+          <h3>Former VP Data &amp; AI, residential group</h3>
+          <p>Brought AI into leasing and maintenance across 40,000 units. Knows how to get busy teams to actually use it.</p>
+        </div>
+        <div class="expert">
+          <div class="sector">Auto Retail</div>
+          <h3>Former Director of AI, dealer group</h3>
+          <p>Rolled out call handling and inbox automation across 120 dealerships. Knows which vendors deliver and which don't.</p>
+        </div>
+        <div class="expert">
+          <div class="sector">Regulated &amp; Public Sector</div>
+          <h3>Former Chief Data Officer, healthcare network</h3>
+          <p>Owned AI governance under HIPAA and SOC 2. Knows what an auditor and a board will ask for.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:52px">
+        <div class="eyebrow">Roles we place</div>
+        <div class="roles">
+          <span>Chief AI Officer</span>
+          <span>VP of Artificial Intelligence</span>
+          <span>Head of Applied AI</span>
+          <span>Director of AI Engineering</span>
+          <span>AI Platform Lead</span>
+          <span>Head of Data &amp; AI Governance</span>
+          <span>AI Product Lead</span>
+          <span>Director of AI Enablement</span>
+          <span>Principal ML Engineer</span>
+          <span>Head of AI Operations</span>
+          <span class="more">Part-time &amp; interim AI leadership</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE QUIET DOUBTS ============ -->
+  <section id="doubts">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <div class="eyebrow">The questions we get asked most</div>
+          <h2>The questions executives actually ask us.</h2>
+        </div>
+        <p>
+          These come up on almost every first call. Here are the straight answers we'd give you on
+          that call.
+        </p>
+      </div>
+
+      <div class="doubts">
+        <div class="doubt">
+          <q>Do we even need this hire yet?</q>
+          <p>
+            Sometimes you don't. We've told clients to wait a quarter and sort out who owns the data
+            first. <b>We would rather tell you that than sell you a hire you're not ready for</b>, because
+            we'd like to be the people you call when you are.
+          </p>
+        </div>
+        <div class="doubt">
+          <q>How do I tell a great AI leader from a convincing one?</q>
+          <p>
+            It's a genuinely hard read, and it's the main reason people call us. Much of the vocabulary
+            is new and it shifts every few months, so a strong communicator can sound a lot like a strong
+            builder. <b>Our experts have built these systems themselves, so they can go several questions
+            deeper</b> — and they'll show you which answers moved the needle and why, so the next time
+            you interview for this, you can hear it too.
+          </p>
+        </div>
+        <div class="doubt">
+          <q>Should we just promote someone internally?</q>
+          <p>
+            Often, yes. Someone who already knows your business and has your team's trust starts with an
+            advantage nobody external can buy. <b>We'll assess your internal candidate against exactly
+            the same scorecard</b> and tell you honestly whether they're ready.
+          </p>
+        </div>
+        <div class="doubt">
+          <q>What if they leave after a year?</q>
+          <p>
+            This is the real risk, and it usually isn't about money. AI leaders leave when the job was
+            oversold or when they were given no authority to do it. <b>Both of those get decided before
+            the offer goes out</b>, which is exactly when we're involved.
+          </p>
+        </div>
+        <div class="doubt">
+          <q>Are we about to badly overpay?</q>
+          <p>
+            You might be. These salaries have moved fast, and a lot of the numbers in circulation come
+            from the very top of the market. <b>We'll show you what's actually being offered and accepted
+            right now</b>, including when the figure you've been given is well above it.
+          </p>
+        </div>
+        <div class="doubt">
+          <q>Everyone tells me something different. Who do I believe?</q>
+          <p>
+            Fair, and we're selling something too, so weigh ours accordingly. What we can offer is that
+            <b>it comes from people who have spent their own budget getting this wrong and then
+            right</b>, and that we'll show you the reasoning rather than just the conclusion. When we
+            think you shouldn't hire yet, we say so.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- ============ CLOSER ============ -->
-  <section style="padding-top: 0;">
+  <section id="start">
     <div class="wrap">
-      <div class="closer reveal">
-        <div class="eyebrow">Next step</div>
-        <h2>Start with a thirty-minute intake call.</h2>
+      <div class="closer">
+        <div class="eyebrow">Get started</div>
+        <h2>Your AI leader is running someone else's AI team right now.</h2>
         <p>
-          Tell us what you're building — a first hire, a whole team, or you're still working out what
-          you need. We'll tell you what we'd look for, how we'd approach the search, and what it
-          should cost. You'll get something useful out of the call either way.
+          They're not looking, and they're not on a job board. What gets them on a call is hearing from
+          someone who has done what they do. Start with a thirty-minute intake call: tell us what you're
+          building, whether that's a first hire, a whole division, or you're still working out what you
+          need, and we'll tell you what we'd look for and how we'd approach it.
         </p>
-        <div class="cta-row">
-          <a class="btn btn-light btn-lg" href="mailto:recruit@expertly.com?subject=Intake%20call%20—%20hiring%20AI%20leadership">Book an intake call</a>
-          <span class="cta-note">recruit@expertly.com</span>
+        <div class="cta-row" style="margin-bottom:0">
+          <a class="btn btn-primary btn-lg" href="mailto:recruit@expertly.com?subject=Intake%20call%20—%20hiring%20AI%20leadership">Book an intake call</a>
+          <a class="btn btn-ghost btn-lg" href="#map">See which leader you need</a>
         </div>
       </div>
     </div>
@@ -661,29 +1050,157 @@
 </main>
 
 <footer class="site">
-  <div class="wrap fbar">
-    <p>© 2026 Expertly Recruit — an Expertly AI company.</p>
-    <a href="mailto:recruit@expertly.com?subject=Intake%20call%20—%20hiring%20AI%20leadership">recruit@expertly.com</a>
+  <div class="wrap foot">
+    <p>© 2026 Expertly Recruit — an Expertly AI company. Decades of building AI, applied to hiring it.</p>
+    <div class="links">
+      <a href="#model">The model</a>
+      <a href="#map">Leadership map</a>
+      <a href="#experts">Experts</a>
+      <a href="#start">Contact</a>
+    </div>
   </div>
 </footer>
 
 <script>
   (function () {
     "use strict";
-    var els = document.querySelectorAll(".reveal");
-    if (!("IntersectionObserver" in window)) {
-      // WHY: without the observer the page must still be readable, so reveal everything.
-      Array.prototype.forEach.call(els, function (el) { el.classList.add("in"); });
-      return;
-    }
-    // 0.12 = reveal once a section is meaningfully on screen, not on its first pixel;
-    // low enough that tall sections still trigger before the reader reaches them.
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+
+    /* ---------- hero: recruiter screen vs. expert assessment ---------- */
+    var INTERVIEWS = {
+      recruiter: {
+        questions: [
+          "How many years of AI experience do you have?",
+          "Are you familiar with large language models and AI agents?",
+          "Have you managed a team of five or more?",
+          "What's your notice period and salary expectation?"
+        ],
+        verdict: "A screen confirms what's on the CV, and it may well be a strong one. <b>What it can't show</b> is how this person leads AI inside a business like yours."
+      },
+      expert: {
+        questions: [
+          "Tell me about an AI project you cancelled. What made you pull the plug?",
+          "Your testing says it's 92% accurate. The team on the floor says it's wrong all day. Where do you look first?",
+          "You have eight engineers and a board that wants AI agents by summer. What do you refuse to build?",
+          "The auditor calls and asks what AI you're running. Who answers, and how did you make that stick?"
+        ],
+        verdict: "Asked by people who have had to answer these questions themselves, <b>with their own budget on the line</b>. You get a scorecard, a recommendation, the concerns, and a walk-through of what each answer told us."
+      }
+    };
+
+    var panel = document.getElementById("interview-body");
+    var verdictEl = document.getElementById("interview-verdict");
+    var shell = document.getElementById("interview");
+    var tabs = Array.prototype.slice.call(document.querySelectorAll(".switch button"));
+
+    function renderInterview(mode) {
+      var data = INTERVIEWS[mode];
+      shell.setAttribute("data-mode", mode);
+      panel.innerHTML = data.questions.map(function (q, i) {
+        return '<div class="q fade-swap" style="animation-delay:' + (i * 45) + 'ms">' +
+          '<span class="n">' + String(i + 1).padStart(2, "0") + '</span>' +
+          '<p>' + q + '</p></div>';
+      }).join("");
+      verdictEl.className = "verdict fade-swap";
+      verdictEl.innerHTML = data.verdict;
+      tabs.forEach(function (t) {
+        var on = t.getAttribute("data-mode") === mode;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        if (on) panel.setAttribute("aria-labelledby", t.id);
       });
-    }, { threshold: 0.12 });
-    Array.prototype.forEach.call(els, function (el) { io.observe(el); });
+    }
+
+    tabs.forEach(function (t) {
+      t.addEventListener("click", function () { renderInterview(t.getAttribute("data-mode")); });
+    });
+    renderInterview("recruiter");
+
+    /* ---------- AI maturity ladder ---------- */
+    var STAGES = [
+      {
+        name: "Just getting going",
+        state: "A few experiments, nobody really owns it",
+        role: "Head of Applied AI",
+        label: "Who our experts would look for",
+        mandate: "Cut fifteen ideas down to three that have a business owner and a number attached, and stop the rest. Then set an honest baseline so you can tell whether any of it is working. This person has to say no far more often than yes, so hire them senior enough that no actually sticks.",
+        risk: "A research-minded hire. You get a clever team, some genuinely interesting work, and nothing the rest of the business can use."
+      },
+      {
+        name: "Stuck in pilots",
+        state: "The demos are great. Nothing is live",
+        role: "Director of AI Engineering",
+        label: "Who our experts would look for",
+        mandate: "Take one job that people do every day and get it fully live, with someone whose name is on it, a way to switch it off, and a cost you agreed up front. The point isn't the technology. It's proving your company can run this stuff day to day.",
+        risk: "Someone who mainly manages vendors. You end up with four contracts, nobody accountable, and the pilot still isn't live twelve months later."
+      },
+      {
+        name: "Starting to scale",
+        state: "One thing works. Now everyone wants it",
+        role: "VP of Artificial Intelligence",
+        label: "Who our experts would look for",
+        mandate: "Turn that one success into something the whole business can reuse, and train other departments to do it themselves rather than queueing behind a single central team. Half this job is technical. The other half is getting people to change how they work.",
+        risk: "A pure people-manager. It looks fine for a quarter, then stalls on the second project because nobody can make the difficult technical calls."
+      },
+      {
+        name: "AI is now critical",
+        state: "The business would notice if it stopped",
+        role: "Chief AI Officer",
+        label: "Who our experts would look for",
+        mandate: "Own AI the way a CFO owns money. Know everything that's running, what it's exposed to, what happens when it goes wrong, and have the authority to shut something down. Explain all of that to the board in language they already use.",
+        risk: "Hiring a policy figurehead. You get a framework, a committee and a steering group, and no real authority the day something live starts going wrong."
+      }
+    ];
+
+    var rungsEl = document.querySelector(".rungs");
+    var detailEl = document.getElementById("rung-detail");
+
+    rungsEl.innerHTML = STAGES.map(function (s, i) {
+      return '<button type="button" class="rung" role="tab" id="rung-' + i + '" ' +
+        'aria-selected="' + (i === 0 ? "true" : "false") + '" data-i="' + i + '">' +
+        '<span class="num">' + String(i + 1).padStart(2, "0") + '</span>' +
+        '<span><span class="name">' + s.name + '</span>' +
+        '<span class="state">' + s.state + '</span></span></button>';
+    }).join("");
+
+    function renderStage(i) {
+      var s = STAGES[i];
+      detailEl.innerHTML =
+        '<div class="fade-swap">' +
+          '<div class="role-label">' + s.label + '</div>' +
+          '<h3 class="grad-text">' + s.role + '</h3>' +
+          '<p class="mandate">' + s.mandate + '</p>' +
+          '<div class="risk"><span class="rl">Wrong hire</span><p>' + s.risk + '</p></div>' +
+        '</div>';
+      detailEl.setAttribute("aria-labelledby", "rung-" + i);
+      Array.prototype.forEach.call(rungsEl.children, function (b, j) {
+        b.setAttribute("aria-selected", j === i ? "true" : "false");
+      });
+    }
+
+    rungsEl.addEventListener("click", function (e) {
+      var btn = e.target.closest(".rung");
+      if (btn) renderStage(Number(btn.getAttribute("data-i")));
+    });
+    renderStage(0);
+
+    /* ---------- scroll reveal ---------- */
+    var targets = document.querySelectorAll("section .sec-head, .gaps, .ladder, .score-grid, .adds, .steps, .house, .experts, .doubts, .closer, .roles");
+    Array.prototype.forEach.call(targets, function (el) { el.classList.add("reveal"); });
+
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
+        });
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.08 });
+      Array.prototype.forEach.call(targets, function (el) { io.observe(el); });
+      // WHY: failsafe — if the observer never fires (odd embed contexts, prerender,
+      // print), content must never be left permanently invisible at opacity 0.
+      window.setTimeout(function () {
+        Array.prototype.forEach.call(targets, function (el) { el.classList.add("in"); });
+      }, 6000);
+    } else {
+      Array.prototype.forEach.call(targets, function (el) { el.classList.add("in"); });
+    }
   })();
 </script>
 </body>
