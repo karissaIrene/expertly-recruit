@@ -84,3 +84,8 @@ build_page index.html dist/index.html \
   "Expertly Recruit places AI leadership. Every hire is run by AI experts who have spent decades building AI themselves, and who stay alongside you through the hire and the first ninety days." \
   "Expertly Recruit — AI leadership, hired by AI experts" \
   "Everyone became an AI expert last year. We've been at it for decades."
+
+build_page explore.html dist/explore/index.html \
+  "Expertly Recruit partners with CEOs, CTOs and COOs on hiring AI leadership. Our AI experts shape the role, run the search, interview every shortlisted candidate, and stay through the first ninety days." \
+  "Expertly Recruit — AI leadership, hired with you" \
+  "Everyone became an AI expert last year. We've been at it for decades."

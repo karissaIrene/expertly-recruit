@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Expertly Recruit partners with CEOs, CTOs and COOs on hiring AI leadership. Our AI experts shape the role, run the search, interview every shortlisted candidate, and stay through the first ninety days." />
+<link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Expertly Recruit — AI leadership, hired with you" />
+<meta property="og:description" content="Everyone became an AI expert last year. We've been at it for decades." />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Expertly Recruit — AI leadership, hired with you" />
+<meta name="twitter:description" content="Everyone became an AI expert last year. We've been at it for decades." />
+<style>
+  /* Minimal reset. WHY: the Artifact host supplies one, a plain nginx host does not,
+     so the deployed page would otherwise inherit browser default margins. */
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; }
+  img, svg { display: block; max-width: 100%; }
+</style>
+<title>Expertly Recruit</title>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+
+<style>
+  /* ============================================================
+     EXPERTLY RECRUIT — concise overview for CEOs, CTOs & COOs
+     Reuses the design system established in index.html, itself
+     derived from expertly.com's live Framer tokens:
+       #0099FF primary · #8500BA→#009CEB signature 113deg gradient
+     Type: Inter (Expertly's face) + IBM Plex Mono (utility/data).
+     WHY narrower --maxw than index.html (1040 vs 1140): this page
+     exists to be short. A tighter measure and fewer sections are
+     the whole point, so the container reinforces it.
+     ============================================================ */
+
+  :root {
+    /* --- light palette (complete; dark blocks only redefine) --- */
+    --ground:        #ffffff;
+    --wash:          #f4f2fd;   /* lavender-tinted page wash */
+    --wash-edge:     #e7e3ff;   /* Expertly's top-of-page tint */
+    --surface:       #ffffff;
+    --surface-sunk:  #f8f7fe;
+    --line:          #e4e1f2;
+    --line-strong:   #cfcae8;
+
+    --ink:           #0b0a1f;   /* near-black, violet-biased */
+    --ink-2:         #3a3752;
+    --ink-3:         #6c6885;   /* chosen grey, not neutral grey */
+    --ink-4:         #9c99b4;
+
+    --blue:          #0099ff;
+    --purple:        #8500ba;
+    --cyan:          #009ceb;
+
+    --grad:          linear-gradient(113deg, #8500ba -7%, #009ceb 100%);
+
+    --good:          #0e9f6e;
+
+    --panel-ink:     #ffffff;
+    --panel-ink-2:   #b9b5e8;
+    --panel-bg:      #0d0a3a;
+    --panel-bg-2:    #171356;
+
+    --radius:        14px;
+    --radius-lg:     22px;
+    --maxw:          1040px;
+
+    --font-sans: "Inter", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+
+    --shadow-sm: 0 1px 2px rgba(11,10,31,.04), 0 4px 14px rgba(11,10,31,.05);
+    --shadow-md: 0 2px 6px rgba(11,10,31,.05), 0 18px 44px rgba(18,0,138,.09);
+  }
+
+  /* WHY guarded with :not([data-theme="light"]): the viewer's default
+     "system" setting stamps nothing on <html>, so prefers-color-scheme is
+     the only signal — but an explicit light choice must still win. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground:       #08071a;
+      --wash:         #0c0a24;
+      --wash-edge:    #171249;
+      --surface:      #12102e;
+      --surface-sunk: #0e0c26;
+      --line:         #26224c;
+      --line-strong:  #372f6b;
+
+      --ink:          #f2f1fb;
+      --ink-2:        #cdcae4;
+      --ink-3:        #9a96bb;
+      --ink-4:        #6f6b92;
+
+      --blue:         #3fb3ff;
+      --purple:       #c561f0;
+      --cyan:         #3fc0ff;
+
+      --grad:         linear-gradient(113deg, #c561f0 -7%, #3fc0ff 100%);
+
+      --good:         #34d399;
+
+      --panel-bg:     #100c3e;
+      --panel-bg-2:   #1b1566;
+      --panel-ink-2:  #b2ade6;
+
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.4), 0 4px 14px rgba(0,0,0,.3);
+      --shadow-md: 0 2px 6px rgba(0,0,0,.45), 0 18px 44px rgba(0,0,0,.45);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground:       #08071a;
+    --wash:         #0c0a24;
+    --wash-edge:    #171249;
+    --surface:      #12102e;
+    --surface-sunk: #0e0c26;
+    --line:         #26224c;
+    --line-strong:  #372f6b;
+
+    --ink:          #f2f1fb;
+    --ink-2:        #cdcae4;
+    --ink-3:        #9a96bb;
+    --ink-4:        #6f6b92;
+
+    --blue:         #3fb3ff;
+    --purple:       #c561f0;
+    --cyan:         #3fc0ff;
+
+    --grad:         linear-gradient(113deg, #c561f0 -7%, #3fc0ff 100%);
+
+    --good:         #34d399;
+
+    --panel-bg:     #100c3e;
+    --panel-bg-2:   #1b1566;
+    --panel-ink-2:  #b2ade6;
+
+    --shadow-sm: 0 1px 2px rgba(0,0,0,.4), 0 4px 14px rgba(0,0,0,.3);
+    --shadow-md: 0 2px 6px rgba(0,0,0,.45), 0 18px 44px rgba(0,0,0,.45);
+  }
+
+  /* ---------- base ---------- */
+  body {
+    margin: 0;
+    background: var(--ground);   /* explicit: a transparent body borrows the host ground */
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  img { max-width: 100%; }
+  a { color: inherit; }
+
+  :where(a, button, [tabindex]):focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  h1, h2, h3 { text-wrap: balance; margin: 0; letter-spacing: -0.025em; line-height: 1.06; }
+  p { margin: 0; }
+  ul { margin: 0; padding: 0; list-style: none; }
+
+  .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: 28px; }
+
+  .eyebrow {
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 11.5px; font-weight: 500;
+    letter-spacing: .16em; text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 20px;
+  }
+  .eyebrow::before {
+    content: ""; width: 26px; height: 3px; border-radius: 2px;
+    background: var(--grad); flex: none;
+  }
+
+  .grad-text {
+    background-image: var(--grad);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+
+  section { padding-block: clamp(56px, 7vw, 92px); }
+
+  /* ---------- header ---------- */
+  header.site {
+    position: sticky; top: 0; z-index: 60;
+    background: color-mix(in srgb, var(--ground) 86%, transparent);
+    backdrop-filter: blur(14px) saturate(1.4);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 68px; }
+  .logo { display: flex; align-items: baseline; gap: 9px; text-decoration: none; }
+  .logo .mark { font-size: 20px; font-weight: 800; letter-spacing: -.03em; color: var(--ink); }
+  .logo .slash { width: 1px; height: 17px; background: var(--line-strong); transform: translateY(2px); }
+  .logo .sub {
+    font-family: var(--font-mono); font-size: 12.5px; font-weight: 500;
+    letter-spacing: .04em; text-transform: uppercase;
+    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  /* WHY no nav links: the page is one screenful of sections. A nav would
+     imply more depth than there is, and the only action worth offering
+     from the header is the call. */
+  @media (max-width: 560px) {
+    .bar { height: 60px; }
+    header.site .btn { padding: 9px 15px; font-size: 13.5px; white-space: nowrap; }
+    .logo .mark { font-size: 18px; }
+    .logo .slash, .logo .sub { display: none; }
+  }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    padding: 11px 20px; border-radius: 999px; border: 1px solid transparent;
+    cursor: pointer; font-family: inherit;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn-primary { background: var(--grad); color: #fff; box-shadow: var(--shadow-sm); }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-ghost { border-color: var(--line-strong); color: var(--ink); background: transparent; }
+  .btn-ghost:hover { border-color: var(--ink-4); transform: translateY(-1px); }
+  .btn-lg { font-size: 16px; padding: 14px 26px; }
+  .btn-light { background: #fff; color: var(--panel-bg); }
+  .btn-light:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    background: linear-gradient(180deg, var(--wash-edge) 0%, var(--wash) 34%, var(--ground) 100%);
+    padding-block: clamp(56px, 8vw, 104px) clamp(52px, 6vw, 84px);
+  }
+  .hero h1 {
+    font-size: clamp(40px, 6.4vw, 70px);
+    font-weight: 800;
+    letter-spacing: -.035em;
+    max-width: 15ch;
+  }
+  .hero .lede {
+    margin-top: 28px;
+    font-size: clamp(17px, 1.5vw, 19px);
+    color: var(--ink-2);
+    max-width: 62ch;          /* keeps running text near a 65-char measure */
+  }
+  .hero .lede strong { color: var(--ink); font-weight: 650; }
+
+  .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 34px; }
+  .cta-note { font-size: 14px; color: var(--ink-3); }
+
+  .proof {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 26px; margin: 46px 0 0; padding-top: 30px;
+    border-top: 1px solid var(--line);
+  }
+  .proof > div { display: flex; flex-direction: column; gap: 5px; }
+  .proof dt {
+    font-family: var(--font-mono); font-size: 25px; font-weight: 500;
+    letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .proof dd { margin: 0; font-size: 14.5px; color: var(--ink-3); line-height: 1.45; }
+  @media (max-width: 700px) { .proof { grid-template-columns: 1fr; gap: 20px; } }
+
+  /* ---------- section heads ---------- */
+  .sec-head { margin-bottom: 44px; max-width: 46ch; }
+  .sec-head h2 { font-size: clamp(28px, 3.4vw, 40px); font-weight: 800; }
+  .sec-head p { margin-top: 16px; color: var(--ink-2); font-size: 17px; }
+
+  /* ---------- partner cards ---------- */
+  .partner { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  @media (max-width: 860px) { .partner { grid-template-columns: 1fr; } }
+  .pcard {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); padding: 30px 26px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  /* WHY numbered: these three are a real sequence in time — before the
+     search, during it, after the offer. The order carries information. */
+  .pcard .step {
+    font-family: var(--font-mono); font-size: 11.5px; font-weight: 500;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--ink-4);
+  }
+  .pcard h3 { font-size: 20px; font-weight: 700; letter-spacing: -.02em; }
+  .pcard p { font-size: 15.5px; color: var(--ink-2); line-height: 1.58; }
+
+  /* ---------- stage → role ---------- */
+  .stages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+  @media (max-width: 780px) { .stages { grid-template-columns: 1fr; } }
+  .stage {
+    background: var(--surface-sunk); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 24px 24px 26px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .stage .where { font-size: 14.5px; color: var(--ink-3); }
+  .stage .role { font-size: 19px; font-weight: 700; letter-spacing: -.02em; }
+  .stage p { font-size: 15px; color: var(--ink-2); line-height: 1.55; }
+
+  /* ---------- scorecard ---------- */
+  .assess { display: grid; grid-template-columns: 1fr .92fr; gap: 52px; align-items: center; }
+  @media (max-width: 900px) { .assess { grid-template-columns: 1fr; gap: 34px; } }
+
+  .card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
+    padding: 26px;
+  }
+  .card-head {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+    padding-bottom: 18px; margin-bottom: 20px; border-bottom: 1px solid var(--line);
+  }
+  .card-head .who { font-size: 16px; font-weight: 700; letter-spacing: -.02em; }
+  .card-head .for { font-size: 13px; color: var(--ink-3); margin-top: 3px; }
+  .verdict-pill {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--good); border: 1px solid color-mix(in srgb, var(--good) 40%, transparent);
+    background: color-mix(in srgb, var(--good) 10%, transparent);
+    padding: 5px 10px; border-radius: 999px; white-space: nowrap; flex: none;
+  }
+  .rows { display: flex; flex-direction: column; gap: 13px; }
+  .row { display: grid; grid-template-columns: 1fr 62px 34px; align-items: center; gap: 12px; }
+  .row .lbl { font-size: 14px; color: var(--ink-2); }
+  .row .track { height: 5px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .row .fill { display: block; height: 100%; border-radius: 999px; background: var(--grad); }
+  .row .num {
+    font-family: var(--font-mono); font-size: 13px; color: var(--ink-3);
+    text-align: right; font-variant-numeric: tabular-nums;
+  }
+  .watch {
+    margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line);
+  }
+  .watch .wl {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-4);
+    display: block; margin-bottom: 8px;
+  }
+  .watch p { font-size: 14.5px; color: var(--ink-2); line-height: 1.55; }
+
+  /* ---------- credentials ---------- */
+  .creds { display: grid; grid-template-columns: 1fr .78fr; gap: 52px; align-items: center; }
+  @media (max-width: 900px) { .creds { grid-template-columns: 1fr; gap: 32px; } }
+  .creds h2 { font-size: clamp(26px, 3.2vw, 36px); font-weight: 800; }
+  .creds > div > p { margin-top: 18px; color: var(--ink-2); font-size: 16.5px; max-width: 54ch; }
+  .facts { display: flex; flex-direction: column; gap: 2px; }
+  .fact {
+    display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: baseline;
+    padding: 16px 0; border-bottom: 1px solid var(--line);
+  }
+  .fact:last-child { border-bottom: 0; }
+  .fact b {
+    font-family: var(--font-mono); font-size: 17px; font-weight: 500; white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .fact span { font-size: 15px; color: var(--ink-2); line-height: 1.5; }
+
+  /* ---------- roles ---------- */
+  .roles { display: flex; flex-wrap: wrap; gap: 10px; }
+  .roles li {
+    font-size: 14.5px; color: var(--ink-2);
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 9px 16px; background: var(--surface);
+  }
+
+  /* ---------- closer ---------- */
+  .closer {
+    background: linear-gradient(150deg, var(--panel-bg) 0%, var(--panel-bg-2) 100%);
+    border-radius: var(--radius-lg);
+    padding: clamp(38px, 5vw, 62px);
+    color: var(--panel-ink);
+  }
+  .closer .eyebrow { color: var(--panel-ink-2); }
+  .closer h2 { font-size: clamp(28px, 3.6vw, 42px); font-weight: 800; color: var(--panel-ink); }
+  .closer p { margin-top: 18px; color: var(--panel-ink-2); font-size: 17px; max-width: 56ch; }
+  .closer .cta-row { margin-top: 32px; }
+  .closer .cta-note { color: var(--panel-ink-2); }
+
+  /* ---------- footer ---------- */
+  footer.site {
+    border-top: 1px solid var(--line);
+    padding-block: 32px;
+    font-size: 14px; color: var(--ink-3);
+  }
+  footer.site .fbar { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
+  footer.site a { text-decoration: none; }
+  footer.site a:hover { color: var(--ink); }
+
+  /* ---------- reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .btn { transition: none; }
+    .btn:hover { transform: none; }
+  }
+</style>
+
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <a class="logo" href="#top">
+      <span class="mark">Expertly</span>
+      <span class="slash"></span>
+      <span class="sub">Recruit</span>
+    </a>
+    <a class="btn btn-primary" href="mailto:recruit@expertly.com?subject=Intake%20call%20—%20hiring%20AI%20leadership">Book an intake call</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <div class="hero">
+    <div class="wrap">
+      <div class="eyebrow">For CEOs, CTOs &amp; COOs building an AI team</div>
+      <h1>
+        Everyone became an AI expert last year.<br />
+        <span class="grad-text">We've been at it for decades.</span>
+      </h1>
+      <p class="lede">
+        That difference shows the moment someone starts interviewing your candidates.
+        <strong>Our AI experts run the hire with you</strong>, and because they've spent their careers
+        building AI rather than reading about it, they can tell in one conversation who has genuinely
+        done this. They help you shape the role, find the right people, and interview them properly.
+        <strong>Hiring, team design, and real AI expertise, all in one.</strong>
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary btn-lg" href="mailto:recruit@expertly.com?subject=Intake%20call%20—%20hiring%20AI%20leadership">Book an intake call</a>
+        <span class="cta-note">Thirty minutes. No pitch deck.</span>
+      </div>
+      <dl class="proof">
+        <div>
+          <dt>25+ yrs</dt>
+          <dd>building AI ourselves, in our own products and teams</dd>
+        </div>
+        <div>
+          <dt>Dozens</dt>
+          <dd>AI products of our own, built and launched</dd>
+        </div>
+        <div>
+          <dt>2–3 wks</dt>
+          <dd>to a shortlist our experts have personally interviewed</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+
+  <!-- ============ HOW WE PARTNER ============ -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">How we work</div>
+        <h2>A true partner on the search, start to finish.</h2>
+        <p>
+          We're a retained search partner, not a CV pipeline. Our AI experts sit alongside your team
+          from the brief through the first ninety days.
+        </p>
+      </div>
+      <div class="partner reveal">
+        <div class="pcard">
+          <span class="step">Step 01 · Before the search</span>
+          <h3>Shape the role together</h3>
+          <p>
+            What this person needs to deliver in year one, where they sit, and which adjacent roles
+            can wait. We work it out with you before anyone writes a job description.
+          </p>
+        </div>
+        <div class="pcard">
+          <span class="step">Step 02 · The search</span>
+          <h3>We find and interview them</h3>
+          <p>
+            Our AI experts approach the market directly and personally interview everyone who reaches
+            your shortlist. You see the reasoning behind each recommendation, not just a name.
+          </p>
+        </div>
+        <div class="pcard">
+          <span class="step">Step 03 · After the offer</span>
+          <h3>We stay for the first 90 days</h3>
+          <p>
+            We stay available once they start, thinking through the early calls on team, tools and
+            spend with both of you while there's still room to adjust.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHICH LEADER ============ -->
+  <section>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="eyebrow">Where you are today</div>
+        <h2>&ldquo;Hire an AI leader&rdquo; is really four different roles.</h2>
+        <p>
+          Which one fits depends on where your company is right now. Working that out together is
+          usually the most valuable half-hour of the whole process.
+        </p>
+      </div>
+      <div class="stages reveal">
+        <div class="stage">
+          <span class="where">A few experiments, nobody owns it</span>
+          <span class="role grad-text">Head of Applied AI</span>
+          <p>Focus the work on the few ideas with a business owner and a number attached, and set a baseline you can measure against.</p>
+        </div>
+        <div class="stage">
+          <span class="where">The demos are great, nothing is live</span>
+          <span class="role grad-text">Director of AI Engineering</span>
+          <p>Take one job people do every day and get it fully live — owned, monitored, and costed up front.</p>
+        </div>
+        <div class="stage">
+          <span class="where">One thing works, now everyone wants it</span>
+          <span class="role grad-text">VP of Artificial Intelligence</span>
+          <p>Turn a single success into something other teams can reuse and run themselves, rather than queueing behind one central team.</p>
+        </div>
+        <div class="stage">
+          <span class="where">The business depends on it now</span>
+          <span class="role grad-text">Chief AI Officer</span>
+          <p>Own AI the way a CFO owns money: what's running, what it's exposed to, and the authority to switch something off.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE ASSESSMENT ============ -->
+  <section>
+    <div class="wrap assess">
+      <div class="reveal">
+        <div class="eyebrow">On every candidate</div>
+        <h2 style="font-size: clamp(26px, 3.2vw, 36px); font-weight: 800;">A scorecard written against your role.</h2>
+        <p style="margin-top:18px; color: var(--ink-2); font-size: 16.5px; max-width: 50ch;">
+          Two of our AI experts score every shortlisted candidate on what actually decides whether an
+          AI leader succeeds at your stage and in your industry — strengths and the areas to watch,
+          both, so you can plan around them before the offer goes out.
+        </p>
+      </div>
+      <div class="card reveal">
+        <div class="card-head">
+          <div>
+            <div class="who">Candidate assessment · VP of AI</div>
+            <div class="for">Scored for a company scaling AI</div>
+          </div>
+          <span class="verdict-pill">Recommend</span>
+        </div>
+        <div class="rows">
+          <div class="row">
+            <span class="lbl">Has actually shipped AI</span>
+            <span class="track"><span class="fill" style="width:100%"></span></span>
+            <span class="num">5.0</span>
+          </div>
+          <div class="row">
+            <span class="lbl">Knows when it isn't working</span>
+            <span class="track"><span class="fill" style="width:84%"></span></span>
+            <span class="num">4.2</span>
+          </div>
+          <div class="row">
+            <span class="lbl">Build or buy decisions</span>
+            <span class="track"><span class="fill" style="width:92%"></span></span>
+            <span class="num">4.6</span>
+          </div>
+          <div class="row">
+            <span class="lbl">Building and keeping a team</span>
+            <span class="track"><span class="fill" style="width:80%"></span></span>
+            <span class="num">4.0</span>
+          </div>
+          <div class="row">
+            <span class="lbl">Risk and compliance</span>
+            <span class="track"><span class="fill" style="width:54%"></span></span>
+            <span class="num">2.7</span>
+          </div>
+          <div class="row">
+            <span class="lbl">Getting the business on board</span>
+            <span class="track"><span class="fill" style="width:96%"></span></span>
+            <span class="num">4.8</span>
+          </div>
+        </div>
+        <div class="watch">
+          <span class="wl">Worth planning for</span>
+          <p>
+            Strong track record of getting things live, but hasn't worked under a formal audit. In a
+            regulated market, pair them with a risk lead or write compliance ownership into the first
+            ninety days.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHY EXPERTLY ============ -->
+  <section>
+    <div class="wrap creds">
+      <div class="reveal">
+        <div class="eyebrow">Why Expertly</div>
+        <h2>We build AI. That's how we know what to look for.</h2>
+        <p>
+          Expertly has been building AI for over twenty-five years — dozens of our own products
+          launched, both for everyday business operations and for the developers building AI
+          themselves. When our experts sit in an interview, they're comparing your candidate against
+          work they have actually done.
+        </p>
+      </div>
+      <div class="facts reveal">
+        <div class="fact">
+          <b>25+ years</b>
+          <span>building AI, in our own products and teams</span>
+        </div>
+        <div class="fact">
+          <b>Dozens</b>
+          <span>of our own AI products designed, built and launched</span>
+        </div>
+        <div class="fact">
+          <b>Both sides</b>
+          <span>AI for operations teams, and AI for the people building it</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ROLES ============ -->
+  <section style="padding-top: 0;">
+    <div class="wrap">
+      <div class="sec-head reveal" style="margin-bottom: 30px;">
+        <div class="eyebrow">Roles we place</div>
+      </div>
+      <ul class="roles reveal">
+        <li>Chief AI Officer</li>
+        <li>VP of Artificial Intelligence</li>
+        <li>Head of Applied AI</li>
+        <li>Director of AI Engineering</li>
+        <li>AI Platform Lead</li>
+        <li>Head of Data &amp; AI Governance</li>
+        <li>AI Product Lead</li>
+        <li>Principal ML Engineer</li>
+        <li>Part-time &amp; interim AI leadership</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ CLOSER ============ -->
+  <section style="padding-top: 0;">
+    <div class="wrap">
+      <div class="closer reveal">
+        <div class="eyebrow">Next step</div>
+        <h2>Start with a thirty-minute intake call.</h2>
+        <p>
+          Tell us what you're building — a first hire, a whole team, or you're still working out what
+          you need. We'll tell you what we'd look for, how we'd approach the search, and what it
+          should cost. You'll get something useful out of the call either way.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-light btn-lg" href="mailto:recruit@expertly.com?subject=Intake%20call%20—%20hiring%20AI%20leadership">Book an intake call</a>
+          <span class="cta-note">recruit@expertly.com</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap fbar">
+    <p>© 2026 Expertly Recruit — an Expertly AI company.</p>
+    <a href="mailto:recruit@expertly.com?subject=Intake%20call%20—%20hiring%20AI%20leadership">recruit@expertly.com</a>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    "use strict";
+    var els = document.querySelectorAll(".reveal");
+    if (!("IntersectionObserver" in window)) {
+      // WHY: without the observer the page must still be readable, so reveal everything.
+      Array.prototype.forEach.call(els, function (el) { el.classList.add("in"); });
+      return;
+    }
+    // 0.12 = reveal once a section is meaningfully on screen, not on its first pixel;
+    // low enough that tall sections still trigger before the reader reaches them.
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    Array.prototype.forEach.call(els, function (el) { io.observe(el); });
+  })();
+</script>
+</body>
+</html>
