@@ -491,21 +491,6 @@
   }
   .roles span.more { color: var(--ink-4); border-style: dashed; }
 
-  /* ---------- expert network invite ---------- */
-  .invite {
-    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
-    padding: clamp(32px, 4vw, 52px); display: grid; grid-template-columns: 1fr .9fr; gap: 48px; align-items: center;
-    box-shadow: var(--shadow-sm);
-  }
-  @media (max-width: 940px) { .invite { grid-template-columns: 1fr; gap: 32px; } }
-  .invite h2 { font-size: clamp(26px, 3vw, 38px); font-weight: 800; margin-bottom: 18px; }
-  .invite > div > p { color: var(--ink-2); font-size: 16.5px; margin-bottom: 26px; max-width: 34em; }
-  .perks { display: flex; flex-direction: column; gap: 18px; }
-  .perk { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; }
-  .perk .dot { width: 7px; height: 7px; border-radius: 999px; background: var(--grad); margin-top: 8px; }
-  .perk h3 { font-size: 15.5px; font-weight: 650; margin-bottom: 3px; }
-  .perk p { font-size: 14px; color: var(--ink-3); line-height: 1.5; }
-
   /* ---------- closing panel ---------- */
   .closer {
     background:
@@ -587,8 +572,8 @@
             <dd>building AI ourselves, long before it was fashionable</dd>
           </div>
           <div>
-            <dt>200+</dt>
-            <dd>AI experts in our network</dd>
+            <dt>Dozens</dt>
+            <dd>AI products of our own, built and launched</dd>
           </div>
           <div>
             <dt>2–3 wks</dt>
@@ -810,7 +795,7 @@
           <span class="kicker">Sharing what works</span>
           <h3>A seat at the table with your peers</h3>
           <p>
-            Our clients join private sessions with the expert network on what is genuinely working with
+            Our clients join private sessions with our AI experts on what is genuinely working with
             AI this quarter and what isn't. It is the quickest way to skip a year of expensive lessons
             other people have already paid for.
           </p>
@@ -846,7 +831,7 @@
           <span class="n">STEP 02</span>
           <h3>Our AI experts take it on</h3>
           <p>
-            Two experts from our network who have led AI in your industry decide how to approach the
+            Two of our AI experts who have led AI in your industry decide how to approach the
             hire and who to go after. No recruiter writes that plan.
           </p>
         </div>
@@ -879,7 +864,7 @@
           <h2>People who have run AI teams, sitting on your side of the table.</h2>
         </div>
         <p>
-          Everyone in our network has been responsible for AI inside a real business, with a budget, a
+          Every one of our experts has been responsible for AI inside a real business, with a budget, a
           team, and something that had to keep working on a Monday morning.
         </p>
       </div>
@@ -1012,54 +997,6 @@
     </div>
   </section>
 
-  <!-- ============ FOR EXPERTS ============ -->
-  <section>
-    <div class="wrap">
-      <div class="invite">
-        <div>
-          <div class="eyebrow">For AI leaders</div>
-          <h2>You already know who the good ones are.</h2>
-          <p>
-            You spent years building AI inside a real business. Right now that judgement is the hardest
-            thing in the world to hire for, which is exactly why it's worth something. Join our expert
-            network and get paid for it, on your own schedule, without leaving the job you have.
-          </p>
-          <a class="btn btn-primary btn-lg" href="#start">Apply to join us</a>
-        </div>
-        <div class="perks">
-          <div class="perk">
-            <span class="dot"></span>
-            <div>
-              <h3>A share of the work, not a finder's fee</h3>
-              <p>You share in the work you deliver. It's real income, not a one-off bonus for a referral.</p>
-            </div>
-          </div>
-          <div class="perk">
-            <span class="dot"></span>
-            <div>
-              <h3>You decide how the hire is run</h3>
-              <p>You shape the role, run the interviews and say who goes forward. You're not a name in a database.</p>
-            </div>
-          </div>
-          <div class="perk">
-            <span class="dot"></span>
-            <div>
-              <h3>A few hours a week</h3>
-              <p>How involved you get is up to you, and it fits around the job you already have.</p>
-            </div>
-          </div>
-          <div class="perk">
-            <span class="dot"></span>
-            <div>
-              <h3>People at your level</h3>
-              <p>A small network of AI leaders across industries, comparing notes on what's actually working.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ CLOSER ============ -->
   <section id="start">
     <div class="wrap">
@@ -1073,7 +1010,7 @@
         </p>
         <div class="cta-row" style="margin-bottom:0">
           <a class="btn btn-primary btn-lg" href="mailto:recruit@expertly.com?subject=Hiring%20AI%20leadership">Tell us about the role</a>
-          <a class="btn btn-ghost btn-lg" href="mailto:experts@expertly.com?subject=Joining%20the%20expert%20network">Join as an expert</a>
+          <a class="btn btn-ghost btn-lg" href="#map">See which leader you need</a>
         </div>
       </div>
     </div>
@@ -1083,7 +1020,7 @@
 
 <footer class="site">
   <div class="wrap foot">
-    <p>© 2026 Expertly Recruit — an Expertly AI company. Powered by the Expertly Expert Network.</p>
+    <p>© 2026 Expertly Recruit — an Expertly AI company. Decades of building AI, applied to hiring it.</p>
     <div class="links">
       <a href="#model">The model</a>
       <a href="#map">Leadership map</a>
@@ -1215,7 +1152,7 @@
     renderStage(0);
 
     /* ---------- scroll reveal ---------- */
-    var targets = document.querySelectorAll("section .sec-head, .gaps, .ladder, .score-grid, .adds, .steps, .house, .experts, .doubts, .invite, .closer, .roles");
+    var targets = document.querySelectorAll("section .sec-head, .gaps, .ladder, .score-grid, .adds, .steps, .house, .experts, .doubts, .closer, .roles");
     Array.prototype.forEach.call(targets, function (el) { el.classList.add("reveal"); });
 
     if ("IntersectionObserver" in window) {
