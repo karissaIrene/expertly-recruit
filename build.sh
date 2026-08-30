@@ -3,7 +3,7 @@
 #
 # WHY two files: index.html is authored as a fragment (no <html>/<head>/<body>)
 # because the Artifact publisher supplies its own document skeleton and rejects
-# pages that bring their own. A deployed site needs the real head — viewport,
+# pages that bring their own. A deployed site needs the real head: viewport,
 # description, social cards, favicon. This script is the single place that gap
 # is closed, so both outputs stay in sync from one source.
 set -euo pipefail
@@ -86,6 +86,6 @@ build_page index.html dist/index.html \
   "Everyone became an AI expert last year. We've been at it for decades."
 
 build_page explore.html dist/explore/index.html \
-  "For CEOs, CTOs and COOs hiring their first AI leader. With Expertly you don't just hire a leader — you retain an AI expert who defines the role with you, interviews every finalist, and stays through the first ninety days." \
-  "Expertly Recruit — you don't just hire a leader, you retain an expert" \
+  "For CEOs, CTOs and COOs hiring their first AI leader. With Expertly you don't just retain a search partner, you retain an expert who defines the role with you, interviews every finalist, and stays through the first ninety days." \
+  "Expertly Recruit: you don't just retain a search partner, you retain an expert" \
   "Everyone became an AI expert last year. We've been at it for decades."

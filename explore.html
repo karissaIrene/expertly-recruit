@@ -4,11 +4,11 @@
 
 <style>
   /* ============================================================
-     EXPERTLY RECRUIT — for a C-suite hiring their first AI leader
+     EXPERTLY RECRUIT: for a C-suite hiring their first AI leader
      Palette from expertly.com's live Framer tokens:
        #0099FF primary · #8500BA→#009CEB signature 113deg gradient
      Type: Inter (Expertly's face) + IBM Plex Mono (utility/data),
-     linked from Google Fonts — the one external host the artifact
+     linked from Google Fonts, the one external host the artifact
      CSP admits. Stacks still fall back through SF Pro / system-ui.
 
      Page order is the argument, in the order a reader asks it:
@@ -60,7 +60,7 @@
 
   /* WHY guarded with :not([data-theme="light"]): the viewer's default
      "system" setting stamps nothing on <html>, so prefers-color-scheme is
-     the only signal — but an explicit light choice must still win. */
+     the only signal, but an explicit light choice must still win. */
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --ground:       #08071a;
@@ -290,7 +290,7 @@
   @media (max-width: 720px) { .proof { grid-template-columns: 1fr; gap: 20px; } }
 
   /* ---------- section heads ---------- */
-  /* The whole page sits on one centre axis, hero included — section heads,
+  /* The whole page sits on one centre axis, hero included: section heads,
      body blocks and every grid share it as the reader scrolls. */
   /* WHY heading and body carry their own measures instead of one cap on the
      block: a shared 46ch box sized for the display type also squeezed the
@@ -439,7 +439,7 @@
   /* ---------- scorecard ---------- */
   /* WHY stacked rather than side-by-side: a centred heading next to a
      left-aligned data card fights the page's single centre axis. The card
-     keeps its own internal alignment — score rows must line up — but sits
+     keeps its own internal alignment (score rows must line up) but sits
      centred beneath the copy. */
   .assess { display: flex; flex-direction: column; align-items: center; }
   .assess .card { width: 100%; max-width: 580px; margin-top: 52px; text-align: left; }
@@ -496,34 +496,6 @@
     background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .fact span { font-size: 16.5px; color: var(--ink-2); line-height: 1.5; }
-
-  .who-row {
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0; margin-top: 54px; border-top: 1px solid var(--line);
-  }
-  @media (max-width: 880px) { .who-row { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 520px) { .who-row { grid-template-columns: 1fr; } }
-  .person {
-    padding: 32px 22px 10px; border-right: 1px solid var(--line);
-    display: flex; flex-direction: column; align-items: center; gap: 9px;
-    text-align: center;
-  }
-  .person:last-child { border-right: 0; }
-  @media (max-width: 880px) {
-    .person:nth-child(2n) { border-right: 0; }
-    .person:nth-child(n+3) { border-top: 1px solid var(--line); }
-  }
-  @media (max-width: 520px) {
-    .person { border-right: 0; padding-inline: 0; }
-    .person + .person { border-top: 1px solid var(--line); }
-  }
-  .person .sector {
-    font-family: var(--font-mono); font-size: 12px; font-weight: 500;
-    letter-spacing: .14em; text-transform: uppercase;
-    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .person .title { font-size: 17px; font-weight: 650; letter-spacing: -.02em; line-height: 1.3; }
-  .person p { font-size: 15.5px; color: var(--ink-3); line-height: 1.55; }
 
   /* ---------- roles ---------- */
   .rolelist { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 40px; }
@@ -596,14 +568,14 @@
       </h1>
       <p class="lede">
         That difference shows the moment someone starts interviewing your candidates.
-        <strong>Our AI experts run the hire with you</strong> — people who have spent their careers
-        building AI, not reading about it.
+        <strong>Our AI experts sit on your side of the table</strong>, people who have spent their
+        careers building AI, not reading about it.
       </p>
       <div class="allinone">
         <b>Hiring</b>
         <b>Team design</b>
         <b>Real AI expertise</b>
-        <span class="tail">— all in one engagement.</span>
+        <span class="tail">all in one engagement.</span>
       </div>
       <div class="cta-row">
         <a class="btn btn-primary btn-lg" href="#contact">Book an intake call</a>
@@ -612,7 +584,7 @@
       </div>
       <dl class="proof">
         <div>
-          <dt>25+ yrs</dt>
+          <dt>25+ years</dt>
           <dd>building AI ourselves, in our own products and teams</dd>
         </div>
         <div>
@@ -620,7 +592,7 @@
           <dd>AI products of our own, built and launched</dd>
         </div>
         <div>
-          <dt>2–3 wks</dt>
+          <dt>2–3 weeks</dt>
           <dd>to a shortlist our experts have personally interviewed</dd>
         </div>
       </dl>
@@ -632,37 +604,36 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <div class="eyebrow">Why it matters</div>
-        <h2>Your first AI leader sets <span class="grad-text">the terms for everything after.</span></h2>
+        <h2>Your first AI leader will help shape <span class="grad-text">your next two years.</span></h2>
         <p>
-          This isn't only a technical hire. Long before anything ships, this person is making the
-          calls that shape your next two years — and those calls are hard to unwind once they're made.
+          This isn't only a technical hire. Long before anything ships, this person is working through
+          decisions with you that get harder to revisit later.
         </p>
       </div>
 
       <div class="stakes reveal">
         <div class="stake">
-          <span class="decides">They decide</span>
+          <span class="decides">Where they help</span>
           <h3>What gets built, and what doesn't</h3>
           <p>
-            Which problems you tackle first, what you buy versus build, and what you stop. Most of
-            that is settled inside their first quarter, usually before anyone senior is watching
-            closely.
+            Which problems to tackle first, what to buy versus build, and what to set aside. Most of
+            that gets worked out with you in their first quarter.
           </p>
         </div>
         <div class="stake">
-          <span class="decides">They decide</span>
+          <span class="decides">Where they help</span>
           <h3>Who you hire next</h3>
           <p>
-            Your first AI leader chooses the next three. A strong one reaches people you couldn't have
-            reached yourself. That effect compounds either way.
+            Your first AI leader helps you choose the next three. A strong one can reach people who
+            wouldn't have taken the call otherwise.
           </p>
         </div>
         <div class="stake">
-          <span class="decides">They decide</span>
-          <h3>What your board believes about AI</h3>
+          <span class="decides">Where they help</span>
+          <h3>What your board hears about AI</h3>
           <p>
-            They become the company's translator. How clearly they explain what's working — and what
-            isn't — shapes every budget conversation from then on.
+            They become your translator in the boardroom. How clearly they explain what's working, and
+            what isn't, shapes every budget conversation that follows.
           </p>
         </div>
       </div>
@@ -678,11 +649,11 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <div class="eyebrow">How we help</div>
-        <h2>You don't just hire a leader. <span class="grad-text">You retain an expert.</span></h2>
+        <h2>You don't just retain a search partner. <span class="grad-text">You retain an expert.</span></h2>
         <p>
-          Expertly is a retained search partner staffed by AI experts — people who have built and led
-          AI inside real businesses. They run the hire with you, and they stay on as advisors while
-          your new leader finds their feet. One engagement, one invoice.
+          Expertly is a retained search firm staffed by AI experts, people who have built and led AI
+          inside real businesses. They work through the hire alongside you, and they stay on as
+          advisors while your new leader finds their feet. It's all one engagement.
         </p>
       </div>
 
@@ -718,8 +689,8 @@
           <div class="kind">The search</div>
           <h3>What a search firm gives you</h3>
           <ul>
-            <li><b>The role, defined against your business</b> — not a template borrowed from a tech giant's careers page.</li>
-            <li><b>The market approached directly</b> — the people leading AI in your industry, by name.</li>
+            <li><b>The role, defined against your business</b>, not a template borrowed from a tech giant's careers page.</li>
+            <li><b>The right people approached directly</b>, by name, because our experts already know them.</li>
             <li><b>Every finalist interviewed by an AI expert</b> who has held the job you're hiring for.</li>
             <li><b>A scorecard, a recommendation and the concerns</b>, plus a debrief on how we got there.</li>
           </ul>
@@ -729,10 +700,10 @@
           <div class="kind">The consulting</div>
           <h3>What you'd otherwise buy separately</h3>
           <ul>
-            <li><b>Whether this hire is your right next step</b> — sometimes the answer is to wait a quarter and settle who owns the data first.</li>
-            <li><b>Build it or buy it</b> — one central team, or people embedded in each department.</li>
+            <li><b>Whether this hire is your right next step</b>, or whether to wait a quarter and settle who owns the data first.</li>
+            <li><b>Build it or buy it</b>, one central team or people embedded in each department.</li>
             <li><b>Which problem to tackle first</b>, and just as usefully, what to leave alone this year.</li>
-            <li><b>A number you can defend</b> — what AI leaders are actually being offered and accepting right now.</li>
+            <li><b>A number you can defend</b>, based on what AI leaders are actually being offered and accepting right now.</li>
           </ul>
         </div>
       </div>
@@ -765,12 +736,12 @@
         <div class="step">
           <span class="n">02</span>
           <div>
-            <h3>Our experts work the market</h3>
+            <h3>Our experts find the people</h3>
             <span class="who">Two experts from your industry</span>
           </div>
           <p class="sbody">
-            They decide how to approach the hire and who to go after, then walk you through the plan
-            and the thinking behind it before anyone is contacted.
+            They agree an approach with you and draw up who to go after, then talk you through the
+            thinking behind it before anyone is contacted.
           </p>
         </div>
         <div class="step">
@@ -809,7 +780,7 @@
         </h2>
         <p style="margin:28px auto 0; color:var(--ink-2); font-size:clamp(18px,1.45vw,21px); line-height:1.55; max-width:60ch;">
           Two of our AI experts score every finalist on what decides whether an AI leader succeeds at
-          your stage and in your industry — including the areas to watch, so you can plan around them
+          your stage and in your industry, including the areas to watch, so you can plan around them
           before the offer goes out rather than discover them in month three.
         </p>
       </div>
@@ -889,8 +860,8 @@
           <span class="where">The demos are great, nothing is live</span>
           <span class="role">Director of AI Engineering</span>
           <p>
-            Take one job people do every day and get it fully live — someone's name on it, a way to
-            switch it off, and a cost agreed up front.
+            Take one job people do every day and get it fully live, with someone's name on it, a way
+            to switch it off, and a cost agreed up front.
           </p>
         </div>
         <div class="stage">
@@ -932,7 +903,7 @@
           <div class="eyebrow" style="justify-content:center;">About us</div>
           <h2>We build AI. <span class="grad-text">That's how we know what to look for.</span></h2>
           <p>
-            Expertly has been building AI for over twenty-five years — dozens of our own products
+            Expertly has been building AI for over twenty-five years, with dozens of our own products
             launched, both for everyday business operations and for the developers building AI
             themselves. When our experts sit in an interview, they're measuring your candidate against
             work they have actually done.
@@ -954,28 +925,6 @@
         </div>
       </div>
 
-      <div class="who-row reveal">
-        <div class="person">
-          <span class="sector">Logistics</span>
-          <span class="title">Former Head of AI, national carrier</span>
-          <p>Built routing and delivery-time systems used across 900 depots.</p>
-        </div>
-        <div class="person">
-          <span class="sector">Property</span>
-          <span class="title">Former VP Data &amp; AI, residential group</span>
-          <p>Brought AI into leasing and maintenance across 40,000 units.</p>
-        </div>
-        <div class="person">
-          <span class="sector">Auto Retail</span>
-          <span class="title">Former Director of AI, dealer group</span>
-          <p>Rolled out call handling and inbox automation across 120 dealerships.</p>
-        </div>
-        <div class="person">
-          <span class="sector">Regulated</span>
-          <span class="title">Former Chief Data Officer, healthcare network</span>
-          <p>Owned AI governance under HIPAA and SOC 2.</p>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -986,12 +935,12 @@
         <div class="eyebrow">Start here</div>
         <h2>Thirty minutes, and you'll know <span class="grad-text">what you're looking for.</span></h2>
         <p>
-          Tell us what you're building — a first hire, a whole team, or you're still working out what
+          Tell us what you're building: a first hire, a whole team, or you're still working out what
           you need. We'll tell you which of the four roles fits, what it should cost, and how we'd
           approach the search. If the answer is that you should wait a quarter, we'll say that too.
         </p>
         <div class="cta-row">
-          <a class="btn btn-light btn-lg" href="mailto:recruit@expertly.com?subject=Intake%20call%20—%20hiring%20our%20first%20AI%20leader">Book an intake call</a>
+          <a class="btn btn-light btn-lg" href="mailto:recruit@expertly.com?subject=Intake%20call:%20hiring%20our%20first%20AI%20leader">Book an intake call</a>
           <span class="cta-note">recruit@expertly.com</span>
         </div>
       </div>
@@ -1002,8 +951,8 @@
 
 <footer class="site">
   <div class="wrap fbar">
-    <p>© 2026 Expertly Recruit — an Expertly AI company.</p>
-    <a href="mailto:recruit@expertly.com?subject=Intake%20call%20—%20hiring%20our%20first%20AI%20leader">recruit@expertly.com</a>
+    <p>© 2026 Expertly Recruit, a service of Expertly.</p>
+    <a href="mailto:recruit@expertly.com?subject=Intake%20call:%20hiring%20our%20first%20AI%20leader">recruit@expertly.com</a>
   </div>
 </footer>
 
