@@ -83,9 +83,4 @@ PY
 build_page index.html dist/index.html \
   "Expertly Recruit places AI leadership. Every hire is run by AI experts who have spent decades building AI themselves, and who stay alongside you through the hire and the first ninety days." \
   "Expertly Recruit — AI leadership, hired by AI experts" \
-  "Your next AI leader should be interviewed by someone who has done the job."
-
-build_page explore.html dist/explore/index.html \
-  "You already know who the good ones are. Just not in AI. Expertly Recruit helps CEOs, COOs and CTOs hire, borrow and keep AI leadership." \
-  "Expertly Recruit — You already know who the good ones are" \
-  "Just not in AI. That is the bit we do."
+  "Everyone became an AI expert last year. We've been at it for decades."
