@@ -228,63 +228,70 @@
   /* ---------- hero ---------- */
   .hero {
     background: linear-gradient(180deg, var(--wash-edge) 0%, var(--wash) 38%, var(--ground) 100%);
-    padding-block: clamp(58px, 7.5vw, 104px) clamp(50px, 6vw, 84px);
+    padding-block: clamp(64px, 7.5vw, 112px) clamp(56px, 6vw, 92px);
+    text-align: center;
   }
+  .hero .eyebrow { justify-content: center; }
   .hero h1 {
-    font-size: clamp(42px, 7vw, 78px);
+    font-size: clamp(42px, 7vw, 82px);
     font-weight: 800;
     letter-spacing: -.04em;
-    max-width: 13ch;
+    max-width: 15ch;
+    margin-inline: auto;
   }
   /* WHY the lede is split into two parts: the language is unchanged, but a
      C-suite reader scans. One framing sentence, then the three things we
      do as separate marks, reads in two glances instead of seven lines. */
   .hero .lede {
-    margin-top: 30px;
-    font-size: clamp(18px, 1.6vw, 20px);
+    margin: 32px auto 0;
+    font-size: clamp(18px, 1.5vw, 21px);
+    line-height: 1.55;
     color: var(--ink-2);
-    max-width: 54ch;          /* keeps running text near a 65-char measure */
+    max-width: 56ch;          /* keeps running text near a 65-char measure */
   }
   .hero .lede strong { color: var(--ink); font-weight: 650; }
 
   .allinone {
-    display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px;
-    margin-top: 26px; padding-top: 24px;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+    gap: 12px 22px;
+    margin: 30px auto 0; padding-top: 28px;
     border-top: 1px solid var(--line);
-    max-width: 54ch;
+    max-width: 56ch;
   }
   .allinone b {
-    font-size: 15px; font-weight: 650; color: var(--ink);
+    font-size: 16.5px; font-weight: 650; color: var(--ink);
     display: inline-flex; align-items: center; gap: 10px;
   }
   .allinone b::before {
     content: ""; width: 6px; height: 6px; border-radius: 999px;
     background: var(--grad); flex: none;
   }
-  .allinone .tail { font-size: 15px; color: var(--ink-3); }
+  .allinone .tail { font-size: 16.5px; color: var(--ink-3); }
 
-  .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 32px; }
+  .cta-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 36px; }
   .cta-note { font-size: 14px; color: var(--ink-3); }
 
   .proof {
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 26px; margin: 50px 0 0; padding-top: 30px;
+    gap: 30px; margin: 58px auto 0; padding-top: 36px;
     border-top: 1px solid var(--line);
+    max-width: 860px;
   }
-  .proof > div { display: flex; flex-direction: column; gap: 5px; }
+  .proof > div {
+    display: flex; flex-direction: column; align-items: center; gap: 7px;
+    text-align: center;
+  }
   .proof dt {
-    font-family: var(--font-mono); font-size: 25px; font-weight: 500;
+    font-family: var(--font-mono); font-size: 28px; font-weight: 500;
     letter-spacing: -.02em; font-variant-numeric: tabular-nums;
     background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .proof dd { margin: 0; font-size: 14.5px; color: var(--ink-3); line-height: 1.45; }
+  .proof dd { margin: 0; font-size: 15.5px; color: var(--ink-3); line-height: 1.5; max-width: 26ch; }
   @media (max-width: 720px) { .proof { grid-template-columns: 1fr; gap: 20px; } }
 
   /* ---------- section heads ---------- */
-  /* WHY centered below the hero: the hero is the one left-aligned block on
-     the page (it carries the logo-side alignment of the header). Everything
-     after it is a centered column, so section heads, body blocks and grids
-     share one axis as the reader scrolls. */
+  /* The whole page sits on one centre axis, hero included — section heads,
+     body blocks and every grid share it as the reader scrolls. */
   /* WHY heading and body carry their own measures instead of one cap on the
      block: a shared 46ch box sized for the display type also squeezed the
      intro paragraph, which wants ~62ch to read properly. Nesting the two
