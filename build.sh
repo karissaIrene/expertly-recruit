@@ -10,12 +10,14 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
-SRC="index.html"
-OUT="dist/index.html"
+# page-source : output-path : <title-independent description> : og:title : og:description
+# WHY a loop: each page is authored as its own fragment, and both need the same
+# head treatment. Adding a page means adding one line here.
+build_page() {
+  SRC="$1"; OUT="$2"; DESC="$3"; OGTITLE="$4"; OGDESC="$5"
 
-[ -f "$SRC" ] || { echo "error: $SRC not found" >&2; exit 1; }
-
-mkdir -p dist
+  [ -f "$SRC" ] || { echo "error: $SRC not found" >&2; exit 1; }
+  mkdir -p "$(dirname "$OUT")"
 
 {
   cat <<'HEAD'
@@ -24,14 +26,14 @@ mkdir -p dist
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta name="description" content="Expertly Recruit places AI leadership. Every hire is run by AI experts who have spent decades building AI themselves, not by recruiters matching keywords." />
-<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<meta name="description" content="__DESC__" />
+<link rel="icon" type="image/svg+xml" href="__ROOT__favicon.svg" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Expertly Recruit — AI leadership, hired by AI experts" />
-<meta property="og:description" content="Everyone became an AI expert last year. We've been at it for decades." />
+<meta property="og:title" content="__OGTITLE__" />
+<meta property="og:description" content="__OGDESC__" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Expertly Recruit — AI leadership, hired by AI experts" />
-<meta name="twitter:description" content="Everyone became an AI expert last year. We've been at it for decades." />
+<meta name="twitter:title" content="__OGTITLE__" />
+<meta name="twitter:description" content="__OGDESC__" />
 <style>
   /* Minimal reset. WHY: the Artifact host supplies one, a plain nginx host does not,
      so the deployed page would otherwise inherit browser default margins. */
@@ -51,6 +53,18 @@ HEAD
 FOOT
 } > "$OUT"
 
+  # Substitute per-page metadata into the shared head.
+  ROOT=""
+  case "$OUT" in dist/*/*) ROOT="../";; esac
+  python3 - "$OUT" "$DESC" "$OGTITLE" "$OGDESC" "$ROOT" <<'META'
+import sys
+p, desc, ogt, ogd, root = sys.argv[1:6]
+s = open(p, encoding="utf-8").read()
+for k, v in (("__DESC__", desc), ("__OGTITLE__", ogt), ("__OGDESC__", ogd), ("__ROOT__", root)):
+    s = s.replace(k, v)
+open(p, "w", encoding="utf-8").write(s)
+META
+
 # The fragment opens no <body>, so insert one before the first element that needs it.
 # WHY sed over a template: keeps index.html the single source of truth for content.
 python3 - "$OUT" <<'PY'
@@ -63,4 +77,15 @@ if '<body' not in s:
 open(p, "w", encoding="utf-8").write(s)
 PY
 
-echo "built $OUT ($(wc -c < "$OUT" | tr -d ' ') bytes)"
+  echo "built $OUT ($(wc -c < "$OUT" | tr -d ' ') bytes)"
+}
+
+build_page index.html dist/index.html \
+  "Expertly Recruit places AI leadership. Every hire is run by AI experts who have spent decades building AI themselves, not by recruiters matching keywords." \
+  "Expertly Recruit — AI leadership, hired by AI experts" \
+  "Everyone became an AI expert last year. We've been at it for decades."
+
+build_page explore.html dist/explore/index.html \
+  "You already know who the good ones are. Just not in AI. Expertly Recruit helps CEOs, COOs and CTOs hire, borrow and keep AI leadership." \
+  "Expertly Recruit — You already know who the good ones are" \
+  "Just not in AI. That is the bit we do."
