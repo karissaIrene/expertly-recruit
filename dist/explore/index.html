@@ -374,32 +374,55 @@
   .pillar p { font-size: 16.5px; color: var(--ink-2); line-height: 1.6; }
 
   /* ---------- the search / consulting split ---------- */
+  /* WHY two panels rather than a hairline divider: this section is the
+     page's thesis, so it earns more presence than the surrounding rules.
+     The consulting panel is tinted and badged because the argument is that
+     it arrives with the search rather than beside it. */
   .split {
-    display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0;
-    margin-top: 68px;
-    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px; margin-top: 64px;
   }
-  @media (max-width: 880px) {
-    .split { grid-template-columns: 1fr; }
-    .split .rule { display: none; }
-    .split .col + .col { border-top: 1px solid var(--line); }
+  @media (max-width: 880px) { .split { grid-template-columns: 1fr; } }
+  .col {
+    position: relative; text-align: center;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); padding: 44px clamp(24px, 3vw, 40px) 40px;
   }
-  .split .rule { background: var(--grad-line); opacity: .55; }
-  .col { padding: 48px clamp(20px, 4vw, 44px); text-align: center; }
-  @media (max-width: 880px) { .col { padding: 34px 0; } }
+  .col.plus {
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--purple) 7%, transparent), transparent 46%),
+      var(--surface);
+    border-color: color-mix(in srgb, var(--purple) 24%, var(--line));
+  }
   .col .kind {
     font-family: var(--font-mono); font-size: 12px; font-weight: 500;
     letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3);
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
-  .col h3 { font-size: clamp(23px, 2vw, 27px); font-weight: 700; letter-spacing: -.028em; margin-bottom: 30px; }
-  .col ul { display: flex; flex-direction: column; gap: 24px; align-items: center; }
-  /* WHY no bullet marker here: a leading dot beside centred text reads as a
-     misalignment. The gap and the bold lead-in carry the list instead. */
+  .col h3 { font-size: clamp(23px, 2vw, 27px); font-weight: 700; letter-spacing: -.028em; }
+  .col .badge {
+    display: inline-block; margin-top: 16px;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 999px; color: #fff; background: var(--grad);
+  }
+  .col ul { display: flex; flex-direction: column; margin-top: 34px; }
   .col li {
-    font-size: 16.5px; color: var(--ink-2); line-height: 1.58; max-width: 36ch;
+    padding: 22px 0; border-top: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 7px;
   }
-  .col li b { display: block; color: var(--ink); font-weight: 650; margin-bottom: 5px; font-size: 17.5px; }
+  .col li:last-child { padding-bottom: 0; }
+  /* WHY b and span are separate blocks: the lead used to end in a comma that
+     the block-level bold pushed onto the next line on its own. Each part is
+     now a complete phrase that stands alone. */
+  .col li b {
+    display: block; color: var(--ink); font-weight: 700;
+    font-size: 18px; letter-spacing: -.02em; line-height: 1.3;
+  }
+  .col li span {
+    display: block; color: var(--ink-2); font-size: 16px; line-height: 1.55;
+    max-width: 38ch; margin-inline: auto;
+  }
 
   /* ---------- process: a real sequence, so numbers earn their place ---------- */
   .steps {
@@ -433,23 +456,47 @@
   .step h3 { font-size: clamp(20px, 1.7vw, 23px); font-weight: 700; letter-spacing: -.028em; line-height: 1.22; }
   .step p { font-size: 16px; color: var(--ink-2); line-height: 1.6; }
 
-  /* ---------- stage → role ---------- */
-  .stages { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; }
+  /* ---------- stage to role ---------- */
+  /* WHY the two labels: readers took the grey line for a category heading
+     rather than the situation the role answers. Naming both halves and
+     putting an arrow between them makes the "if this, then this" explicit. */
+  .stages {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
   @media (max-width: 800px) { .stages { grid-template-columns: 1fr; } }
   .stage {
-    padding: 38px 36px 40px; border-top: 1px solid var(--line);
-    display: flex; flex-direction: column; align-items: center; gap: 13px;
+    padding: 36px 32px 38px;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
     text-align: center;
+    transition: background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
   }
-  .stage:nth-child(odd) { border-right: 1px solid var(--line); }
-  .stage:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
-  @media (max-width: 800px) {
-    .stage, .stage:nth-child(odd) { padding: 26px 0; border-right: 0; }
-    .stage:nth-last-child(2) { border-bottom: 0; }
+  .stage:hover {
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--purple) 8%, transparent), transparent 60%),
+      var(--surface);
+    border-color: color-mix(in srgb, var(--purple) 30%, var(--line));
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  .stage .lbl {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--ink-4);
   }
   .stage .where {
-    font-family: var(--font-mono); font-size: 12.5px; font-weight: 500;
-    letter-spacing: .09em; text-transform: uppercase; color: var(--ink-4);
+    font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); line-height: 1.45;
+    max-width: 30ch;
+  }
+  .stage .arrow {
+    width: 1px; height: 26px; background: var(--grad-line); margin: 6px 0 2px;
+    flex: none; opacity: .7;
+  }
+  .stage .lbl-role {
+    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+    letter-spacing: .16em; text-transform: uppercase;
+    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
   .stage .role { font-size: clamp(23px, 2vw, 27px); font-weight: 750; letter-spacing: -.028em; }
   .stage p { font-size: 16.5px; color: var(--ink-2); line-height: 1.6; max-width: 40ch; }
@@ -671,10 +718,10 @@
         <div class="eyebrow">How we help</div>
         <h2>You don't just retain a search partner. <span class="grad-text">You retain an expert.</span></h2>
         <p>
-          Expertly is a retained search firm staffed by AI experts, people who have built and led AI
-          inside real businesses. They work through the hire alongside you, from defining the role to
-          agreeing the offer, and the thinking comes with the search rather than as a separate piece of
-          consulting.
+          Retained AI search is one of the things Expertly does, and it's run by our own AI experts,
+          people who have built and led AI inside real businesses. They work through the hire alongside
+          you, from defining the role to agreeing the offer, and the thinking comes with the search
+          rather than as a separate piece of consulting.
         </p>
       </div>
 
@@ -710,21 +757,45 @@
           <div class="kind">The search</div>
           <h3>What a search firm gives you</h3>
           <ul>
-            <li><b>The role, defined against your business</b>, not a template borrowed from a tech giant's careers page.</li>
-            <li><b>The right people approached directly</b>, by name, because our experts already know them.</li>
-            <li><b>Every finalist interviewed by an AI expert</b> who has held the job you're hiring for.</li>
-            <li><b>A scorecard, a recommendation and the concerns</b>, plus a debrief on how we got there.</li>
+            <li>
+              <b>The role, defined against your business</b>
+              <span>Built around what you actually need, not a template borrowed from a tech giant's careers page.</span>
+            </li>
+            <li>
+              <b>The right people, approached directly</b>
+              <span>By name, by a headhunter who already knows this market and can get them on a call.</span>
+            </li>
+            <li>
+              <b>Every finalist interviewed by an AI expert</b>
+              <span>Someone who has held the job you're hiring for, in a business like yours.</span>
+            </li>
+            <li>
+              <b>A scorecard, a recommendation and the concerns</b>
+              <span>Plus a debrief that walks you through how we got there.</span>
+            </li>
           </ul>
         </div>
-        <div class="rule"></div>
-        <div class="col">
+        <div class="col plus">
           <div class="kind">The consulting</div>
           <h3>What you'd otherwise buy separately</h3>
+          <span class="badge">Comes with the search</span>
           <ul>
-            <li><b>Whether this hire is your right next step</b>, or whether to wait a quarter and settle who owns the data first.</li>
-            <li><b>Build it or buy it</b>, one central team or people embedded in each department.</li>
-            <li><b>Which problem to tackle first</b>, and just as usefully, what to leave alone this year.</li>
-            <li><b>A number you can defend</b>, based on what AI leaders are actually being offered and accepting right now.</li>
+            <li>
+              <b>Whether this hire is your right next step</b>
+              <span>Sometimes it isn't, and you'd get more from fixing something else first. We'll say so.</span>
+            </li>
+            <li>
+              <b>Which problems to tackle first</b>
+              <span>The ones worth funding this year, and just as usefully, the ones to leave alone.</span>
+            </li>
+            <li>
+              <b>How to structure your AI effort</b>
+              <span>One central team, or people embedded in each department, and what each choice commits you to.</span>
+            </li>
+            <li>
+              <b>A number you can defend</b>
+              <span>What AI leaders are actually being offered and accepting right now, so your board sees a figure that holds up.</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -738,9 +809,9 @@
         <div class="eyebrow">Our process</div>
         <h2>Two people on your search, <span class="grad-text">start to finish.</span></h2>
         <p>
-          An AI expert who has led AI inside a business like yours, working with an account manager
-          who keeps things moving and stays your point of contact. First call to shortlist usually
-          runs two to three weeks.
+          An AI expert who has led AI inside a business like yours, working with a specialist
+          headhunter who knows this market, opens the doors and stays your point of contact throughout.
+          First call to shortlist usually runs two to three weeks.
         </p>
       </div>
       <div class="steps reveal">
@@ -859,36 +930,36 @@
       </div>
       <div class="stages reveal">
         <div class="stage">
-          <span class="where">A few experiments, nobody owns it</span>
+          <span class="lbl">Where you are</span>
+          <p class="where">A few experiments running, and nobody really owns them.</p>
+          <span class="arrow"></span>
+          <span class="lbl-role">Who to hire</span>
           <span class="role">Head of Applied AI</span>
-          <p>
-            Focus the work on the few ideas with a business owner and a number attached, stop the
-            rest, and set a baseline you can measure against.
-          </p>
+          <p>Focus the work on the few ideas with a business owner and a number attached, stop the rest, and set a baseline you can measure against.</p>
         </div>
         <div class="stage">
-          <span class="where">The demos are great, nothing is live</span>
+          <span class="lbl">Where you are</span>
+          <p class="where">The demos go down well, but nothing is actually live.</p>
+          <span class="arrow"></span>
+          <span class="lbl-role">Who to hire</span>
           <span class="role">Director of AI Engineering</span>
-          <p>
-            Take one job people do every day and get it fully live, with someone's name on it, a way
-            to switch it off, and a cost agreed up front.
-          </p>
+          <p>Take one job people do every day and get it fully live, with someone's name on it, a way to switch it off, and a cost agreed up front.</p>
         </div>
         <div class="stage">
-          <span class="where">One thing works, now everyone wants it</span>
+          <span class="lbl">Where you are</span>
+          <p class="where">One thing works, and now every department wants it.</p>
+          <span class="arrow"></span>
+          <span class="lbl-role">Who to hire</span>
           <span class="role">VP of Artificial Intelligence</span>
-          <p>
-            Turn that success into something other teams can reuse and run themselves. Half the job is
-            technical; the other half is getting people to change how they work.
-          </p>
+          <p>Turn that success into something other teams can reuse and run themselves. Half the job is technical; the other half is getting people to change how they work.</p>
         </div>
         <div class="stage">
-          <span class="where">The business would notice if it stopped</span>
+          <span class="lbl">Where you are</span>
+          <p class="where">The business would notice straight away if AI stopped.</p>
+          <span class="arrow"></span>
+          <span class="lbl-role">Who to hire</span>
           <span class="role">Chief AI Officer</span>
-          <p>
-            Own AI the way a CFO owns money: know what's running, what it's exposed to, and have the
-            authority to switch something off.
-          </p>
+          <p>Own AI the way a CFO owns money: know what's running, what it's exposed to, and have the authority to switch something off.</p>
         </div>
       </div>
       <ul class="rolelist reveal">
