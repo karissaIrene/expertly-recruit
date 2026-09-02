@@ -521,41 +521,53 @@
   .stage .role { font-size: clamp(23px, 2vw, 27px); font-weight: 750; letter-spacing: -.028em; }
   .stage p { font-size: 16.5px; color: var(--ink-2); line-height: 1.6; max-width: 40ch; }
 
-  /* ---------- the written briefing ---------- */
-  /* WHY a document and not a scored chart: rating a person out of five is a
-     screening artifact. What a consultant hands back is a considered written
-     view, so the card is built to read like a short memo. */
+  /* ---------- the debrief conversation ---------- */
+  /* WHY a transcript rather than a document: what a client actually gets is
+     their expert on the phone answering whatever they want to ask. Rendering
+     it as a written report made it look like a screening artifact about a
+     person, which is the opposite of the argument the page makes. */
   .assess { display: flex; flex-direction: column; align-items: center; }
-  .assess .card { width: 100%; max-width: 620px; margin-top: 52px; text-align: left; }
+  .assess .card { width: 100%; max-width: 640px; margin-top: 52px; text-align: left; }
   .card {
     background: var(--surface); border: 1px solid var(--line);
     border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
-    padding: 32px clamp(24px, 3vw, 38px) 34px;
+    padding: 30px clamp(22px, 3vw, 34px) 32px;
   }
   .card-head {
     display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
-    padding-bottom: 20px; margin-bottom: 4px; border-bottom: 1px solid var(--line);
+    padding-bottom: 22px; margin-bottom: 26px; border-bottom: 1px solid var(--line);
   }
   .card-head .who2 { font-size: 17px; font-weight: 700; letter-spacing: -.022em; }
   .card-head .for { font-size: 13.5px; color: var(--ink-3); margin-top: 4px; }
   .verdict-pill {
     font-family: var(--font-mono); font-size: 11px; font-weight: 500;
     letter-spacing: .1em; text-transform: uppercase;
-    color: var(--good); border: 1px solid color-mix(in srgb, var(--good) 40%, transparent);
-    background: color-mix(in srgb, var(--good) 10%, transparent);
+    color: var(--ink-3); border: 1px solid var(--line-strong);
     padding: 6px 12px; border-radius: 999px; white-space: nowrap; flex: none;
   }
-  .brief { display: flex; flex-direction: column; }
-  .bit { padding: 22px 0; border-bottom: 1px solid var(--line); }
-  .bit:last-child { border-bottom: 0; padding-bottom: 4px; }
-  .bit .bl {
-    display: block; margin-bottom: 9px;
+
+  .talk { display: flex; flex-direction: column; gap: 22px; }
+  .turn .spk {
+    display: block; margin-bottom: 8px;
     font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
     letter-spacing: .15em; text-transform: uppercase;
+  }
+  .turn p { font-size: 16px; line-height: 1.62; }
+
+  /* the client's question: plain, so the expert's answer carries the weight */
+  .turn.you .spk { color: var(--ink-4); }
+  .turn.you p { color: var(--ink); font-weight: 600; }
+
+  .turn.exp {
+    background: color-mix(in srgb, var(--purple) 5%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--purple) 16%, var(--line));
+    border-radius: var(--radius); padding: 18px 20px;
+  }
+  .turn.exp .spk {
     background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .bit p { font-size: 15.5px; color: var(--ink-2); line-height: 1.62; }
-  .bit.rec p { color: var(--ink); font-weight: 600; font-size: 16.5px; }
+  .turn.exp p { color: var(--ink-2); }
+  .turn.exp p + p { margin-top: 10px; }
 
   /* ---------- about ---------- */
   .creds { display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -788,7 +800,7 @@
         <div class="exp"><strong>A true subject matter expert interviews every finalist</strong>, someone who has held the job you're hiring for.</div>
         <div class="dim">What you<br />receive</div>
         <div class="trad">A shortlist of CVs, with notes from the screening calls.</div>
-        <div class="exp">A written view from the expert who did the interview: what convinced them, <strong>where you'll need to back the person up</strong>, and what to ask when you meet.</div>
+        <div class="exp">A debrief call with the expert who did the interview, <strong>where you can ask anything and get a straight answer</strong>.</div>
         <div class="dim">Looking after<br />both sides</div>
         <div class="trad">Attention follows the placement, and candidates often hear nothing back.</div>
         <div class="exp">An engagement partner stays close to you and to every candidate, <strong>so the fit is right on both sides</strong> before anyone signs.</div>
@@ -854,49 +866,56 @@
       <div class="reveal" style="text-align:center;">
         <div class="eyebrow" style="justify-content:center;">After every interview</div>
         <h2 style="font-size: clamp(34px, 4.4vw, 60px); font-weight: 800; max-width: 17ch; margin-inline: auto;">
-          Our expert's honest read, <span class="grad-text">in writing.</span>
+          You get a conversation, <span class="grad-text">not a report.</span>
         </h2>
         <p style="margin:28px auto 0; color:var(--ink-2); font-size:clamp(18px,1.45vw,21px); line-height:1.55; max-width:60ch;">
-          Not a rating out of five. A short written view from the person who did the interview: what
-          convinced them, where you'll need to back this person up, and what to ask when you meet.
+          Your expert calls you after every interview. You ask what you actually want to know, and
+          you get a straight answer from someone who has sat in that job themselves.
         </p>
       </div>
       <div class="card reveal">
         <div class="card-head">
           <div>
-            <div class="who2">Candidate briefing &middot; VP of AI</div>
-            <div class="for">Written by the expert who ran the interview</div>
+            <div class="who2">Debrief call &middot; VP of AI</div>
+            <div class="for">The day after the interview, with the expert who ran it</div>
           </div>
-          <span class="verdict-pill">Worth meeting</span>
+          <span class="verdict-pill">Every finalist</span>
         </div>
-        <div class="brief">
-          <div class="bit">
-            <span class="bl">What convinced us</span>
+        <div class="talk">
+          <div class="turn you">
+            <span class="spk">You</span>
+            <p>Did she actually build any of it, or did she manage people who did?</p>
+          </div>
+          <div class="turn exp">
+            <span class="spk">Your expert</span>
             <p>
-              She has taken two systems from pilot into daily use and stayed on the hook for both when
-              they broke. When we pushed on the harder one, she talked about what she cancelled, not
-              just what she launched.
+              She built the first one herself and hired the team for the second. What told me most was
+              the project she stopped: she walked me through how she made that call and who she had to
+              face afterwards.
             </p>
           </div>
-          <div class="bit">
-            <span class="bl">Where you'll need to back her</span>
+          <div class="turn you">
+            <span class="spk">You</span>
+            <p>What worries you about her?</p>
+          </div>
+          <div class="turn exp">
+            <span class="spk">Your expert</span>
             <p>
-              She hasn't worked under a formal audit. In a regulated market, pair her with a risk lead
-              or write compliance ownership into the first ninety days, before the offer goes out.
+              She has never worked under a formal audit. In a regulated market I'd pair her with a risk
+              lead, or write compliance ownership into the first ninety days rather than leave it to
+              land on her later.
             </p>
           </div>
-          <div class="bit">
-            <span class="bl">What we'd ask when you meet</span>
-            <p>
-              Ask her to walk you through the project she stopped. How she made that call will tell you
-              more about her judgement than anything on the CV.
-            </p>
+          <div class="turn you">
+            <span class="spk">You</span>
+            <p>Would you hire her?</p>
           </div>
-          <div class="bit rec">
-            <span class="bl">Our recommendation</span>
+          <div class="turn exp">
+            <span class="spk">Your expert</span>
             <p>
-              Worth your time. If this role owns governance from day one, meet the other finalist too
-              and we'll talk it through with you.
+              For the role as we scoped it, yes. If governance ends up sitting with her from day one,
+              that's a different job. Meet the other finalist too and let's talk it through before you
+              decide.
             </p>
           </div>
         </div>
