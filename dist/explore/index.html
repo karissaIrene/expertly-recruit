@@ -521,47 +521,41 @@
   .stage .role { font-size: clamp(23px, 2vw, 27px); font-weight: 750; letter-spacing: -.028em; }
   .stage p { font-size: 16.5px; color: var(--ink-2); line-height: 1.6; max-width: 40ch; }
 
-  /* ---------- expert evaluation card ---------- */
-  /* WHY stacked rather than side-by-side: a centred heading next to a
-     left-aligned data card fights the page's single centre axis. The card
-     keeps its own internal alignment (score rows must line up) but sits
-     centred beneath the copy. */
+  /* ---------- the written briefing ---------- */
+  /* WHY a document and not a scored chart: rating a person out of five is a
+     screening artifact. What a consultant hands back is a considered written
+     view, so the card is built to read like a short memo. */
   .assess { display: flex; flex-direction: column; align-items: center; }
-  .assess .card { width: 100%; max-width: 580px; margin-top: 52px; text-align: left; }
+  .assess .card { width: 100%; max-width: 620px; margin-top: 52px; text-align: left; }
   .card {
     background: var(--surface); border: 1px solid var(--line);
     border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
-    padding: 28px;
+    padding: 32px clamp(24px, 3vw, 38px) 34px;
   }
   .card-head {
     display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
-    padding-bottom: 18px; margin-bottom: 20px; border-bottom: 1px solid var(--line);
+    padding-bottom: 20px; margin-bottom: 4px; border-bottom: 1px solid var(--line);
   }
-  .card-head .who2 { font-size: 16px; font-weight: 700; letter-spacing: -.02em; }
-  .card-head .for { font-size: 13px; color: var(--ink-3); margin-top: 3px; }
+  .card-head .who2 { font-size: 17px; font-weight: 700; letter-spacing: -.022em; }
+  .card-head .for { font-size: 13.5px; color: var(--ink-3); margin-top: 4px; }
   .verdict-pill {
     font-family: var(--font-mono); font-size: 11px; font-weight: 500;
     letter-spacing: .1em; text-transform: uppercase;
     color: var(--good); border: 1px solid color-mix(in srgb, var(--good) 40%, transparent);
     background: color-mix(in srgb, var(--good) 10%, transparent);
-    padding: 5px 10px; border-radius: 999px; white-space: nowrap; flex: none;
+    padding: 6px 12px; border-radius: 999px; white-space: nowrap; flex: none;
   }
-  .rows { display: flex; flex-direction: column; gap: 13px; }
-  .row { display: grid; grid-template-columns: 1fr 62px 34px; align-items: center; gap: 12px; }
-  .row .lbl { font-size: 14px; color: var(--ink-2); }
-  .row .track { height: 5px; border-radius: 999px; background: var(--line); overflow: hidden; }
-  .row .fill { display: block; height: 100%; border-radius: 999px; background: var(--grad); }
-  .row .num {
-    font-family: var(--font-mono); font-size: 13px; color: var(--ink-3);
-    text-align: right; font-variant-numeric: tabular-nums;
+  .brief { display: flex; flex-direction: column; }
+  .bit { padding: 22px 0; border-bottom: 1px solid var(--line); }
+  .bit:last-child { border-bottom: 0; padding-bottom: 4px; }
+  .bit .bl {
+    display: block; margin-bottom: 9px;
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
+    letter-spacing: .15em; text-transform: uppercase;
+    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .watch { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); }
-  .watch .wl {
-    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
-    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-4);
-    display: block; margin-bottom: 8px;
-  }
-  .watch p { font-size: 14.5px; color: var(--ink-2); line-height: 1.55; }
+  .bit p { font-size: 15.5px; color: var(--ink-2); line-height: 1.62; }
+  .bit.rec p { color: var(--ink); font-weight: 600; font-size: 16.5px; }
 
   /* ---------- about ---------- */
   .creds { display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -758,7 +752,7 @@
           <span class="when">During the search</span>
           <h3>We find and assess them</h3>
           <p>
-            Your expert and your relationship manager go straight to the right people, and every
+            Your expert and your engagement partner go straight to the right people, and every
             finalist is interviewed personally before you meet them.
           </p>
         </div>
@@ -794,10 +788,10 @@
         <div class="exp"><strong>A true subject matter expert interviews every finalist</strong>, someone who has held the job you're hiring for.</div>
         <div class="dim">What you<br />receive</div>
         <div class="trad">A shortlist of CVs, with notes from the screening calls.</div>
-        <div class="exp">An expert evaluation built around your role, with a recommendation, <strong>the concerns</strong>, and a debrief.</div>
+        <div class="exp">A written view from the expert who did the interview: what convinced them, <strong>where you'll need to back the person up</strong>, and what to ask when you meet.</div>
         <div class="dim">Looking after<br />both sides</div>
         <div class="trad">Attention follows the placement, and candidates often hear nothing back.</div>
-        <div class="exp">A relationship manager looks after you and every candidate throughout, <strong>making sure the fit is genuinely right on both sides</strong>.</div>
+        <div class="exp">An engagement partner stays close to you and to every candidate, <strong>so the fit is right on both sides</strong> before anyone signs.</div>
         <div class="dim">Advice around<br />the decision</div>
         <div class="trad">Outside the scope of the search.</div>
         <div class="exp">Whether to hire at all, which problems to tackle first, how to structure your AI effort, and <strong>a number you can defend</strong>.</div>
@@ -812,9 +806,9 @@
         <div class="eyebrow">Our process</div>
         <h2>Two people on your search, <span class="grad-text">start to finish.</span></h2>
         <p>
-          A subject matter expert who has led AI inside a business like yours, and a relationship
-          manager who looks after both you and the candidates and makes sure the fit is genuinely right
-          on both sides. First call to shortlist usually runs two to three weeks.
+          A subject matter expert who has led AI inside a business like yours, and an engagement
+          partner who stays close to you and to every candidate, so nothing is left to chance and the
+          fit is right on both sides. First call to shortlist usually runs two to three weeks.
         </p>
       </div>
       <div class="steps reveal">
@@ -858,63 +852,53 @@
   <section class="band">
     <div class="wrap assess">
       <div class="reveal" style="text-align:center;">
-        <div class="eyebrow" style="justify-content:center;">What step three produces</div>
+        <div class="eyebrow" style="justify-content:center;">After every interview</div>
         <h2 style="font-size: clamp(34px, 4.4vw, 60px); font-weight: 800; max-width: 17ch; margin-inline: auto;">
-          An expert evaluation, <span class="grad-text">built around your role.</span>
+          Our expert's honest read, <span class="grad-text">in writing.</span>
         </h2>
         <p style="margin:28px auto 0; color:var(--ink-2); font-size:clamp(18px,1.45vw,21px); line-height:1.55; max-width:60ch;">
-          Your AI expert scores every finalist on what decides whether an AI leader succeeds at your
-          stage and in your industry, including the areas to watch, so you can plan around them before
-          the offer goes out rather than discover them in month three.
+          Not a rating out of five. A short written view from the person who did the interview: what
+          convinced them, where you'll need to back this person up, and what to ask when you meet.
         </p>
       </div>
       <div class="card reveal">
         <div class="card-head">
           <div>
-            <div class="who2">Expert evaluation · VP of AI</div>
-            <div class="for">Scored for a company scaling AI</div>
+            <div class="who2">Candidate briefing &middot; VP of AI</div>
+            <div class="for">Written by the expert who ran the interview</div>
           </div>
-          <span class="verdict-pill">Recommend</span>
+          <span class="verdict-pill">Worth meeting</span>
         </div>
-        <div class="rows">
-          <div class="row">
-            <span class="lbl">Has actually shipped AI</span>
-            <span class="track"><span class="fill" style="width:100%"></span></span>
-            <span class="num">5.0</span>
+        <div class="brief">
+          <div class="bit">
+            <span class="bl">What convinced us</span>
+            <p>
+              She has taken two systems from pilot into daily use and stayed on the hook for both when
+              they broke. When we pushed on the harder one, she talked about what she cancelled, not
+              just what she launched.
+            </p>
           </div>
-          <div class="row">
-            <span class="lbl">Knows when it isn't working</span>
-            <span class="track"><span class="fill" style="width:84%"></span></span>
-            <span class="num">4.2</span>
+          <div class="bit">
+            <span class="bl">Where you'll need to back her</span>
+            <p>
+              She hasn't worked under a formal audit. In a regulated market, pair her with a risk lead
+              or write compliance ownership into the first ninety days, before the offer goes out.
+            </p>
           </div>
-          <div class="row">
-            <span class="lbl">Build or buy decisions</span>
-            <span class="track"><span class="fill" style="width:92%"></span></span>
-            <span class="num">4.6</span>
+          <div class="bit">
+            <span class="bl">What we'd ask when you meet</span>
+            <p>
+              Ask her to walk you through the project she stopped. How she made that call will tell you
+              more about her judgement than anything on the CV.
+            </p>
           </div>
-          <div class="row">
-            <span class="lbl">Building and keeping a team</span>
-            <span class="track"><span class="fill" style="width:80%"></span></span>
-            <span class="num">4.0</span>
+          <div class="bit rec">
+            <span class="bl">Our recommendation</span>
+            <p>
+              Worth your time. If this role owns governance from day one, meet the other finalist too
+              and we'll talk it through with you.
+            </p>
           </div>
-          <div class="row">
-            <span class="lbl">Risk and compliance</span>
-            <span class="track"><span class="fill" style="width:54%"></span></span>
-            <span class="num">2.7</span>
-          </div>
-          <div class="row">
-            <span class="lbl">Getting the business on board</span>
-            <span class="track"><span class="fill" style="width:96%"></span></span>
-            <span class="num">4.8</span>
-          </div>
-        </div>
-        <div class="watch">
-          <span class="wl">Worth planning for</span>
-          <p>
-            Strong track record of getting things live, but hasn't worked under a formal audit. In a
-            regulated market, pair them with a risk lead or write compliance ownership into the first
-            ninety days.
-          </p>
         </div>
       </div>
     </div>
