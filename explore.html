@@ -251,25 +251,33 @@
   }
   .hero .lede strong { color: var(--ink); font-weight: 650; }
 
+  /* WHY two stacked lines: the three things we do and the "all in one"
+     claim are different statements. Running them together put a grey
+     fragment on the end of a bold row, which read as a broken sentence.
+     The dot is now a separator between marks, not a bullet on each. */
   .allinone {
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
-    gap: 12px 22px;
-    margin: 30px auto 0; padding-top: 28px;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    margin: 32px auto 0; padding-top: 28px;
     border-top: 1px solid var(--line);
     max-width: 56ch;
   }
-  .allinone b {
-    font-size: 16.5px; font-weight: 650; color: var(--ink);
-    display: inline-flex; align-items: center; gap: 10px;
+  .allinone .marks {
+    display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+    gap: 6px 18px;
   }
-  .allinone b::before {
-    content: ""; width: 6px; height: 6px; border-radius: 999px;
+  .allinone .marks b {
+    font-size: 17.5px; font-weight: 700; color: var(--ink); letter-spacing: -.015em;
+    display: inline-flex; align-items: center; gap: 18px;
+  }
+  .allinone .marks b + b::before {
+    content: ""; width: 5px; height: 5px; border-radius: 999px;
     background: var(--grad); flex: none;
   }
   .allinone .tail { font-size: 16.5px; color: var(--ink-3); }
 
   .cta-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 36px; }
   .cta-note { font-size: 14px; color: var(--ink-3); }
+  .hero .cta-note { margin: 20px auto 0; max-width: 48ch; font-size: 15.5px; line-height: 1.5; }
 
   .proof {
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -481,7 +489,7 @@
   .stage .role { font-size: clamp(23px, 2vw, 27px); font-weight: 750; letter-spacing: -.028em; }
   .stage p { font-size: 16.5px; color: var(--ink-2); line-height: 1.6; max-width: 40ch; }
 
-  /* ---------- scorecard ---------- */
+  /* ---------- expert evaluation card ---------- */
   /* WHY stacked rather than side-by-side: a centred heading next to a
      left-aligned data card fights the page's single centre axis. The card
      keeps its own internal alignment (score rows must line up) but sits
@@ -617,28 +625,26 @@
         careers building AI, not reading about it.
       </p>
       <div class="allinone">
-        <b>Hiring</b>
-        <b>Team design</b>
-        <b>Real AI expertise</b>
-        <span class="tail">all in one engagement.</span>
+        <p class="marks"><b>Hiring</b><b>Team design</b><b>Real AI expertise</b></p>
+        <p class="tail">All in one engagement.</p>
       </div>
       <div class="cta-row">
         <a class="btn btn-primary btn-lg" href="#contact">Book an intake call</a>
         <a class="btn btn-ghost btn-lg" href="#how-we-help">See how we help</a>
-        <span class="cta-note">Thirty minutes. No pitch deck.</span>
       </div>
+      <p class="cta-note">A thirty minute conversation, and you'll leave knowing more than when you started.</p>
       <dl class="proof">
         <div>
           <dt>25+ years</dt>
-          <dd>building AI ourselves, in our own products and teams</dd>
+          <dd>building AI ourselves,<br />in our own products and teams</dd>
         </div>
         <div>
           <dt>Dozens</dt>
-          <dd>AI products of our own, built and launched</dd>
+          <dd>AI products of our own,<br />built and launched</dd>
         </div>
         <div>
           <dt>2–3 weeks</dt>
-          <dd>to a shortlist our experts have personally interviewed</dd>
+          <dd>to a shortlist,<br />fully vetted before your first interview</dd>
         </div>
       </dl>
     </div>
@@ -651,8 +657,9 @@
         <div class="eyebrow">Why it matters</div>
         <h2>Your first AI leader will help shape <span class="grad-text">your next two years.</span></h2>
         <p>
-          This isn't only a technical hire. Long before anything ships, this person is working through
-          decisions with you that get harder to revisit later.
+          This is one of the most consequential hires you'll make. Long before anything is up and
+          running, this person is working through decisions with you that get harder to revisit later,
+          and that your teams will feel in how much they trust the whole effort.
         </p>
       </div>
 
@@ -684,7 +691,8 @@
       </div>
 
       <p class="bridge reveal">
-        None of that shows up on a CV. It shows up in a conversation with someone who has done the job.
+        A decision this important deserves a real expert beside you. Ours have done the job, so they
+        can read a candidate in one conversation and help you choose with confidence.
       </p>
     </div>
   </section>
@@ -716,8 +724,8 @@
           <span class="when">During the search</span>
           <h3>We find and assess them</h3>
           <p>
-            Our experts approach the market directly and personally interview every finalist, then
-            walk you through the reasoning behind each recommendation.
+            Our AI expert and your headhunter go straight to the right people, and every finalist is
+            interviewed personally before you meet them.
           </p>
         </div>
         <div class="pillar">
@@ -732,8 +740,8 @@
 
       <div class="split reveal">
         <div class="col">
-          <div class="kind">The search</div>
-          <h3>What a search firm gives you</h3>
+          <div class="kind">What you'd normally get</div>
+          <h3>Traditional search firm</h3>
           <ul>
             <li>
               <b>The role, defined against your business</b>
@@ -748,14 +756,14 @@
               <span>Someone who has held the job you're hiring for, in a business like yours.</span>
             </li>
             <li>
-              <b>A scorecard, a recommendation and the concerns</b>
-              <span>Plus a debrief that walks you through how we got there.</span>
+              <b>An expert evaluation, a recommendation and the concerns</b>
+              <span>Written for your role, with a debrief that walks you through how we got there.</span>
             </li>
           </ul>
         </div>
         <div class="col plus">
-          <div class="kind">The consulting</div>
-          <h3>What you'd otherwise buy separately</h3>
+          <div class="kind">What you get with us</div>
+          <h3>The Expertly advantage</h3>
           <span class="badge">Comes with the search</span>
           <ul>
             <li>
@@ -829,13 +837,13 @@
     </div>
   </section>
 
-  <!-- ============ 4. THE SCORECARD ============ -->
+  <!-- ============ 4. THE EVALUATION ============ -->
   <section class="band">
     <div class="wrap assess">
       <div class="reveal" style="text-align:center;">
         <div class="eyebrow" style="justify-content:center;">What step three produces</div>
         <h2 style="font-size: clamp(34px, 4.4vw, 60px); font-weight: 800; max-width: 17ch; margin-inline: auto;">
-          A scorecard written <span class="grad-text">against your role.</span>
+          An expert evaluation, <span class="grad-text">built around your role.</span>
         </h2>
         <p style="margin:28px auto 0; color:var(--ink-2); font-size:clamp(18px,1.45vw,21px); line-height:1.55; max-width:60ch;">
           Your AI expert scores every finalist on what decides whether an AI leader succeeds at your
@@ -846,7 +854,7 @@
       <div class="card reveal">
         <div class="card-head">
           <div>
-            <div class="who2">Candidate assessment · VP of AI</div>
+            <div class="who2">Expert evaluation · VP of AI</div>
             <div class="for">Scored for a company scaling AI</div>
           </div>
           <span class="verdict-pill">Recommend</span>
@@ -900,10 +908,10 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <div class="eyebrow">Roles we place</div>
-        <h2>Your first AI hire is usually <span class="grad-text">one of these four.</span></h2>
+        <h2>Which AI leader you need is <span class="grad-text">worth thinking through carefully.</span></h2>
         <p>
-          Which one depends on where you are today. Working that out together is often the most
-          useful half-hour of the whole process.
+          There are four common shapes for a first AI hire, and they are not interchangeable. Working
+          out which one fits where you are today is often the most useful half-hour of the process.
         </p>
       </div>
       <div class="stages reveal">
@@ -962,10 +970,11 @@
           <div class="eyebrow" style="justify-content:center;">About us</div>
           <h2>We build AI. <span class="grad-text">That's how we know what to look for.</span></h2>
           <p>
-            Expertly has been building AI for over twenty-five years, with dozens of our own products
-            launched, both for everyday business operations and for the developers building AI
-            themselves. When our experts sit in an interview, they're measuring your candidate against
-            work they have actually done.
+            Expertly has been building AI for over twenty-five years. Our products help a whole
+            organization work the way its best people already do, and they're used billions of times a
+            year. That's what your AI expert brings into the interview: they're measuring your
+            candidate against work they have actually done, and against what it takes to genuinely
+            move the needle inside a business.
           </p>
         </div>
         <div class="facts reveal">
@@ -976,6 +985,10 @@
           <div class="fact">
             <b>Dozens</b>
             <span>of our own AI products designed, built and launched</span>
+          </div>
+          <div class="fact">
+            <b>Billions</b>
+            <span>of times a year our AI products are used</span>
           </div>
           <div class="fact">
             <b>Both sides</b>
