@@ -265,8 +265,10 @@
   /* WHY smaller and set apart: the black line is the claim, the gradient line
      is the aside that lands after it. Equal size made them compete. .62em
      keeps it clearly secondary while still reading as part of the headline;
-     the .45em gap gives the black copy room to breathe before it. */
-  .hero h1 .after {
+     the .45em gap gives the black copy room to breathe before it. Section
+     headings built the same way (claim, then comeback) share the treatment. */
+  .hero h1 .after,
+  .sec-head h2 .after {
     display: block;
     margin-top: .45em;
     font-size: .62em;
@@ -764,7 +766,7 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <div class="eyebrow">How we help</div>
-        <h2>You don't just retain a search partner. <span class="grad-text">You retain an expert.</span></h2>
+        <h2>You don't just retain a search partner. <span class="grad-text after">You retain an AI expert.</span></h2>
         <p>
           Retained AI search is one of the things Expertly does, and it's run by our own AI experts,
           people who have built and led AI inside real businesses. They work through the hire alongside
