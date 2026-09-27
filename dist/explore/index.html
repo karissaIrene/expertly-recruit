@@ -259,6 +259,16 @@
     max-width: 15ch;
     margin-inline: auto;
   }
+  /* WHY smaller and set apart: the black line is the claim, the gradient line
+     is the aside that lands after it. Equal size made them compete. .62em
+     keeps it clearly secondary while still reading as part of the headline;
+     the .45em gap gives the black copy room to breathe before it. */
+  .hero h1 .after {
+    display: block;
+    margin-top: .45em;
+    font-size: .62em;
+    letter-spacing: -.035em;
+  }
   /* WHY the lede is split into two parts: the language is unchanged, but a
      C-suite reader scans. One framing sentence, then the three things we
      do as separate marks, reads in two glances instead of seven lines. */
@@ -648,8 +658,8 @@
     <div class="wrap">
       <div class="eyebrow">For CEOs, CTOs &amp; COOs hiring their first AI leader</div>
       <h1>
-        Everyone became an AI expert last year.<br />
-        <span class="grad-text">We've been at it for decades.</span>
+        Everyone became an AI expert last year.
+        <span class="grad-text after">We've been at it for decades.</span>
       </h1>
       <p class="lede">
         That difference shows the moment someone starts interviewing your candidates.
