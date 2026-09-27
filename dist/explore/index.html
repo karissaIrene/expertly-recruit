@@ -237,7 +237,10 @@
     cursor: pointer; font-family: inherit;
     transition: transform .18s ease, box-shadow .18s ease;
   }
-  .btn-primary { background: var(--grad); color: #fff; box-shadow: var(--shadow-sm); }
+  /* WHY background-origin: .btn keeps a 1px transparent border so both button
+     styles are the same height. Without this the gradient tiles under that
+     border and leaves dark slivers on the button's left and right edges. */
+  .btn-primary { background: var(--grad); background-origin: border-box; color: #fff; box-shadow: var(--shadow-sm); }
   .btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
   .btn-ghost { border-color: var(--line-strong); color: var(--ink); background: transparent; }
   .btn-ghost:hover { border-color: var(--ink-4); transform: translateY(-1px); }
@@ -259,6 +262,16 @@
     max-width: 15ch;
     margin-inline: auto;
   }
+  /* WHY smaller and set apart: the black line is the claim, the gradient line
+     is the aside that lands after it. Equal size made them compete. .62em
+     keeps it clearly secondary while still reading as part of the headline;
+     the .45em gap gives the black copy room to breathe before it. */
+  .hero h1 .after {
+    display: block;
+    margin-top: .45em;
+    font-size: .62em;
+    letter-spacing: -.035em;
+  }
   /* WHY the lede is split into two parts: the language is unchanged, but a
      C-suite reader scans. One framing sentence, then the three things we
      do as separate marks, reads in two glances instead of seven lines. */
@@ -276,28 +289,45 @@
      fragment on the end of a bold row, which read as a broken sentence.
      The dot is now a separator between marks, not a bullet on each. */
   .allinone {
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
     margin: 32px auto 0; padding-top: 28px;
     border-top: 1px solid var(--line);
     max-width: 56ch;
   }
+  /* WHY a 1fr/auto/1fr grid instead of a centred flex row: the three marks
+     have very different lengths, so a centred row put "Team design" well
+     left of centre and the tail line underneath looked shifted right. Equal
+     outer columns pin the middle mark to the page axis, directly above the
+     tail, while every gap stays the same 18px. */
   .allinone .marks {
-    display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
-    gap: 6px 18px;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    column-gap: 18px; width: 100%;
+  }
+  .allinone .marks b:first-child { justify-self: end; }
+  .allinone .marks b:last-child { justify-self: start; }
+  /* the symmetric row is ~470px wide; below that it falls back to wrapping */
+  @media (max-width: 560px) {
+    .allinone .marks { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; }
   }
   .allinone .marks b {
     font-size: 17.5px; font-weight: 700; color: var(--ink); letter-spacing: -.015em;
     display: inline-flex; align-items: center; gap: 18px;
   }
-  .allinone .marks b + b::before {
+  .allinone .marks b:first-child::after,
+  .allinone .marks b:last-child::before {
     content: ""; width: 5px; height: 5px; border-radius: 999px;
     background: var(--grad); flex: none;
   }
-  .allinone .tail { font-size: 16.5px; color: var(--ink-3); }
+  .allinone .tail { font-size: 15px; color: var(--ink-3); }
 
-  .cta-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 36px; }
+  /* WHY the uneven spacing below the marks: 44px above the buttons and 14px
+     below them sorts the hero's tail into two groups (what we do / what to
+     do next) instead of four equally spaced lines competing for attention. */
+  .cta-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 44px; }
   .cta-note { font-size: 14px; color: var(--ink-3); }
-  .hero .cta-note { margin: 20px auto 0; max-width: 48ch; font-size: 15.5px; line-height: 1.5; }
+  /* 64ch fits the note on one line at desktop widths; a two-line wrap under
+     the buttons was what made this area look busy. */
+  .hero .cta-note { margin: 14px auto 0; max-width: 64ch; font-size: 14px; line-height: 1.5; }
 
   .proof {
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -648,8 +678,8 @@
     <div class="wrap">
       <div class="eyebrow">For CEOs, CTOs &amp; COOs hiring their first AI leader</div>
       <h1>
-        Everyone became an AI expert last year.<br />
-        <span class="grad-text">We've been at it for decades.</span>
+        Everyone became an AI expert last year.
+        <span class="grad-text after">We've been at it for decades.</span>
       </h1>
       <p class="lede">
         That difference shows the moment someone starts interviewing your candidates.
@@ -689,9 +719,9 @@
         <div class="eyebrow">Why it matters</div>
         <h2>Your first AI leader will help shape <span class="grad-text">your next two years.</span></h2>
         <p>
-          This is one of the most consequential hires you'll make. Long before anything is up and
-          running, this person is working through decisions with you that get harder to revisit later,
-          and that your teams will feel in how much they trust the whole effort.
+          This is one of the most important hires you'll make. From the first week, they're working with
+          your leadership team to shape where AI takes the business, and your teams get a clear
+          direction to rally behind.
         </p>
       </div>
 
