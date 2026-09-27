@@ -269,20 +269,32 @@
      fragment on the end of a bold row, which read as a broken sentence.
      The dot is now a separator between marks, not a bullet on each. */
   .allinone {
-    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
     margin: 32px auto 0; padding-top: 28px;
     border-top: 1px solid var(--line);
     max-width: 56ch;
   }
+  /* WHY a 1fr/auto/1fr grid instead of a centred flex row: the three marks
+     have very different lengths, so a centred row put "Team design" well
+     left of centre and the tail line underneath looked shifted right. Equal
+     outer columns pin the middle mark to the page axis, directly above the
+     tail, while every gap stays the same 18px. */
   .allinone .marks {
-    display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
-    gap: 6px 18px;
+    display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    column-gap: 18px; width: 100%;
+  }
+  .allinone .marks b:first-child { justify-self: end; }
+  .allinone .marks b:last-child { justify-self: start; }
+  /* the symmetric row is ~470px wide; below that it falls back to wrapping */
+  @media (max-width: 560px) {
+    .allinone .marks { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; }
   }
   .allinone .marks b {
     font-size: 17.5px; font-weight: 700; color: var(--ink); letter-spacing: -.015em;
     display: inline-flex; align-items: center; gap: 18px;
   }
-  .allinone .marks b + b::before {
+  .allinone .marks b:first-child::after,
+  .allinone .marks b:last-child::before {
     content: ""; width: 5px; height: 5px; border-radius: 999px;
     background: var(--grad); flex: none;
   }
