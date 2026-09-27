@@ -421,17 +421,33 @@
      text gives the eye no edge to run along. */
   .compare {
     display: grid;
-    grid-template-columns: minmax(132px, .72fr) 1fr 1fr;
+    grid-template-columns: minmax(124px, .56fr) 1fr 1fr;
     margin-top: 64px;
     border: 1px solid var(--line);
     border-radius: var(--radius-lg);
     overflow: hidden;
     text-align: left;
+    /* WHY a white surface and a lifted shadow: the table sits on the sunk
+       band, and at the band's own tint it faded into the page. */
+    background: var(--surface);
+    box-shadow: var(--shadow-md);
   }
   .compare > * { padding: 22px clamp(16px, 2vw, 26px); border-top: 1px solid var(--line); }
   .compare > .head { border-top: 0; padding-top: 30px; padding-bottom: 26px; }
-  .compare .exp { background: color-mix(in srgb, var(--purple) 5%, var(--surface)); }
-  .compare .head.exp { background: color-mix(in srgb, var(--purple) 9%, var(--surface)); }
+  /* WHY the Expertly column carries the brand gradient header and a
+     stronger tint: the eye should land on our side first and read down it.
+     The traditional column is quieter so the contrast does the arguing. */
+  .compare .exp {
+    background: color-mix(in srgb, var(--purple) 7%, var(--surface));
+    border-left: 1px solid color-mix(in srgb, var(--purple) 22%, var(--line));
+  }
+  /* WHY the light-mode gradient hard-coded here: the dark theme lightens
+     --grad for text use, which left white header text washed out. The
+     deeper brand gradient keeps white legible in both themes. */
+  .compare .head.exp { background: linear-gradient(113deg, #8500ba -7%, #009ceb 100%); border-left-color: transparent; }
+  .compare .head.exp .kind { color: rgba(255,255,255,.78); }
+  .compare .head.exp h3 { color: #fff; }
+  .compare .head.trad h3 { color: var(--ink-3); }
 
   .compare .head .kind {
     font-family: var(--font-mono); font-size: 11px; font-weight: 500;
@@ -445,12 +461,16 @@
     letter-spacing: .12em; text-transform: uppercase;
     padding: 6px 13px; border-radius: 999px; color: #fff; background: var(--grad);
   }
+  /* on the gradient header the badge flips to white so it stays visible;
+     #5a1a9e is the gradient's purple end darkened for text contrast on white */
+  .compare .head.exp .badge { background: #fff; color: #5a1a9e; }
   .compare .dim {
     font-family: var(--font-mono); font-size: 11.5px; font-weight: 500;
-    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4);
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3);
     line-height: 1.5;
   }
   .compare .trad, .compare .exp { font-size: 16px; line-height: 1.55; color: var(--ink-2); }
+  .compare .trad { color: var(--ink-3); }
   .compare .exp { color: var(--ink); }
   .compare .exp strong { font-weight: 700; }
 
