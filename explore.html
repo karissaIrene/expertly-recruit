@@ -217,7 +217,10 @@
     cursor: pointer; font-family: inherit;
     transition: transform .18s ease, box-shadow .18s ease;
   }
-  .btn-primary { background: var(--grad); color: #fff; box-shadow: var(--shadow-sm); }
+  /* WHY background-origin: .btn keeps a 1px transparent border so both button
+     styles are the same height. Without this the gradient tiles under that
+     border and leaves dark slivers on the button's left and right edges. */
+  .btn-primary { background: var(--grad); background-origin: border-box; color: #fff; box-shadow: var(--shadow-sm); }
   .btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-md); }
   .btn-ghost { border-color: var(--line-strong); color: var(--ink); background: transparent; }
   .btn-ghost:hover { border-color: var(--ink-4); transform: translateY(-1px); }
@@ -266,7 +269,7 @@
      fragment on the end of a bold row, which read as a broken sentence.
      The dot is now a separator between marks, not a bullet on each. */
   .allinone {
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
     margin: 32px auto 0; padding-top: 28px;
     border-top: 1px solid var(--line);
     max-width: 56ch;
@@ -283,11 +286,16 @@
     content: ""; width: 5px; height: 5px; border-radius: 999px;
     background: var(--grad); flex: none;
   }
-  .allinone .tail { font-size: 16.5px; color: var(--ink-3); }
+  .allinone .tail { font-size: 15px; color: var(--ink-3); }
 
-  .cta-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 36px; }
+  /* WHY the uneven spacing below the marks: 44px above the buttons and 14px
+     below them sorts the hero's tail into two groups (what we do / what to
+     do next) instead of four equally spaced lines competing for attention. */
+  .cta-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 44px; }
   .cta-note { font-size: 14px; color: var(--ink-3); }
-  .hero .cta-note { margin: 20px auto 0; max-width: 48ch; font-size: 15.5px; line-height: 1.5; }
+  /* 64ch fits the note on one line at desktop widths; a two-line wrap under
+     the buttons was what made this area look busy. */
+  .hero .cta-note { margin: 14px auto 0; max-width: 64ch; font-size: 14px; line-height: 1.5; }
 
   .proof {
     display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
