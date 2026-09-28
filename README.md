@@ -59,7 +59,7 @@ other CDN is blocked, and both stacks still fall back through system fonts.
 
 These are placeholders pending confirmation before any public launch:
 
-- "2-3 weeks to a shortlist" carries over from Skyer Talent's current site copy.
+- "2 weeks to a shortlist" confirmed by Karissa (Sept 2026).
 - "25+ years", "dozens of AI products" and "used billions of times a year" come
   from the brief, not a verified source. A specific founding year would be
   stronger than "decades".
