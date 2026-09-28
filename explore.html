@@ -12,7 +12,7 @@
      CSP admits. Stacks still fall back through SF Pro / system-ui.
 
      Page order is the argument, in the order a reader asks it:
-       why this hire matters → how we help → what happens → which
+       why this hire matters → how we help → the debrief → which
        role → who we are → talk to us.
      Nav labels match those sections one-for-one so the header is
      wayfinding, not commentary.
@@ -439,38 +439,6 @@
     .adv-row .dim { padding-top: 0; }
   }
 
-  /* ---------- process: a real sequence, so numbers earn their place ---------- */
-  .steps {
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0;
-    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-  }
-  @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
-  .step {
-    display: flex; flex-direction: column; align-items: center; gap: 13px;
-    text-align: center; padding: 44px 24px;
-    border-left: 1px solid var(--line);
-  }
-  .step:first-child { border-left: 0; }
-  @media (max-width: 900px) {
-    .step:nth-child(odd) { border-left: 0; }
-    .step:nth-child(n+3) { border-top: 1px solid var(--line); }
-  }
-  @media (max-width: 560px) {
-    .step { border-left: 0; padding-inline: 0; }
-    .step + .step { border-top: 1px solid var(--line); }
-  }
-  /* WHY the marker carries the week instead of a number: the section claims
-     two weeks, and putting the timeline in the step labels makes
-     that claim legible rather than asserted. The order is still a sequence. */
-  .step .n {
-    font-family: var(--font-mono); font-size: 11.5px; font-weight: 500;
-    letter-spacing: .14em; text-transform: uppercase; white-space: nowrap;
-    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .step h3 { font-size: clamp(20px, 1.7vw, 23px); font-weight: 700; letter-spacing: -.028em; line-height: 1.22; }
-  .step p { font-size: 16px; color: var(--ink-2); line-height: 1.6; }
-
   /* ---------- stage to role ---------- */
   /* WHY the two labels: readers took the grey line for a category heading
      rather than the situation the role answers. Naming both halves and
@@ -626,7 +594,6 @@
     <nav class="main">
       <a href="#why-it-matters">Why It Matters</a>
       <a href="#how-we-help">How We Help</a>
-      <a href="#process">Our Process</a>
       <a href="#who-you-need">Who You Need</a>
       <a href="#about">About Us</a>
     </nav>
@@ -806,56 +773,8 @@
     </div>
   </section>
 
-  <!-- ============ 3. OUR PROCESS ============ -->
-  <section id="process">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div class="eyebrow">Our process</div>
-        <h2>Two people on your search, <span class="grad-text">start to finish.</span></h2>
-        <p>
-          A subject matter expert who has led AI inside a business like yours, and an engagement
-          partner who stays close to you and to every candidate, so nothing is left to chance and the
-          fit is right on both sides. First call to shortlist usually takes two weeks.
-        </p>
-      </div>
-      <div class="steps reveal">
-        <div class="step">
-          <span class="n">First days</span>
-          <h3>We get to know the role</h3>
-          <p>
-            We talk through what you need this person to take on, and what a great first year would
-            look like.
-          </p>
-        </div>
-        <div class="step">
-          <span class="n">Week one</span>
-          <h3>We reach out</h3>
-          <p>
-            We go straight to the people already doing this well. That part you can leave with us.
-          </p>
-        </div>
-        <div class="step">
-          <span class="n">Week two</span>
-          <h3>An AI expert talks to them first</h3>
-          <p>
-            Every candidate's first interview is with an AI expert, so you know from the start they have
-            the technical depth.
-          </p>
-        </div>
-        <div class="step">
-          <span class="n">At the offer</span>
-          <h3>You meet your leader</h3>
-          <p>
-            We bring you the person we believe is right, and your engagement partner helps get the offer
-            signed.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 4. THE EVALUATION ============ -->
-  <section class="band">
+  <!-- ============ 3. THE EVALUATION ============ -->
+  <section>
     <div class="wrap assess">
       <div class="reveal" style="text-align:center;">
         <div class="eyebrow" style="justify-content:center;">After every interview</div>
@@ -917,8 +836,8 @@
     </div>
   </section>
 
-  <!-- ============ 5. ROLES WE PLACE ============ -->
-  <section id="who-you-need">
+  <!-- ============ 4. ROLES WE PLACE ============ -->
+  <section id="who-you-need" class="band">
     <div class="wrap">
       <div class="sec-head reveal">
         <div class="eyebrow">Who you need</div>
@@ -965,8 +884,8 @@
     </div>
   </section>
 
-  <!-- ============ 6. ABOUT US ============ -->
-  <section id="about" class="band">
+  <!-- ============ 5. ABOUT US ============ -->
+  <section id="about">
     <div class="wrap">
       <div class="creds">
         <div class="reveal">
@@ -1003,7 +922,7 @@
     </div>
   </section>
 
-  <!-- ============ 7. CONTACT ============ -->
+  <!-- ============ 6. CONTACT ============ -->
   <section id="contact">
     <div class="wrap">
       <div class="closer reveal">
