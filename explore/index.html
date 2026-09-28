@@ -450,7 +450,9 @@
     font-size: clamp(17px, 1.5vw, 19px); font-weight: 650; letter-spacing: -.015em;
     line-height: 1.4; color: var(--ink); text-wrap: pretty;
   }
-  .adv-row .not { margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--ink-4); }
+  /* ink-3, not ink-4: the "Not" line should stay secondary to the benefit
+     but still read comfortably; ink-4 was too faint on white. */
+  .adv-row .not { margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--ink-3); }
 
   @media (max-width: 640px) {
     .adv-row { grid-template-columns: 1fr; row-gap: 8px; padding: 20px 0; }
@@ -795,10 +797,10 @@
           </div>
         </div>
         <div class="adv-row">
-          <div class="dim">Finding candidates</div>
+          <div class="dim">Engaging candidates</div>
           <div>
-            <p class="yes">Your engagement partner reaches the right people by name and champions your company to each one.</p>
-            <p class="not">Not a keyword search through a database.</p>
+            <p class="yes">The best people say yes to a conversation, because every interview means meeting a seasoned AI expert and growing their own network.</p>
+            <p class="not">Not another cold message from a recruiter.</p>
           </div>
         </div>
         <div class="adv-row">
@@ -816,10 +818,10 @@
           </div>
         </div>
         <div class="adv-row">
-          <div class="dim">Candidate care</div>
+          <div class="dim">Candidate experience</div>
           <div>
-            <p class="yes">Every candidate is kept informed and looked after, so the fit is right on both sides.</p>
-            <p class="not">Not left waiting to hear back.</p>
+            <p class="yes">Your AI expert runs the technical interview, so your engagement partner can focus fully on every candidate.</p>
+            <p class="not">No forced fits, and no ghosting.</p>
           </div>
         </div>
       </div>
