@@ -32,7 +32,7 @@
      CSP admits. Stacks still fall back through SF Pro / system-ui.
 
      Page order is the argument, in the order a reader asks it:
-       why this hire matters → how we help → what happens → which
+       why this hire matters → how we help → the debrief → which
        role → who we are → talk to us.
      Nav labels match those sections one-for-one so the header is
      wayfinding, not commentary.
@@ -459,38 +459,6 @@
     .adv-row .dim { padding-top: 0; }
   }
 
-  /* ---------- process: a real sequence, so numbers earn their place ---------- */
-  .steps {
-    display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0;
-    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-  }
-  @media (max-width: 900px) { .steps { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
-  .step {
-    display: flex; flex-direction: column; align-items: center; gap: 13px;
-    text-align: center; padding: 44px 24px;
-    border-left: 1px solid var(--line);
-  }
-  .step:first-child { border-left: 0; }
-  @media (max-width: 900px) {
-    .step:nth-child(odd) { border-left: 0; }
-    .step:nth-child(n+3) { border-top: 1px solid var(--line); }
-  }
-  @media (max-width: 560px) {
-    .step { border-left: 0; padding-inline: 0; }
-    .step + .step { border-top: 1px solid var(--line); }
-  }
-  /* WHY the marker carries the week instead of a number: the section claims
-     two to three weeks, and putting the timeline in the step labels makes
-     that claim legible rather than asserted. The order is still a sequence. */
-  .step .n {
-    font-family: var(--font-mono); font-size: 11.5px; font-weight: 500;
-    letter-spacing: .14em; text-transform: uppercase; white-space: nowrap;
-    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .step h3 { font-size: clamp(20px, 1.7vw, 23px); font-weight: 700; letter-spacing: -.028em; line-height: 1.22; }
-  .step p { font-size: 16px; color: var(--ink-2); line-height: 1.6; }
-
   /* ---------- stage to role ---------- */
   /* WHY the two labels: readers took the grey line for a category heading
      rather than the situation the role answers. Naming both halves and
@@ -648,7 +616,6 @@
     <nav class="main">
       <a href="#why-it-matters">Why It Matters</a>
       <a href="#how-we-help">How We Help</a>
-      <a href="#process">Our Process</a>
       <a href="#who-you-need">Who You Need</a>
       <a href="#about">About Us</a>
     </nav>
@@ -687,10 +654,10 @@
         </div>
         <div>
           <dt>Dozens</dt>
-          <dd>AI products of our own,<br />built and launched</dd>
+          <dd>of our own AI products,<br />built and launched</dd>
         </div>
         <div>
-          <dt>2–3 weeks</dt>
+          <dt>2 weeks</dt>
           <dd>to a shortlist,<br />fully vetted before your first interview</dd>
         </div>
       </dl>
@@ -751,7 +718,7 @@
         <div class="eyebrow">How we help</div>
         <h2>You don't just retain a search partner. <span class="grad-text after">You retain an AI expert.</span></h2>
         <p>
-          It takes someone who has built AI to recognize someone who can. That's why every search
+          It takes someone who has built great AI to recognize someone who can. That's why every search
           includes an AI expert, who consults with you on the role and personally interviews every
           finalist.
         </p>
@@ -828,57 +795,8 @@
     </div>
   </section>
 
-  <!-- ============ 3. OUR PROCESS ============ -->
-  <section id="process">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div class="eyebrow">Our process</div>
-        <h2>Two people on your search, <span class="grad-text">start to finish.</span></h2>
-        <p>
-          A subject matter expert who has led AI inside a business like yours, and an engagement
-          partner who stays close to you and to every candidate, so nothing is left to chance and the
-          fit is right on both sides. First call to shortlist usually runs two to three weeks.
-        </p>
-      </div>
-      <div class="steps reveal">
-        <div class="step">
-          <span class="n">Week one</span>
-          <h3>The honest brief</h3>
-          <p>
-            Not the job description. What has to be true in twelve months, what has already been
-            tried, and who inside the business this person has to win over.
-          </p>
-        </div>
-        <div class="step">
-          <span class="n">Week one to two</span>
-          <h3>Names, not applications</h3>
-          <p>
-            We go straight to the people already doing this well in your industry. You see who we're
-            approaching, and why, before anyone is contacted.
-          </p>
-        </div>
-        <div class="step">
-          <span class="n">Week two to three</span>
-          <h3>Interviews that go deeper</h3>
-          <p>
-            Your expert takes every finalist through situations they have lived themselves, then tells
-            you what each answer actually revealed.
-          </p>
-        </div>
-        <div class="step">
-          <span class="n">At the offer</span>
-          <h3>The decision</h3>
-          <p>
-            We help you weigh the final two or three, land on a number that will be accepted, and get
-            it signed.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ 4. THE EVALUATION ============ -->
-  <section class="band">
+  <!-- ============ 3. THE EVALUATION ============ -->
+  <section>
     <div class="wrap assess">
       <div class="reveal" style="text-align:center;">
         <div class="eyebrow" style="justify-content:center;">After every interview</div>
@@ -906,9 +824,8 @@
           <div class="turn exp">
             <span class="spk">Your expert</span>
             <p>
-              She built the first one herself and hired the team for the second. What told me most was
-              the project she stopped: she walked me through how she made that call and who she had to
-              face afterwards.
+              She built the first one herself and hired the team for the second. I drilled deep into other approaches
+              she could have taken, and she had cogent thoughts on each.
             </p>
           </div>
           <div class="turn you">
@@ -940,15 +857,15 @@
     </div>
   </section>
 
-  <!-- ============ 5. ROLES WE PLACE ============ -->
-  <section id="who-you-need">
+  <!-- ============ 4. ROLES WE PLACE ============ -->
+  <section id="who-you-need" class="band">
     <div class="wrap">
       <div class="sec-head reveal">
         <div class="eyebrow">Who you need</div>
         <h2>Which AI leader you need is <span class="grad-text">worth thinking through carefully.</span></h2>
         <p>
-          There are four common shapes for a first AI hire, and they are not interchangeable. Working
-          out which one fits where you are today is often the most useful half-hour of the process.
+          There are four common shapes for a first AI hire. All of them need real technical expertise,
+          but they are not interchangeable. Working out which ones fit where you are today is often the most useful half-hour of the process.
         </p>
       </div>
       <div class="stages reveal">
@@ -988,8 +905,8 @@
     </div>
   </section>
 
-  <!-- ============ 6. ABOUT US ============ -->
-  <section id="about" class="band">
+  <!-- ============ 5. ABOUT US ============ -->
+  <section id="about">
     <div class="wrap">
       <div class="creds">
         <div class="reveal">
@@ -997,8 +914,8 @@
           <h2>We build AI. <span class="grad-text">That's how we know what to look for.</span></h2>
           <p>
             Expertly has been building AI for over twenty-five years. Our products help a whole
-            organization work the way its best people already do, and they're used billions of times a
-            year. That's what your AI expert brings into the interview: they're measuring your
+            organization work the way its best people already do, and systems we've created are used
+            billions of times a year. That's what your AI expert brings into the interview: they're measuring your
             candidate against work they have actually done, and against what it takes to genuinely
             move the needle inside a business.
           </p>
@@ -1014,11 +931,11 @@
           </div>
           <div class="fact">
             <b>Billions</b>
-            <span>of times a year our AI products are used</span>
+            <span>of times a year our products are used</span>
           </div>
           <div class="fact">
             <b>Both sides</b>
-            <span>AI for operations teams, and AI for the people building it</span>
+            <span>AI for your operations, and AI for the people building your systems</span>
           </div>
         </div>
       </div>
@@ -1026,7 +943,7 @@
     </div>
   </section>
 
-  <!-- ============ 7. CONTACT ============ -->
+  <!-- ============ 6. CONTACT ============ -->
   <section id="contact">
     <div class="wrap">
       <div class="closer reveal">
@@ -1034,7 +951,7 @@
         <h2>Thirty minutes, and you'll know <span class="grad-text">what you're looking for.</span></h2>
         <p>
           Tell us what you're building: a first hire, a whole team, or you're still working out what
-          you need. We'll tell you which of the four roles fits, what it should cost, and how we'd
+          you need. We'll tell you which roles fit, what the hire should cost, and how we'd
           approach the search. If the answer is that you should wait a quarter, we'll say that too.
         </p>
         <div class="cta-row">
