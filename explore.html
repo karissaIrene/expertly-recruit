@@ -327,6 +327,13 @@
     font-size: clamp(34px, 4.4vw, 60px); font-weight: 800;
     max-width: 17ch; margin-inline: auto;
   }
+  /* WHY set breaks on this heading: balanced wrapping split it over four
+     lines with "leader" orphaned on the second. Karissa wants exactly three
+     lines with "leader" ending the first; the breaks only apply where the
+     heading is wide enough to hold them, narrow screens wrap naturally. */
+  .sec-head h2.three-lines { max-width: none; }
+  .wide-br { display: none; }
+  @media (min-width: 760px) { .wide-br { display: inline; } }
   .sec-head p {
     margin: 28px auto 0; color: var(--ink-2);
     font-size: clamp(18px, 1.45vw, 21px); line-height: 1.55; max-width: 62ch;
@@ -828,7 +835,7 @@
     <div class="wrap">
       <div class="sec-head reveal">
         <div class="eyebrow">Who you need</div>
-        <h2>Choosing the AI leader you need is <span class="grad-text">worth thinking through expertly.</span></h2>
+        <h2 class="three-lines">Choosing the AI leader<br class="wide-br" /> you need is <span class="grad-text">worth thinking<br class="wide-br" /> through expertly.</span></h2>
         <p>
           There are four common shapes for a first AI hire. All of them need real technical expertise,
           but they are not interchangeable. Working out which ones fit where you are today is often the most useful half-hour of the process.
