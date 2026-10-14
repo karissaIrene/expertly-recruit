@@ -521,28 +521,20 @@
     padding: 6px 12px; border-radius: 999px; white-space: nowrap; flex: none;
   }
 
-  .talk { display: flex; flex-direction: column; gap: 22px; }
-  .turn .spk {
+  /* WHY a list, not a scripted exchange: Karissa found the mock transcript
+     lengthy and not great. Four short points say what the debrief covers. */
+  .covers { display: flex; flex-direction: column; }
+  .cover-item { padding: 18px 0; }
+  .cover-item + .cover-item { border-top: 1px solid var(--line); }
+  .cover-item:first-child { padding-top: 0; }
+  .cover-item:last-child { padding-bottom: 0; }
+  .cover-item .spk {
     display: block; margin-bottom: 8px;
     font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
     letter-spacing: .15em; text-transform: uppercase;
-  }
-  .turn p { font-size: 16px; line-height: 1.62; }
-
-  /* the client's question: plain, so the expert's answer carries the weight */
-  .turn.you .spk { color: var(--ink-4); }
-  .turn.you p { color: var(--ink); font-weight: 600; }
-
-  .turn.exp {
-    background: color-mix(in srgb, var(--purple) 5%, var(--surface));
-    border: 1px solid color-mix(in srgb, var(--purple) 16%, var(--line));
-    border-radius: var(--radius); padding: 18px 20px;
-  }
-  .turn.exp .spk {
     background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
   }
-  .turn.exp p { color: var(--ink-2); }
-  .turn.exp p + p { margin-top: 10px; }
+  .cover-item p { font-size: 16px; line-height: 1.62; color: var(--ink-2); }
 
   /* ---------- about ---------- */
   .creds { display: flex; flex-direction: column; align-items: center; text-align: center; }
@@ -799,53 +791,35 @@
           You get conversations, <span class="grad-text">not reports.</span>
         </h2>
         <p style="margin:28px auto 0; color:var(--ink-2); font-size:clamp(18px,1.45vw,21px); line-height:1.55; max-width:60ch;">
-          Your expert calls you after every interview. You ask what you actually want to know, and
-          you get a straight answer from someone who has sat in that job themselves.
+          After every interview we debrief together. It is an open conversation, with no one pushing
+          you toward a decision: you ask what you want to know, and you get straight answers from the
+          people who were in the room.
         </p>
       </div>
       <div class="card reveal">
         <div class="card-head">
           <div>
-            <div class="who2">Debrief call &middot; VP of AI</div>
-            <div class="for">The day after the interview, with the expert who ran it</div>
+            <div class="who2">The debrief</div>
+            <div class="for">After every interview, with the experts who were in the room</div>
           </div>
           <span class="verdict-pill">Every finalist</span>
         </div>
-        <div class="talk">
-          <div class="turn you">
-            <span class="spk">You</span>
-            <p>Did she actually build any of it, or did she manage people who did?</p>
+        <div class="covers">
+          <div class="cover-item">
+            <span class="spk">The technical decisions</span>
+            <p>We go deep into the architecture and the choices behind it with the candidate, so they are properly vetted by someone who has built the same things.</p>
           </div>
-          <div class="turn exp">
-            <span class="spk">Your expert</span>
-            <p>
-              She built the first one herself and hired the team for the second. I drilled deep into other approaches
-              she could have taken, and she had cogent thoughts on each.
-            </p>
+          <div class="cover-item">
+            <span class="spk">What they actually contributed</span>
+            <p>What they built themselves, what they led, and what others did. The difference matters, and it is unmistakable in a conversation between builders.</p>
           </div>
-          <div class="turn you">
-            <span class="spk">You</span>
-            <p>What worries you about her?</p>
+          <div class="cover-item">
+            <span class="spk">What gives us pause</span>
+            <p>Every strong candidate has gaps. We tell you what they are, how much they matter for your role, and how you might shape the role around them.</p>
           </div>
-          <div class="turn exp">
-            <span class="spk">Your expert</span>
-            <p>
-              She has never worked under a formal audit. In a regulated market I'd pair her with a risk
-              lead, or write compliance ownership into the first ninety days rather than leave it to
-              land on her later.
-            </p>
-          </div>
-          <div class="turn you">
-            <span class="spk">You</span>
-            <p>Would you hire her?</p>
-          </div>
-          <div class="turn exp">
-            <span class="spk">Your expert</span>
-            <p>
-              For the role as we scoped it, yes. If governance ends up sitting with her from day one,
-              that's a different job. Meet the other finalist too and let's talk it through before you
-              decide.
-            </p>
+          <div class="cover-item">
+            <span class="spk">Whether they are right for you</span>
+            <p>How they lead, what they value, and how well that matches your leadership team, from your engagement partner's own conversations with them.</p>
           </div>
         </div>
       </div>
@@ -859,8 +833,9 @@
         <div class="eyebrow">Who you need</div>
         <h2 class="three-lines">Choosing the AI leader<br class="wide-br" /> you need is <span class="grad-text">worth thinking<br class="wide-br" /> through expertly.</span></h2>
         <p>
-          There are four common shapes for a first AI hire. All of them need real technical expertise,
-          but they are not interchangeable. Working out which ones fit where you are today is often the most useful half-hour of the process.
+          There are four common shapes for an AI leadership hire. Deep technical expertise is the
+          prerequisite for all four. It is rarely the only one. Working out which ones fit where you
+          are today is often the most useful half-hour of the process.
         </p>
       </div>
       <div class="stages reveal">
