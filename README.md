@@ -60,7 +60,7 @@ other CDN is blocked, and both stacks still fall back through system fonts.
 These are placeholders pending confirmation before any public launch:
 
 - "2 weeks to a shortlist" confirmed by Karissa (Sept 2026).
-- "25+ years", "dozens of AI products" and "used billions of times a year" come
+- "20+ years", "dozens of AI products" and "used billions of times a year" come
   from the brief, not a verified source. A specific founding year would be
   stronger than "decades".
 - The debrief call on `explore.html` is an illustrative example, written to show
