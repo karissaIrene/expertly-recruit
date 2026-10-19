@@ -31,7 +31,8 @@
     --ink:           #0b0a1f;   /* near-black, violet-biased */
     --ink-2:         #3a3752;
     --ink-3:         #6c6885;   /* chosen grey, not neutral grey */
-    --ink-4:         #9c99b4;
+    --ink-4:         #8481a3;   /* was #9c99b4: 2.8:1 on white failed at label sizes */
+    --label:         #4c3ddb;   /* small mono labels; flat, not gradient */
 
     --blue:          #0099ff;
     --purple:        #8500ba;
@@ -70,6 +71,7 @@
       --ink-2:        #cdcae4;
       --ink-3:        #9a96bb;
       --ink-4:        #6f6b92;
+      --label:        #a99cff;
 
       --blue:         #3fb3ff;
       --purple:       #c561f0;
@@ -98,6 +100,7 @@
     --ink-2:        #cdcae4;
     --ink-3:        #9a96bb;
     --ink-4:        #6f6b92;
+      --label:        #a99cff;
 
     --blue:         #3fb3ff;
     --purple:       #c561f0;
@@ -138,6 +141,28 @@
   }
 
   h1, h2, h3 { text-wrap: balance; margin: 0; letter-spacing: -0.03em; line-height: 1.05; }
+  /* WHY balance centered paragraphs too: a centered block with a one-word
+     last line reads as a mistake. Browsers without text-wrap:balance fall
+     back to normal wrapping, which is what we had. */
+  .hero .lede, .hero .cta-note, .story .lede, .closer p, .vet p { text-wrap: balance; }
+  /* WHY a band of its own under the hero: the one comparison the page makes,
+     stated once as how the work is done, not how good anyone is. Tight
+     padding so it reads as the hero's last word, not a new section. */
+  .vet { padding: 8px 0 24px; text-align: center; }
+  .vet h2 { font-size: clamp(34px, 4.4vw, 60px); font-weight: 800; letter-spacing: -.035em; }
+  .vet p {
+    margin: 22px auto 0; max-width: 58ch;
+    font-size: clamp(18px, 1.5vw, 22px); line-height: 1.5; color: var(--ink-2); text-wrap: balance;
+  }
+  .vet p strong { color: var(--ink); font-weight: 650; }
+  @media (max-width: 640px) { .vet p { text-align: left; text-wrap: pretty; } }
+
+  /* WHY left-align long centered paragraphs on phones: at 390px a centered
+     block runs to 12 to 16 lines and every line starts somewhere new. */
+  @media (max-width: 640px) {
+    .story .lede, .closer p, .vet p { text-align: left; text-wrap: pretty; }
+    .eyebrow::before { display: none; }
+  }
   p { margin: 0; }
 
   .wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: 28px; }
@@ -193,7 +218,7 @@
     .bar { height: 62px; }
     header.site .btn { padding: 9px 15px; font-size: 13.5px; white-space: nowrap; }
     .logo .mark { font-size: 18px; }
-    .logo .slash, .logo .sub { display: none; }
+    .logo .slash { display: none; }
   }
 
   /* ---------- buttons ---------- */
@@ -213,336 +238,158 @@
   .btn-ghost:hover { border-color: var(--ink-4); transform: translateY(-1px); }
   .btn-lg { font-size: 16px; padding: 14px 26px; }
 
+  /* ============================================================
+     THE STORY RAIL
+     Every section is two columns. Left: the argument, one claim and one
+     sentence, in about forty words. Right: the detail, as compact rows a
+     reader can skim or skip. WHY: the previous page carried the same content
+     as centered paragraphs and lost momentum; a reader who only reads the
+     left rail now gets the whole pitch. Proof numbers live in capsules
+     pinned to the top right of a section, not in the story.
+     ============================================================ */
+
   /* ---------- hero ---------- */
   .hero {
-    background: linear-gradient(180deg, var(--wash-edge) 0%, var(--wash) 38%, var(--ground) 100%);
-    padding-block: clamp(64px, 7.5vw, 112px) clamp(56px, 6vw, 92px);
-    text-align: center;
+    background: linear-gradient(180deg, var(--wash-edge) 0%, var(--wash) 55%, var(--ground) 100%);
+    padding-block: clamp(44px, 5vw, 80px) clamp(56px, 6vw, 96px);
   }
-  .hero .eyebrow { justify-content: center; }
-  .hero h1 {
-    font-size: clamp(42px, 7vw, 82px);
-    font-weight: 800;
-    letter-spacing: -.04em;
-    max-width: 15ch;
-    margin-inline: auto;
-  }
-  /* WHY smaller and set apart: the black line is the claim, the gradient line
-     is the aside that lands after it. Equal size made them compete. .62em
-     keeps it clearly secondary while still reading as part of the headline;
-     the .45em gap gives the black copy room to breathe before it. Section
-     headings built the same way (claim, then comeback) share the treatment. */
-  .hero h1 .after,
-  .sec-head h2 .after {
-    display: block;
-    margin-top: .45em;
-    font-size: .62em;
-    letter-spacing: -.035em;
-  }
-  /* WHY a line of its own under the headline: what we sell was only in small
-     grey text. Karissa wants it visible above the fold, as on the deck. */
-  .hero .offer {
-    display: flex; flex-direction: column; align-items: center; gap: 14px;
-    margin: 36px auto 0;
-  }
-  .hero .offer::before {
-    content: ""; width: 40px; height: 4px; border-radius: 2px; background: var(--grad);
-  }
-  .hero .offer p {
-    font-size: clamp(22px, 2.3vw, 32px); font-weight: 750; letter-spacing: -.025em;
-    line-height: 1.2; color: var(--ink);
-  }
-  /* WHY the lede is split into two parts: the language is unchanged, but a
-     C-suite reader scans. One framing sentence, then the three things we
-     do as separate marks, reads in two glances instead of seven lines. */
-  .hero .lede {
-    margin: 32px auto 0;
-    font-size: clamp(18px, 1.5vw, 21px);
-    line-height: 1.55;
-    color: var(--ink-2);
-    max-width: 56ch;          /* keeps running text near a 65-char measure */
-  }
-  .hero .lede strong { color: var(--ink); font-weight: 650; }
-
-  .cta-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 44px; }
-  .cta-note { font-size: 14px; color: var(--ink-3); }
-  /* 64ch fits the note on one line at desktop widths; a two-line wrap under
-     the buttons was what made this area look busy. */
-  .hero .cta-note { margin: 14px auto 0; max-width: 64ch; font-size: 14px; line-height: 1.5; }
-
-  .proof {
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 30px; margin: 58px auto 0; padding-top: 36px;
-    border-top: 1px solid var(--line);
-    max-width: 860px;
-  }
-  .proof > div {
-    display: flex; flex-direction: column; align-items: center; gap: 7px;
-    text-align: center;
-  }
-  .proof dt {
-    font-family: var(--font-mono); font-size: 28px; font-weight: 500;
-    letter-spacing: -.02em; font-variant-numeric: tabular-nums;
-    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .proof dd { margin: 0; font-size: 15.5px; color: var(--ink-3); line-height: 1.5; max-width: 26ch; }
-  @media (max-width: 720px) { .proof { grid-template-columns: 1fr; gap: 20px; } }
-
-  /* ---------- section heads ---------- */
-  /* The whole page sits on one centre axis, hero included: section heads,
-     body blocks and every grid share it as the reader scrolls. */
-  /* WHY heading and body carry their own measures instead of one cap on the
-     block: a shared 46ch box sized for the display type also squeezed the
-     intro paragraph, which wants ~62ch to read properly. Nesting the two
-     limits inside a wide block lets each set its own line length. */
-  .sec-head { margin: 0 auto 60px; max-width: 920px; text-align: center; }
-  .sec-head .eyebrow { justify-content: center; margin-bottom: 28px; }
-  .sec-head h2 {
-    font-size: clamp(34px, 4.4vw, 60px); font-weight: 800;
-    max-width: 17ch; margin-inline: auto;
-  }
-  .sec-head p {
-    margin: 28px auto 0; color: var(--ink-2);
-    font-size: clamp(18px, 1.45vw, 21px); line-height: 1.55; max-width: 62ch;
-  }
-
-  /* ---------- why it matters ---------- */
-  .stakes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
-  @media (max-width: 880px) { .stakes { grid-template-columns: 1fr; } }
-  .stake {
-    padding: 0 34px; border-left: 1px solid var(--line);
-    display: flex; flex-direction: column; align-items: center; gap: 15px;
-    text-align: center;
-  }
-  /* WHY equal padding on every column (no padding-left:0 on the first):
-     centered text must sit on its own column's axis. Zeroing an outer edge
-     would shift that column's text off-centre against its neighbours. */
-  .stake:first-child { border-left: 0; }
-  @media (max-width: 880px) {
-    .stake { padding: 26px 0 0; border-left: 0; border-top: 1px solid var(--line); }
-    .stake:first-child { padding-top: 0; border-top: 0; }
-  }
-  .stake .decides {
+  .hero .grid { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(40px, 5vw, 72px); align-items: center; }
+  .hero h1 { font-size: clamp(42px, 5.6vw, 78px); font-weight: 800; letter-spacing: -.04em; line-height: 1.0; }
+  .hero .lede { margin-top: 24px; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.5; color: var(--ink-2); max-width: 52ch; }
+  .hero .lede + .lede { margin-top: 14px; max-width: 56ch; }
+  .hero .cta-row { margin-top: 32px; justify-content: flex-start; }
+  .hero .cta-note { margin: 14px 0 0; font-size: 14px; line-height: 1.5; color: var(--ink-3); max-width: 60ch; }
+  /* WHY the right column: what we sell, then who does it, in one glance.
+     Mirrors the deck cover, where the offer sits large and right-aligned. */
+  .offer { display: flex; flex-direction: column; align-items: flex-end; text-align: right; gap: 18px; }
+  .offer .dash { width: 56px; height: 4px; border-radius: 2px; background: var(--blue); }
+  .offer .what { font-size: clamp(26px, 2.8vw, 40px); font-weight: 700; letter-spacing: -.035em; line-height: 1.12; }
+  .offer .who {
     font-family: var(--font-mono); font-size: 12px; font-weight: 500;
-    letter-spacing: .14em; text-transform: uppercase;
-    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    letter-spacing: .16em; text-transform: uppercase; color: var(--label);
   }
-  .stake h3 { font-size: clamp(22px, 1.9vw, 26px); font-weight: 700; letter-spacing: -.025em; line-height: 1.22; }
-  .stake p { font-size: 17px; color: var(--ink-2); line-height: 1.6; }
+  .offer .pair {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; width: 100%;
+    border-top: 1px solid var(--line-strong); padding-top: 18px; text-align: left;
+  }
+  .offer .pair b { display: block; font-size: 22px; font-weight: 800; letter-spacing: -.025em; line-height: 1.1; color: var(--blue); margin-bottom: 6px; }
+  .offer .pair span { font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+  @media (max-width: 900px) {
+    .hero .grid { grid-template-columns: 1fr; }
+    .offer { align-items: flex-start; text-align: left; }
+  }
 
-  .bridge {
-    margin: 64px auto 0; padding-top: 42px; border-top: 1px solid var(--line);
-    font-size: clamp(21px, 2.4vw, 30px); font-weight: 650; letter-spacing: -.028em;
-    line-height: 1.35; color: var(--ink); max-width: 44ch; text-align: center;
-  }
+  /* ---------- you get what you vet ---------- */
+  .vet { padding-block: clamp(56px, 6vw, 96px); border-bottom: 1px solid var(--line); }
+  .vet .grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(32px, 4vw, 64px); align-items: start; }
+  .vet h2 { font-size: clamp(38px, 5vw, 72px); font-weight: 800; letter-spacing: -.04em; line-height: 1.02; }
+  .vet p { margin-top: 8px; font-size: clamp(18px, 1.7vw, 24px); line-height: 1.5; color: var(--ink-2); max-width: 48ch; }
+  .vet p strong { color: var(--ink); font-weight: 650; }
+  @media (max-width: 900px) { .vet .grid { grid-template-columns: 1fr; } }
 
-  /* ---------- how we help: three pillars ---------- */
-  .pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-  @media (max-width: 880px) { .pillars { grid-template-columns: 1fr; } }
-  .pillar {
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: var(--radius-lg); padding: 38px 30px;
-    display: flex; flex-direction: column; align-items: center; gap: 14px;
-    text-align: center;
-  }
-  .pillar .when {
+  /* ---------- story sections ---------- */
+  .story { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(36px, 5vw, 72px); align-items: start; }
+  .story .tell { display: flex; flex-direction: column; gap: 20px; }
+  .story .num {
     font-family: var(--font-mono); font-size: 12px; font-weight: 500;
-    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-4);
+    letter-spacing: .16em; text-transform: uppercase; color: var(--label);
   }
-  .pillar h3 { font-size: clamp(21px, 1.8vw, 25px); font-weight: 700; letter-spacing: -.025em; line-height: 1.22; }
-  .pillar p { font-size: 16.5px; color: var(--ink-2); line-height: 1.6; }
+  .story h2 { font-size: clamp(32px, 3.6vw, 52px); font-weight: 800; letter-spacing: -.038em; line-height: 1.04; }
+  .story h2 .after { display: block; margin-top: 10px; font-size: .62em; letter-spacing: -.03em; }
+  .story .lede { font-size: clamp(17px, 1.4vw, 20px); line-height: 1.55; color: var(--ink-2); max-width: 40ch; }
+  .story .lede.quiet { font-size: 17px; color: var(--ink-3); }
+  .story .show { display: flex; flex-direction: column; gap: 0; }
+  .row {
+    display: grid; grid-template-columns: 200px 1fr; gap: 24px;
+    padding: 18px 0; border-top: 1px solid var(--line);
+  }
+  .row:first-of-type { border-top-color: var(--line-strong); }
+  .row .lead { font-size: 18px; font-weight: 700; letter-spacing: -.015em; line-height: 1.3; }
+  .row .lead small {
+    display: block; margin-top: 6px;
+    font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4);
+  }
+  .row .tag {
+    font-family: var(--font-mono); font-size: 11.5px; font-weight: 500;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); padding-top: 4px;
+  }
+  .row .tag.ink { color: var(--label); }
+  .row .body { font-size: 16px; line-height: 1.55; color: var(--ink-2); }
+  .row .body b { display: block; font-size: 18px; font-weight: 700; letter-spacing: -.015em; color: var(--ink); margin-bottom: 4px; }
+  .row .body strong { color: var(--ink); font-weight: 650; }
+  .row .yes { font-size: 17px; font-weight: 650; letter-spacing: -.01em; line-height: 1.4; color: var(--ink); }
+  .row .not { display: block; margin-top: 3px; font-size: 14.5px; font-weight: 400; line-height: 1.5; color: var(--ink-3); }
+  .punch { margin-top: 20px; font-size: 22px; font-weight: 650; letter-spacing: -.02em; line-height: 1.35; max-width: 40ch; }
+  @media (max-width: 900px) { .story { grid-template-columns: 1fr; } .row { grid-template-columns: 1fr; gap: 6px; } }
 
-  /* ---------- the Expertly advantage ---------- */
-  /* WHY one column of advantages instead of a side-by-side comparison: a
-     two-column table made the reader do the comparing, and the two sides
-     blurred together. Each row now leads with what the client gets, in
-     bold, and the traditional alternative follows as a quiet grey "Not"
-     line, so the benefit lands first and the contrast is built into it. */
+  /* ---------- proof capsules ---------- */
+  /* WHY capsules: the numbers used to sit in the hero and in the body, and
+     they interrupted the story. A capsule rides the top right of a section
+     like a margin note; read it or skip it. */
+  .caps { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+  .cap {
+    display: inline-flex; align-items: baseline; gap: 10px; padding: 10px 18px;
+    border: 1px solid var(--line); border-radius: 999px; background: var(--surface); box-shadow: var(--shadow-sm);
+  }
+  .cap b { font-size: 22px; font-weight: 800; letter-spacing: -.035em; color: var(--blue); white-space: nowrap; }
+  .cap span { font-size: 13px; line-height: 1.4; color: var(--ink-3); }
+  @media (max-width: 900px) { .caps { justify-content: flex-start; } }
+
+  /* ---------- the advantage card ---------- */
   .compare {
-    max-width: 880px; margin: 64px auto 0; text-align: left;
+    margin-top: 56px;
     background: var(--surface); border: 1px solid var(--line);
     border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
-    padding: 10px clamp(22px, 4vw, 48px);
+    padding: 8px clamp(20px, 3vw, 36px);
   }
-  .adv-head {
-    display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
-    padding: 28px 0 24px;
-  }
-  .adv-head h3 { font-size: clamp(22px, 2.2vw, 28px); font-weight: 750; letter-spacing: -.028em; }
+  .compare .adv-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 24px 0 20px; }
+  .compare .adv-head h3 { font-size: clamp(20px, 1.8vw, 24px); font-weight: 750; letter-spacing: -.028em; }
   .compare .badge {
-    display: inline-block;
     font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
     letter-spacing: .12em; text-transform: uppercase;
     padding: 6px 13px; border-radius: 999px; color: #fff; background: var(--grad);
   }
-  .adv-row {
-    display: grid; grid-template-columns: minmax(150px, 190px) 1fr; column-gap: 28px;
-    padding: 24px 0; border-top: 1px solid var(--line);
-  }
-  .adv-row .dim {
-    font-family: var(--font-mono); font-size: 11.5px; font-weight: 500;
-    letter-spacing: .12em; text-transform: uppercase; line-height: 1.5;
-    padding-top: 4px;
-    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .adv-row .yes {
-    font-size: clamp(17px, 1.5vw, 19px); font-weight: 650; letter-spacing: -.015em;
-    line-height: 1.4; color: var(--ink); text-wrap: pretty;
-  }
-  /* ink-3, not ink-4: the "Not" line should stay secondary to the benefit
-     but still read comfortably; ink-4 was too faint on white. */
-  .adv-row .not { margin-top: 6px; font-size: 15px; line-height: 1.5; color: var(--ink-3); }
+  .compare .row { padding: 16px 0; }
 
-  @media (max-width: 640px) {
-    .adv-row { grid-template-columns: 1fr; row-gap: 8px; padding: 20px 0; }
-    .adv-row .dim { padding-top: 0; }
+  /* ---------- the four shapes ---------- */
+  .shapes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .shape {
+    display: flex; flex-direction: column; gap: 10px; padding: 24px 26px 26px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 20px;
+    transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
   }
-
-  /* ---------- stage to role ---------- */
-  /* WHY the two labels: readers took the grey line for a category heading
-     rather than the situation the role answers. Naming both halves and
-     putting an arrow between them makes the "if this, then this" explicit. */
-  .stages {
-    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
-  @media (max-width: 800px) { .stages { grid-template-columns: 1fr; } }
-  .stage {
-    padding: 36px 32px 38px;
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    display: flex; flex-direction: column; align-items: center; gap: 10px;
-    text-align: center;
-    transition: background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
-  }
-  .stage:hover {
-    background:
-      linear-gradient(180deg, color-mix(in srgb, var(--purple) 8%, transparent), transparent 60%),
-      var(--surface);
-    border-color: color-mix(in srgb, var(--purple) 30%, var(--line));
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-  }
-  /* WHY a name per shape: Karissa wants the four quotable on a call. Styled
-     as the page's existing gradient badge so it reads as a label, not a title. */
-  .stage .name {
-    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
-    letter-spacing: .14em; text-transform: uppercase;
-    padding: 6px 13px; border-radius: 999px; color: #fff; background: var(--grad);
-    margin-bottom: 8px;
-  }
-  .stage .lbl {
-    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
-    letter-spacing: .16em; text-transform: uppercase; color: var(--ink-4);
-  }
-  .stage .where {
-    font-size: clamp(17px, 1.5vw, 19px); color: var(--ink-2); line-height: 1.45;
-    max-width: 30ch;
-  }
-  .stage .arrow {
-    width: 1px; height: 26px; background: var(--grad-line); margin: 6px 0 2px;
-    flex: none; opacity: .7;
-  }
-  .stage .lbl-role {
-    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
-    letter-spacing: .16em; text-transform: uppercase;
-    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .stage .role { font-size: clamp(23px, 2vw, 27px); font-weight: 750; letter-spacing: -.028em; }
-  .stage p { font-size: 16.5px; color: var(--ink-2); line-height: 1.6; max-width: 40ch; }
-
-  /* ---------- the debrief conversation ---------- */
-  /* WHY a transcript rather than a document: what a client actually gets is
-     their expert on the phone answering whatever they want to ask. Rendering
-     it as a written report made it look like a screening artifact about a
-     person, which is the opposite of the argument the page makes. */
-  .assess { display: flex; flex-direction: column; align-items: center; }
-  .assess .card { width: 100%; max-width: 640px; margin-top: 52px; text-align: left; }
-  .card {
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
-    padding: 30px clamp(22px, 3vw, 34px) 32px;
-  }
-  .card-head {
-    display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
-    padding-bottom: 22px; margin-bottom: 26px; border-bottom: 1px solid var(--line);
-  }
-  .card-head .who2 { font-size: 17px; font-weight: 700; letter-spacing: -.022em; }
-  .card-head .for { font-size: 13.5px; color: var(--ink-3); margin-top: 4px; }
-  .verdict-pill {
-    font-family: var(--font-mono); font-size: 11px; font-weight: 500;
-    letter-spacing: .1em; text-transform: uppercase;
-    color: var(--ink-3); border: 1px solid var(--line-strong);
-    padding: 6px 12px; border-radius: 999px; white-space: nowrap; flex: none;
-  }
-
-  /* WHY a list, not a scripted exchange: Karissa found the mock transcript
-     lengthy and not great. Four short points say what the debrief covers. */
-  .covers { display: flex; flex-direction: column; }
-  .cover-item { padding: 18px 0; }
-  .cover-item + .cover-item { border-top: 1px solid var(--line); }
-  .cover-item:first-child { padding-top: 0; }
-  .cover-item:last-child { padding-bottom: 0; }
-  .cover-item .spk {
-    display: block; margin-bottom: 8px;
-    font-family: var(--font-mono); font-size: 10.5px; font-weight: 500;
-    letter-spacing: .15em; text-transform: uppercase;
-    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .cover-item p { font-size: 16px; line-height: 1.62; color: var(--ink-2); }
-
-  /* ---------- about ---------- */
-  .creds { display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .creds .eyebrow { justify-content: center; }
-  .creds h2 { font-size: clamp(34px, 4.4vw, 60px); font-weight: 800; max-width: 18ch; margin-inline: auto; }
-  .creds > div > p { margin: 28px auto 0; color: var(--ink-2); font-size: clamp(18px, 1.45vw, 21px); line-height: 1.55; max-width: 62ch; }
-  .facts { display: flex; flex-direction: column; width: 100%; max-width: 620px; margin-top: 42px; }
-  .fact {
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px;
-    align-items: baseline; text-align: center;
-    padding: 15px 0; border-bottom: 1px solid var(--line);
-  }
-  .fact:first-child { border-top: 1px solid var(--line); }
-  .fact b {
-    font-family: var(--font-mono); font-size: 18px; font-weight: 500; white-space: nowrap;
-    font-variant-numeric: tabular-nums;
-    background-image: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
-  }
-  .fact span { font-size: 16.5px; color: var(--ink-2); line-height: 1.5; }
+  .shape:hover { border-color: color-mix(in srgb, var(--purple) 30%, var(--line)); transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .shape .name { font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--blue); }
+  .shape h3 { font-size: 21px; font-weight: 750; letter-spacing: -.025em; line-height: 1.2; }
+  .shape .when { font-size: 15px; line-height: 1.5; color: var(--ink-3); }
+  .shape p { font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+  @media (max-width: 560px) { .shapes { grid-template-columns: 1fr; } }
+  .ask { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; margin-top: 12px; }
+  .ask p { font-size: 15px; line-height: 1.5; color: var(--ink-3); max-width: 36ch; }
 
   /* ---------- closer ---------- */
-  /* WHY the closer mirrors the hero instead of sitting in a dark panel:
-     the navy card was the only dark block on a light page and broke the
-     flow. Running the hero's lavender wash in reverse (white into the
-     tint) bookends the page and leads straight into the footer. */
-  #contact {
-    background: linear-gradient(180deg, var(--ground) 0%, var(--wash) 62%, var(--wash-edge) 100%);
-    padding-bottom: clamp(80px, 9vw, 136px);
-  }
-  .closer { text-align: center; }
-  .closer .eyebrow { justify-content: center; }
-  .closer h2 { font-size: clamp(34px, 4.4vw, 58px); font-weight: 800; max-width: 17ch; margin-inline: auto; }
-  .closer p { margin: 28px auto 0; color: var(--ink-2); font-size: clamp(18px, 1.45vw, 21px); line-height: 1.55; max-width: 58ch; }
-  .closer .cta-row { margin-top: 38px; justify-content: center; }
+  .closer { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+  .closer .eyebrow { justify-content: center; margin: 0; }
+  .closer h2 { font-size: clamp(34px, 4.4vw, 60px); font-weight: 800; letter-spacing: -.038em; max-width: 17ch; }
+  .closer h2 .after { display: block; margin-top: 10px; font-size: .62em; letter-spacing: -.03em; }
+  .closer p { font-size: clamp(17px, 1.4vw, 19px); line-height: 1.55; color: var(--ink-2); max-width: 60ch; }
+  .closer .one { font-size: clamp(20px, 1.8vw, 24px); font-weight: 700; letter-spacing: -.025em; color: var(--ink); }
+  .closer .cta-row { margin-top: 8px; justify-content: center; }
+  .cta-note a, a.cta-note { color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; }
+  #contact { background: linear-gradient(180deg, var(--ground) 0%, var(--wash) 55%, var(--wash-edge) 100%); }
 
   /* ---------- footer ---------- */
-  /* footer carries on the closer's end tint so the page ends in one wash */
-  footer.site {
-    background: var(--wash-edge);
-    border-top: 1px solid color-mix(in srgb, var(--line-strong) 60%, transparent);
-    padding-block: 32px;
-    font-size: 14px; color: var(--ink-3);
-  }
+  footer.site { background: var(--wash-edge); padding: 28px 0; font-size: 14px; color: var(--ink-3); }
   footer.site .fbar { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
-  footer.site a { text-decoration: none; }
+  footer.site a { color: var(--ink-3); text-decoration: none; }
   footer.site a:hover { color: var(--ink); }
 
-  /* ---------- reveal ---------- */
+  /* ---------- motion ---------- */
   .reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
   .reveal.in { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1; transform: none; transition: none; }
-    .btn, .btn:hover { transition: none; transform: none; }
   }
 </style>
 
@@ -554,12 +401,12 @@
       <span class="sub">Recruit</span>
     </a>
     <nav class="main">
-      <a href="#why-it-matters">Why It Matters</a>
-      <a href="#how-we-help">How We Help</a>
-      <a href="#who-you-need">Who You Need</a>
-      <a href="#about">About Us</a>
+      <a href="#why-it-matters">Why it matters</a>
+      <a href="#how-we-help">How we help</a>
+      <a href="#who-you-need">Who you need</a>
+      <a href="#about">About us</a>
     </nav>
-    <a class="btn btn-primary" href="#contact">Book thirty minutes</a>
+    <a class="btn btn-primary" href="mailto:recruit@expertly.com?subject=Thirty%20minutes%20on%20our%20AI%20leadership%20hire">Book thirty minutes</a>
   </div>
 </header>
 
@@ -567,302 +414,141 @@
 
   <!-- ============ HERO ============ -->
   <div class="hero">
-    <div class="wrap">
-      <div class="eyebrow">Expert in AI. Expert in recruiting.</div>
-      <h1>The most important AI decision you'll make <span class="grad-text">is a hire.</span></h1>
-      <p class="lede">
-        Your first AI leaders decide what gets built, who comes next, and what your board hears.
-        Choosing them takes someone who has done the job.
-      </p>
-      <div class="offer"><p>Retained search for AI leadership, with an AI expert on your side of the table.</p></div>
-      <div class="cta-row">
-        <a class="btn btn-primary btn-lg" href="#contact">Book thirty minutes</a>
-        <a class="btn btn-ghost btn-lg" href="#how-we-help">See how we help</a>
+    <div class="wrap grid">
+      <div>
+        <div class="eyebrow">Expert in AI. Expert in recruiting.</div>
+        <h1>The most important AI decision you’ll make <span class="grad-text">is a hire.</span></h1>
+        <p class="lede">Your first AI leaders decide what gets built, who comes next, and what your board hears.</p>
+        <p class="lede">Choosing them takes two kinds of judgment: someone who has built great AI, and someone who has hired thousands of leaders.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary btn-lg" href="mailto:recruit@expertly.com?subject=Thirty%20minutes%20on%20our%20AI%20leadership%20hire">Book thirty minutes</a>
+          <a class="btn btn-ghost btn-lg" href="#how-we-help">See how we help</a>
+        </div>
+        <p class="cta-note">Thirty minutes with both experts. You’ll leave knowing which role to hire first and what it should cost.</p>
       </div>
-      <p class="cta-note">A thirty-minute conversation, and you'll leave knowing more than when you started.</p>
-      <dl class="proof">
-        <div>
-          <dt>20+ years</dt>
-          <dd>building AI ourselves,<br />in our own products and teams</dd>
+      <div class="offer">
+        <span class="dash"></span>
+        <p class="what">Retained search for your AI leadership.</p>
+        <p class="who">Two experts on your side of the table</p>
+        <div class="pair">
+          <div><b>One in AI</b><span>Shapes the role with you and interviews every finalist.</span></div>
+          <div><b>One in recruiting</b><span>Reads culture and fit, and runs the search from first hello to offer.</span></div>
         </div>
-        <div>
-          <dt>Dozens</dt>
-          <dd>of our own AI products,<br />built and launched</dd>
-        </div>
-        <div>
-          <dt>2 weeks</dt>
-          <dd>to a shortlist,<br />fully vetted before your first interview</dd>
-        </div>
-      </dl>
+      </div>
     </div>
   </div>
 
+  <!-- ============ YOU GET WHAT YOU VET ============ -->
+  <section class="vet">
+    <div class="wrap grid reveal">
+      <h2>You get what you vet.</h2>
+      <p>At most search firms, a recruiter screens your AI candidates. Here, they are interviewed and challenged by Expertly’s AI leadership, people whose systems are used billions of times a year, <strong>before you ever meet them.</strong></p>
+    </div>
+  </section>
+
   <!-- ============ 1. WHY IT MATTERS ============ -->
   <section id="why-it-matters">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div class="eyebrow">Why it matters</div>
-        <h2>Your first AI leader sets the next two years. <span class="grad-text after">The ones who follow decide whether it lasts.</span></h2>
-        <p>
-          AI is going to reach every part of your business. The only question is whether it happens
-          on purpose. Your AI leaders are the people who make it deliberate, and the first one starts
-          on day one.
-        </p>
+    <div class="wrap story reveal">
+      <div class="tell">
+        <span class="num">01 · Why it matters</span>
+        <h2>Your first AI leader sets the next two years. <span class="grad-text after">The ones who follow determine whether it lasts.</span></h2>
       </div>
-
-      <div class="stakes reveal">
-        <div class="stake">
-          <span class="decides">Where they advise</span>
-          <h3>What gets built, and what doesn't</h3>
-          <p>
-            Which problems come first, what to buy versus build, and what to leave alone. Most of it
-            gets decided in their first quarter.
-          </p>
-        </div>
-        <div class="stake">
-          <span class="decides">Where they build</span>
-          <h3>Who you hire next</h3>
-          <p>
-            Your first AI leader chooses the next three. A strong one gets calls returned that nobody
-            else could.
-          </p>
-        </div>
-        <div class="stake">
-          <span class="decides">Where they translate</span>
-          <h3>What your board hears</h3>
-          <p>
-            They become your translator. How clearly they explain what's working, and what isn't,
-            shapes every budget conversation that follows.
-          </p>
-        </div>
+      <div class="show">
+        <div class="caps"><div class="cap"><b>20+ years</b><span>building AI, in our own products and teams</span></div></div>
+        <div class="row"><span class="lead">What gets built, and what doesn’t</span><span class="body">Which problems come first, what to buy versus build, and what to leave alone.</span></div>
+        <div class="row"><span class="lead">Who you hire next</span><span class="body">Your first AI leader chooses the next three.</span></div>
+        <div class="row"><span class="lead">The architecture you live with</span><span class="body">They choose what you build on and how fast it changes the way people work. Get that right and it compounds for years. Get it wrong and you rebuild it.</span></div>
+        <p class="punch">Get these hires right and everything after them gets easier. Get them wrong and you spend a year finding out.</p>
       </div>
-
-      <p class="bridge reveal">
-        Get these hires right and everything after them gets easier. Get them wrong and you spend a
-        year finding out. That's why we put an expert beside you: ours have done the job, so they can
-        read a candidate in one conversation.
-      </p>
     </div>
   </section>
 
   <!-- ============ 2. HOW WE HELP ============ -->
   <section id="how-we-help" class="band">
     <div class="wrap">
-      <div class="sec-head reveal">
-        <div class="eyebrow">How we help</div>
-        <h2>You don't just retain a search partner. <span class="grad-text after">You retain an AI expert.</span></h2>
-        <p>
-          Everyone became an AI expert last year. We've been at it for decades. It takes someone who
-          has built great AI to recognize someone who can, so every Expertly search puts two teams on
-          your side: AI experts who shape each role and interview every finalist, and engagement
-          partners who manage the search from first hello to signed offer.
-        </p>
-      </div>
-
-      <div class="pillars reveal">
-        <div class="pillar">
-          <span class="when">Before the search</span>
-          <h3>We start with your business, not a job description</h3>
-          <p>
-            You bring the context. We bring the AI expertise. Together we define a role that's set up
-            to succeed, not one adapted from someone else's posting.
-          </p>
+      <div class="story reveal">
+        <div class="tell">
+          <span class="num">02 · How we help</span>
+          <h2>You don’t just retain a search partner. <span class="grad-text after">You retain an AI expert.</span></h2>
+          <p class="lede">Everyone became an AI expert last year. We’ve been at it for decades. It takes someone who has built great AI to recognize someone who can.</p>
         </div>
-        <div class="pillar">
-          <span class="when">During the search</span>
-          <h3>Two disciplines, each doing what they do best</h3>
-          <p>
-            An AI expert who speaks your candidates' language runs every technical interview. Your
-            engagement partner champions your company and manages everything in between.
-          </p>
-        </div>
-        <div class="pillar">
-          <span class="when">Accepting the offer</span>
-          <h3>Chosen on both sides</h3>
-          <p>
-            We don't force fits. We make matches: you picked them, and they picked you. Your AI expert
-            and engagement partner make the whole search seamless.
-          </p>
+        <div class="show">
+          <div class="caps"><div class="cap"><b>Thousands</b><span>of top performers hired, including for multibillion-dollar companies</span></div></div>
+          <div class="row"><span class="tag">Before the search</span><span class="body"><b>We start with your business, not a job description</b>You bring the context. We bring the AI expertise. Together we define a role set up to succeed.</span></div>
+          <div class="row"><span class="tag">During the search</span><span class="body"><b>Two disciplines, each doing what they do best</b><strong>Your AI expert</strong> speaks your candidates’ language and runs every technical interview. <strong>Your recruiting expert</strong> reads culture, values and fit, champions your company to every candidate, and manages everything in between.</span></div>
+          <div class="row"><span class="tag">Accepting the offer</span><span class="body"><b>Chosen on both sides</b>We don’t force fits. We make matches: you picked them, and they picked you. Your AI expert and recruiting expert make the whole search seamless.</span></div>
         </div>
       </div>
-
       <div class="compare reveal">
         <div class="adv-head">
           <h3>The Expertly advantage</h3>
           <span class="badge">Comes with the search</span>
         </div>
-        <div class="adv-row">
-          <div class="dim">Defining the role</div>
-          <div>
-            <p class="yes">Shaped with an AI expert who has done the job.</p>
-            <p class="not">Not adapted from someone else's job description.</p>
-          </div>
-        </div>
-        <div class="adv-row">
-          <div class="dim">Engaging candidates</div>
-          <div>
-            <p class="yes">The best people say yes, because every interview means meeting a seasoned AI expert and growing their own network.</p>
-            <p class="not">Not another cold message from a recruiter.</p>
-          </div>
-        </div>
-        <div class="adv-row">
-          <div class="dim">Interviews</div>
-          <div>
-            <p class="yes">A true AI expert technically interviews every finalist.</p>
-            <p class="not">Not a recruiter who has never worked in AI.</p>
-          </div>
-        </div>
-        <div class="adv-row">
-          <div class="dim">What you receive</div>
-          <div>
-            <p class="yes">A straight conversation with the experts who met them, where you can ask anything.</p>
-            <p class="not">Not a stack of CVs and screening notes.</p>
-          </div>
-        </div>
-        <div class="adv-row">
-          <div class="dim">Candidate experience</div>
-          <div>
-            <p class="yes">With the technical interview covered, your engagement partner gives every candidate their full attention.</p>
-            <p class="not">No forced fits, and no ghosting.</p>
-          </div>
-        </div>
+        <div class="row"><span class="tag ink">Defining the role</span><span class="yes">Shaped with an AI expert who has led AI inside a business and moved the needle.<span class="not">Not adapted from someone else’s job description.</span></span></div>
+        <div class="row"><span class="tag ink">Engaging candidates</span><span class="yes">The best people say yes, because every interview means meeting a seasoned AI expert and growing their own network.<span class="not">Not another cold message from a recruiter.</span></span></div>
+        <div class="row"><span class="tag ink">Interviews</span><span class="yes">A true AI expert technically interviews every finalist.<span class="not">Not a recruiter who has never worked in AI.</span></span></div>
+        <div class="row"><span class="tag ink">What you receive</span><span class="yes">A straight conversation with the experts who met them, where you can ask anything.<span class="not">Not a stack of resumes and screening notes.</span></span></div>
+        <div class="row"><span class="tag ink">Culture and fit</span><span class="yes">Your recruiting expert reads how they lead, what they value, and whether they’ll thrive with you.<span class="not">Not left to a first impression.</span></span></div>
+        <div class="row"><span class="tag ink">Candidate experience</span><span class="yes">With the technical interview covered, your recruiting expert gives every candidate their full attention.<span class="not">No forced fits, and no ghosting.</span></span></div>
       </div>
     </div>
   </section>
 
-  <!-- ============ 3. THE EVALUATION ============ -->
-  <section>
-    <div class="wrap assess">
-      <div class="reveal" style="text-align:center;">
-        <div class="eyebrow" style="justify-content:center;">After every interview</div>
-        <h2 style="font-size: clamp(34px, 4.4vw, 60px); font-weight: 800; max-width: 17ch; margin-inline: auto;">
-          Conversations, <span class="grad-text">not reports.</span>
-        </h2>
-        <p style="margin:28px auto 0; color:var(--ink-2); font-size:clamp(18px,1.45vw,21px); line-height:1.55; max-width:60ch;">
-          After every interview, we debrief together. Nobody pushes you toward a decision. You ask
-          what you want to know, and you get straight answers from the people who were in the room.
-        </p>
+  <!-- ============ 3. THE DEBRIEF ============ -->
+  <section id="debrief">
+    <div class="wrap story reveal">
+      <div class="tell">
+        <span class="num">03 · The debrief</span>
+        <h2>Conversations, <span class="grad-text">not reports.</span></h2>
+        <p class="lede">After every interview, we debrief together. Nobody pushes you toward a decision. You ask what you want to know, and you get straight answers from the people who were in the room.</p>
       </div>
-      <div class="card reveal">
-        <div class="card-head">
-          <div>
-            <div class="who2">The debrief</div>
-            <div class="for">After every interview, with the experts who were in the room</div>
-          </div>
-          <span class="verdict-pill">Every finalist</span>
-        </div>
-        <div class="covers">
-          <div class="cover-item">
-            <span class="spk">The technical decisions</span>
-            <p>We go deep on the architecture and the choices behind it, so every finalist is vetted by someone who has built the same things.</p>
-          </div>
-          <div class="cover-item">
-            <span class="spk">What they actually contributed</span>
-            <p>What they built, what they led, and what others did. The difference is unmistakable in a conversation between builders.</p>
-          </div>
-          <div class="cover-item">
-            <span class="spk">What gives us pause</span>
-            <p>Every strong candidate has gaps. We tell you what they are, how much they matter for your role, and how you might shape the role around them.</p>
-          </div>
-          <div class="cover-item">
-            <span class="spk">Whether they're right for you</span>
-            <p>How they lead, what they value, and how well that fits your leadership team, from your engagement partner's own conversations with them.</p>
-          </div>
-        </div>
+      <div class="show">
+        <div class="caps"><div class="cap"><b>2 weeks</b><span>to a shortlist, fully vetted before your first interview</span></div></div>
+        <div class="row"><span class="lead">The technical decisions<small>Your AI expert</small></span><span class="body">Why they chose what they chose, and what they’d change now, talked through with someone who has made the same calls.</span></div>
+        <div class="row"><span class="lead">What they actually contributed<small>Your AI expert</small></span><span class="body">A resume says “led the recommendation platform.” Ten minutes in, it’s clear whether they designed it, ran the team that did, or joined after launch. You hear which, and what it means for your role.</span></div>
+        <div class="row"><span class="lead">What gives us pause<small>Both experts</small></span><span class="body">Every strong candidate has gaps. We tell you what they are, how much they matter for your role, and how you might shape the role around them.</span></div>
+        <div class="row"><span class="lead">Whether they’re right for you<small>Your recruiting expert</small></span><span class="body">How they lead, what they value, and how they’d fit your leadership team.</span></div>
       </div>
     </div>
   </section>
 
-  <!-- ============ 4. ROLES WE PLACE ============ -->
+  <!-- ============ 4. WHO YOU NEED ============ -->
   <section id="who-you-need" class="band">
-    <div class="wrap">
-      <div class="sec-head reveal">
-        <div class="eyebrow">Who you need</div>
+    <div class="wrap story reveal">
+      <div class="tell">
+        <span class="num">04 · Who you need</span>
         <h2>Four kinds of AI leader. <span class="grad-text after">Which ones do you need?</span></h2>
-        <p>
-          Most companies pass through all four stages below. The person who's right for the first is
-          rarely the one who can own it outright, which is why we think about your AI leadership as a
-          sequence, not a single search. Deep technical expertise is the prerequisite at every stage.
-          It's rarely the only one, and working out which shape fits where you are today is often the
-          most useful half-hour of the whole process.
-        </p>
+        <p class="lede">Most companies pass through all four stages, and the person who’s right for the first is rarely the one who can own it outright. So we think about your AI leadership as a sequence, not a single search.</p>
+        <p class="lede quiet">Deep technical expertise is the prerequisite at every stage. It’s rarely the only one.</p>
+        <div class="ask">
+          <a class="btn btn-primary" href="mailto:recruit@expertly.com?subject=Thirty%20minutes%20on%20our%20AI%20leadership%20hire">Book thirty minutes</a>
+          <p>Not sure which stage you’re at? Working that out is usually the most useful thirty minutes of the whole process.</p>
+        </div>
       </div>
-      <div class="stages reveal">
-        <div class="stage">
-          <span class="name">The Decider</span>
-          <span class="lbl">Where you are</span>
-          <p class="where">A few experiments running, and nobody really owns them.</p>
-          <span class="arrow"></span>
-          <span class="lbl-role">Who to hire</span>
-          <span class="role">Someone senior enough to say no</span>
-          <p>Focus the work on the few ideas with a business owner and a number attached, stop the rest, and set a baseline you can measure against.</p>
-        </div>
-        <div class="stage">
-          <span class="name">The Operator</span>
-          <span class="lbl">Where you are</span>
-          <p class="where">The demos go down well, but nothing is actually live.</p>
-          <span class="arrow"></span>
-          <span class="lbl-role">Who to hire</span>
-          <span class="role">Someone who gets things running</span>
-          <p>Take one job people do every day and get it fully live, with a name on it, a way to switch it off, and a cost agreed up front.</p>
-        </div>
-        <div class="stage">
-          <span class="name">The Scaler</span>
-          <span class="lbl">Where you are</span>
-          <p class="where">One thing works, and now every department wants it.</p>
-          <span class="arrow"></span>
-          <span class="lbl-role">Who to hire</span>
-          <span class="role">Someone who can scale it across teams</span>
-          <p>Turn that success into something other teams can reuse and run themselves. Half the job is technical. The other half is getting people to change how they work.</p>
-        </div>
-        <div class="stage">
-          <span class="name">The Owner</span>
-          <span class="lbl">Where you are</span>
-          <p class="where">The business would notice straight away if AI stopped.</p>
-          <span class="arrow"></span>
-          <span class="lbl-role">Who to hire</span>
-          <span class="role">Someone who can own it outright</span>
-          <p>Own AI the way a CFO owns money: know what's running, what it's exposed to, and have the authority to switch something off.</p>
-        </div>
+      <div class="shapes">
+        <div class="shape"><span class="name">01 · The Decider</span><h3>Someone senior enough to say no</h3><p class="when">When a few experiments are running, and nobody really owns them.</p><p>Focus the work on the few ideas with a business owner and a number attached, stop the rest, and set a baseline you can measure against.</p></div>
+        <div class="shape"><span class="name">02 · The Operator</span><h3>Someone who gets things running</h3><p class="when">When the demos impress, but nothing is actually live.</p><p>Take one job people do every day and get it fully live, with a name on it, a way to switch it off, and a cost agreed up front.</p></div>
+        <div class="shape"><span class="name">03 · The Scaler</span><h3>Someone who can scale it across teams</h3><p class="when">When one thing works, and now every department wants it.</p><p>Turn that success into something other teams can reuse and run themselves. Half the job is technical. The other half is getting people to change how they work.</p></div>
+        <div class="shape"><span class="name">04 · The Owner</span><h3>Someone who can own it outright</h3><p class="when">When the business would notice right away if AI stopped.</p><p>Own AI the way a CFO owns money: know what’s running, what it’s exposed to, and have the authority to switch something off.</p></div>
       </div>
     </div>
   </section>
 
   <!-- ============ 5. ABOUT US ============ -->
   <section id="about">
-    <div class="wrap">
-      <div class="creds">
-        <div class="reveal">
-          <div class="eyebrow" style="justify-content:center;">About us</div>
-          <h2>We build AI. <span class="grad-text">That's how we know what to look for.</span></h2>
-          <p>
-            Expertly has been building AI for over twenty years. Our products help whole
-            organizations work the way their best people already do, and systems we've created are
-            used billions of times a year. That's what your AI expert brings into the interview: they
-            measure your candidate against work they've actually done, and against what it takes to
-            move the needle inside a real business.
-          </p>
-        </div>
-        <div class="facts reveal">
-          <div class="fact">
-            <b>20+ years</b>
-            <span>building AI, in our own products and teams</span>
-          </div>
-          <div class="fact">
-            <b>Dozens</b>
-            <span>of our own AI products designed, built and launched</span>
-          </div>
-          <div class="fact">
-            <b>Billions</b>
-            <span>of times a year our products are used</span>
-          </div>
-          <div class="fact">
-            <b>Both sides</b>
-            <span>AI for your operations, and AI for the people building your systems</span>
-          </div>
-        </div>
+    <div class="wrap story reveal">
+      <div class="tell">
+        <span class="num">05 · About us</span>
+        <h2>We build AI, and we’ve hired thousands. <span class="grad-text after">That’s how we know what to look for.</span></h2>
       </div>
-
+      <div class="show">
+        <div class="caps">
+          <div class="cap"><b>Billions</b><span>of times a year our products are used</span></div>
+          <div class="cap"><b>30 days</b><span>our agency’s track record for filling a role</span></div>
+        </div>
+        <div class="row"><span class="tag">The AI side</span><span class="body">Expertly has been building AI for over twenty years. Our products help whole organizations work the way their best people already do. Our AI leadership has architected and built AI that moves the needle for large organizations, and that is the standard your candidates are measured against in the interview.</span></div>
+        <div class="row"><span class="tag">The recruiting side</span><span class="body">Came to search from business, marketing and sales, and that business experience makes the recruiting better. We’ve led global talent acquisition, built and run an agency, and worked in retained search, filling critical roles for multibillion-dollar organizations. That’s what your recruiting expert brings to every candidate conversation: a trained read on who thrives where.</span></div>
+      </div>
     </div>
   </section>
 
@@ -871,15 +557,12 @@
     <div class="wrap">
       <div class="closer reveal">
         <div class="eyebrow">Start here</div>
-        <h2>Thirty minutes, and you'll know <span class="grad-text">what you're looking for.</span></h2>
-        <p>
-          Tell us what you're building: a first hire, a whole team, or you're still working out what
-          you need. We'll tell you which roles fit, what the hires should cost, and how we'd
-          approach the search. If the answer is that you should wait a quarter, we'll say that too.
-        </p>
+        <h2>Thirty minutes with both experts, <span class="grad-text after">and you’ll know what you’re looking for.</span></h2>
+        <p>Tell us what you’re building: a first hire, a whole team, or you’re still working out what you need. We’ll tell you which roles fit, what the hires should cost, and how we’d approach the search. If the answer is that you should wait a quarter, we’ll say that too.</p>
+        <p class="one">We don’t find candidates. We find the One.</p>
         <div class="cta-row">
           <a class="btn btn-primary btn-lg" href="mailto:recruit@expertly.com?subject=Thirty%20minutes%20on%20our%20AI%20leadership%20hire">Book thirty minutes</a>
-          <span class="cta-note">recruit@expertly.com</span>
+          <a class="cta-note" href="mailto:recruit@expertly.com?subject=Thirty%20minutes%20on%20our%20AI%20leadership%20hire">recruit@expertly.com</a>
         </div>
       </div>
     </div>
@@ -889,7 +572,7 @@
 
 <footer class="site">
   <div class="wrap fbar">
-    <p>© 2026 Expertly Recruit, a service of Expertly AI.</p>
+    <p>© 2026 Expertly Recruit, a service of <a href="https://expertly.com">Expertly AI</a>.</p>
     <a href="mailto:recruit@expertly.com?subject=Thirty%20minutes%20on%20our%20AI%20leadership%20hire">recruit@expertly.com</a>
   </div>
 </footer>
