@@ -10,6 +10,8 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 
+# og:image is absolute because social scrapers do not resolve relative paths;
+# the file is dist/og.png, deployed at the site root.
 # page-source : output-path : <title-independent description> : og:title : og:description
 # WHY a loop: each page is authored as its own fragment, and both need the same
 # head treatment. Adding a page means adding one line here.
@@ -31,9 +33,13 @@ build_page() {
 <meta property="og:type" content="website" />
 <meta property="og:title" content="__OGTITLE__" />
 <meta property="og:description" content="__OGDESC__" />
+<meta property="og:image" content="https://karissairene.github.io/expertly-recruit/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="__OGTITLE__" />
 <meta name="twitter:description" content="__OGDESC__" />
+<meta name="twitter:image" content="https://karissairene.github.io/expertly-recruit/og.png" />
 <style>
   /* Minimal reset. WHY: the Artifact host supplies one, a plain nginx host does not,
      so the deployed page would otherwise inherit browser default margins. */
